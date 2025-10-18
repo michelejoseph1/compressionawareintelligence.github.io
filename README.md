@@ -11,6 +11,3 @@ This repo hosts the public site for CAI.
 - Research: papers, prototypes, roadmap
 - Media: talks, invites, collaborations
 - Contact
-
-## Local dev
-Open `index.html` in a browser. No build step.
