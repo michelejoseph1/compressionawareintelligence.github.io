@@ -2,7 +2,7 @@
 
 Every system compresses. Real intelligence must be compression aware.
 
-This repo hosts the public site for CAI. Visit: `https://<your-username>.github.io/<repo-name>/` or the custom domain when set.
+This repo hosts the public site for CAI.
 
 ## Structure
 - Proof: why every system compresses
