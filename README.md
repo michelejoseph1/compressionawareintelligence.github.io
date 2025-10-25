@@ -1,6 +1,6 @@
 # Compression Aware Intelligence (CAI)
 
-Every system compresses. Real intelligence must be compression aware.
+Every system compresses so real intelligence must be compression-aware.
 
 This repo hosts the public site for CAI.
 
