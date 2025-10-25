@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Glossary | CAI</title>
+  <meta name="description" content="Glossary of core terms used in Compression-Aware Intelligence (CAI)." />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <h1>Glossary</h1>
+  <p class="lede">Core terms in Compression-Aware Intelligence (CAI). Each entry links to where it is formally defined or applied.</p>
+
+  <section class="card">
+    <h2>C</h2>
+    <dl>
+      <dt><strong>Compression Site</strong></dt>
+      <dd>A step in a system where data, context, or meaning is reduced. Each site can be identified, scored, and audited. <a href="foundations.html">See Foundations</a>.</dd>
+
+      <dt><strong>Compression Tension Score (CTS)</strong></dt>
+      <dd>A normalized score of the strain introduced by a compression site, combining information loss, task degradation, provenance gaps, and uncertainty. <a href="foundations.html">Equation here</a>.</dd>
+
+      <dt><strong>Contradiction Score (CS)</strong></dt>
+      <dd>A measure of the net conflict between two claims, derived from entailment vs contradiction probabilities. Positive = contradiction, negative = entailment. <a href="foundations.html">See formula</a>.</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>P</h2>
+    <dl>
+      <dt><strong>Provenance</strong></dt>
+      <dd>The record of sources, transformations, and parameters that produced an output. A claim without provenance cannot be verified.</dd>
+
+      <dt><strong>Provenance Entropy</strong></dt>
+      <dd>A measure of concentration or dispersion of evidence sources. High confidence when evidence is concentrated in strong, verifiable sources. <a href="foundations.html">Equation here</a>.</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>A</h2>
+    <dl>
+      <dt><strong>Auditability</strong></dt>
+      <dd>The share of system steps that can be reproduced with public or replayable artifacts. A high audit score signals trustworthy claims.</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>T</h2>
+    <dl>
+      <dt><strong>Triarch</strong></dt>
+      <dd>The orienting structure of CAI: compression, decompression, and awareness held in tension. Not a mirror but a compass — the ultimate compression guiding alignment. <a href="about.html">See story</a>.</dd>
+    </dl>
+  </section>
+
+  <section class="card">
+    <h2>Other</h2>
+    <dl>
+      <dt><strong>Hallucination (CAI definition)</strong></dt>
+      <dd>An output not entailed by available evidence, and not covered by provenance. CAI systems abstain instead of hallucinating.</dd>
+    </dl>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence. mirrornetinquiries@gmail.com</small>
+</footer>
+</body>
+</html>
