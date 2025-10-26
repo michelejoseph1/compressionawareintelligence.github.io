@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contradictions | CAI</title>
+  <meta name="description" content="Contradiction engineering in Compression-Aware Intelligence: detect, map, and resolve conflicts as signals of hidden compression." />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+      options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script defer src="script.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap" id="main">
+  <h1>Contradictions</h1>
+  <p class="lede">In CAI, contradictions are not bugs to hide but signals to track. A conflict between claims points to where compression has bent truth out of shape.</p>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>What is contradiction engineering</h2>
+      <p>
+        A practice for finding, scoring, and resolving conflicts created or amplified by compression. Instead of smoothing them away,
+        CAI surfaces contradictions so systems can abstain, re-retrieve evidence, or present qualified answers with provenance.
+      </p>
+      <ul>
+        <li><strong>Detect</strong> conflicts among candidate claims and sources.</li>
+        <li><strong>Map</strong> where along the path the conflict arises.</li>
+        <li><strong>Resolve</strong> with abstention, re-retrieval, or side-by-side presentation.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Why it matters</h2>
+      <ul>
+        <li>Contradictions reveal hidden compression costs.</li>
+        <li>They explain brittle behavior and false confidence.</li>
+        <li>They provide a concrete trigger for abstention and re-checks.</li>
+      </ul>
+      <p class="muted">If you can point to the compression, you can reason about the error.</p>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Contradiction Score (CS)</h2>
+      <p>Given two claims \(c_1, c_2\) with NLI probabilities \(p_E\) (entails) and \(p_C\) (contradicts):</p>
+      <p>\[
+        \mathrm{CS}(c_1,c_2) = p_C - p_E \quad \in [-1,1]
+      \]</p>
+      <ul>
+        <li>\(\mathrm{CS} > 0\): net contradiction. \(\mathrm{CS} < 0\): net entailment.</li>
+        <li>Attach evidence spans for both claims.</li>
+        <li>Global conflict: max pairwise CS or graph aggregate over a claim set.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Link to compression</h2>
+      <p>For a path \(\mathcal{P}=\{S_1,\dots,S_n\}\), track where CS spikes. Common sites:</p>
+      <ul>
+        <li>Retriever cutoffs (lost qualifying evidence)</li>
+        <li>Reranker thresholds (over-pruning dissent)</li>
+        <li>Prompt templates (role or instruction bias)</li>
+        <li>Sampler settings (top-\(k\), top-\(p\))</li>
+      </ul>
+      <p>Combine CS with the Compression Tension Score (CTS) to localize blame.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Workflow: detect → map → resolve</h2>
+    <ol>
+      <li><strong>Detect</strong>: generate candidate claims and run pairwise NLI to compute CS.</li>
+      <li><strong>Map</strong>: attribute each conflict to the earliest site whose removal eliminates the conflict spike.</li>
+      <li><strong>Resolve</strong>:
+        <ul>
+          <li><em>Abstain</em> if entailment fails or scores exceed thresholds.</li>
+          <li><em>Re-retrieve</em> targeted evidence for high-CS pairs.</li>
+          <li><em>Present both</em> with provenance if the world is genuinely ambiguous.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Thresholds and actions</h2>
+      <ul>
+        <li><strong>CS threshold</strong>: \(\tau_{\text{cs}}\) (e.g., 0.2). Above this, trigger re-checks.</li>
+        <li><strong>Path tension</strong>: \(\mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}}\) to emit.</li>
+        <li><strong>Audit</strong>: \(\mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}}\) to emit.</li>
+        <li><strong>Entailment</strong>: \(V(E,\hat{y})=1\) required to emit.</li>
+      </ul>
+      <p class="muted">Fail any check → abstain with a short reason and a next step.</p>
+    </div>
+
+    <div class="card">
+      <h2>UI hints</h2>
+      <ul>
+        <li>Inline conflict badge with CS value and link to evidence spans.</li>
+        <li>“Why” panel showing the first compression site tied to the conflict.</li>
+        <li>One-click “Re-retrieve and re-verify” action.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Example (pseudo-API)</h2>
+<pre><code>// Detect contradictions across candidate answers
+POST /cai/contradictions
+{
+  "claims": [
+    {"id":"c1","text":"Edison invented the lightbulb in 1879."},
+    {"id":"c2","text":"The first practical incandescent lamp dates to 1878."}
+  ],
+  "evidence_corpus": "encyclopedia:v1",
+  "policy": {"cs_threshold": 0.2}
+}
+
+Response
+{
+  "pairs": [
+    {
+      "c1":"c1","c2":"c2",
+      "cs": 0.27,
+      "evidence": [
+        {"doc_id":"D12","span":"L210-219"},
+        {"doc_id":"D45","span":"L102-110"}
+      ],
+      "attributed_site": "reranker_cutoff@S3"
+    }
+  ],
+  "action": "re-retrieve",
+  "note": "High CS; likely evidence pruning at S3."
+}
+</code></pre>
+    <p class="muted">This example pairs naturally with the CAI answer endpoint. Emit only after entailment passes and path scores are within thresholds.</p>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Good patterns</h2>
+      <ul>
+        <li>Keep CS and CTS side by side in logs.</li>
+        <li>Store the earliest site that resolves a conflict when removed.</li>
+        <li>Show both claims when evidence is genuinely split, with sources.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Anti-patterns</h2>
+      <ul>
+        <li>Silencing contradictions with heavier sampling filters.</li>
+        <li>Cherry picking evidence to force entailment.</li>
+        <li>Emitting confident answers when audit is low.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>See also</h2>
+      <ul>
+        <li><a href="foundations.html">Foundations: metrics and equations</a></li>
+        <li><a href="glossary.html">Glossary: core terms</a></li>
+        <li><a href="principles.html">Principles</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Attribution</h2>
+      <p>If this page helps your work, please cite the CAI overview and link to this site so others can find the source.</p>
+      <ul>
+        <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview (Zenodo)</a></li>
+        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">Prototype repo</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence.</small>
+</footer>
+</body>
+</html>
