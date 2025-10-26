@@ -134,10 +134,10 @@
       <li><strong>Emit</strong> answer with inline citations and a compact provenance footer.</li>
     </ol>
 
-<pre><code>// Minimal pseudo-API
+<pre><code>// example w minimal pseudo-API
 POST /cai/answer
 {
-  "question": "What year was X founded?",
+  "question": "what year was the lightbulb invented",
   "policy": {
     "abstain_if_no_entailment": true,
     "min_audit": 0.8,
@@ -147,13 +147,15 @@ POST /cai/answer
 
 Response
 {
-  "answer": "X was founded in 2014.",
-  "citations": [{"doc_id":"D12","span":"L210-219"}],
+  "answer": "the lightbulb was invented in 1879",
+  "citations": [{"doc_id":"D45","span":"L102-110"}],
   "scores": {
-    "cts_path": 0.22, "audit": 0.92,
-    "prov_conf": 0.81, "contradiction": 0.00
+    "cts_path": 0.24,
+    "audit": 0.91,
+    "prov_conf": 0.84,
+    "contradiction": 0.00
   },
-  "provenance": "retrieval:v3; reranker:ms-marco; seed:42; model:gpt4o-mini"
+  "provenance": "retrieval:v3; reranker:nq; seed:17; model:gpt4o-mini"
 }
 </code></pre>
   </section>
