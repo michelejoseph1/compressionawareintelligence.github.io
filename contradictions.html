@@ -28,7 +28,7 @@
     <a href="principles.html" data-nav>Principles</a>
     <a href="foundations.html" data-nav>Foundations</a>
     <a href="applications.html" data-nav>Applications</a>
-    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="contradictions.html" data-nav class="active">Contradictions</a>
     <a href="research.html" data-nav>Research</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
@@ -46,37 +46,40 @@
     <div class="card">
       <h2>What is contradiction engineering</h2>
       <p>
-        A practice for finding, scoring, and resolving conflicts created or amplified by compression. Instead of smoothing them away,
-        CAI surfaces contradictions so systems can abstain, re-retrieve evidence, or present qualified answers with provenance.
+        Contradiction Engineering is the discipline of finding, scoring, and resolving conflicts that are created or amplified by compression. 
+        Instead of smoothing them away, CAI surfaces contradictions so systems can abstain, re-retrieve evidence, or present qualified answers with provenance.
       </p>
       <ul>
-        <li><strong>Detect</strong> conflicts among candidate claims and sources.</li>
-        <li><strong>Map</strong> where along the path the conflict arises.</li>
-        <li><strong>Resolve</strong> with abstention, re-retrieval, or side-by-side presentation.</li>
+        <li><strong>Detect</strong> conflicts among candidate claims and sources</li>
+        <li><strong>Map</strong> the earliest compression site that induces the conflict</li>
+        <li><strong>Resolve</strong> with abstention, re-retrieval, or side-by-side presentation</li>
       </ul>
     </div>
     <div class="card">
-      <h2>Why it matters</h2>
+      <h2>Why it is unique</h2>
       <ul>
-        <li>Contradictions reveal hidden compression costs.</li>
-        <li>They explain brittle behavior and false confidence.</li>
-        <li>They provide a concrete trigger for abstention and re-checks.</li>
+        <li><strong>Compression-aware</strong>: links each conflict to a concrete compression step on the path</li>
+        <li><strong>Actionable thresholds</strong>: conflicts drive abstain and re-check rules, not just scores</li>
+        <li><strong>Provenance tied</strong>: every resolution cites sources and replayable steps</li>
+        <li><strong>Human compatible</strong>: supports side-by-side answers when the world is genuinely ambiguous</li>
       </ul>
-      <p class="muted">Compression-Aware Intelligence redefines cognition as contradiction-aware compression. If you can point to the compression, you can reason about the error.</p>
+      <p class="muted">See the broader method at 
+        <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.
+      </p>
     </div>
   </section>
 
   <section class="grid two">
     <div class="card">
       <h2>Contradiction Score (CS)</h2>
-      <p>Given two claims \(c_1, c_2\) with NLI probabilities \(p_E\) (entails) and \(p_C\) (contradicts):</p>
+      <p>Given two claims \(c_1, c_2\) with NLI probabilities \(p_E\) for entailment and \(p_C\) for contradiction:</p>
       <p>\[
         \mathrm{CS}(c_1,c_2) = p_C - p_E \quad \in [-1,1]
       \]</p>
       <ul>
-        <li>\(\mathrm{CS} > 0\): net contradiction. \(\mathrm{CS} < 0\): net entailment.</li>
-        <li>Attach evidence spans for both claims.</li>
-        <li>Global conflict: max pairwise CS or graph aggregate over a claim set.</li>
+        <li>\(\mathrm{CS} > 0\): net contradiction. \(\mathrm{CS} < 0\): net entailment</li>
+        <li>Attach evidence spans for both claims</li>
+        <li>Global conflict: max pairwise CS or a graph aggregate over the claim set</li>
       </ul>
     </div>
 
@@ -84,25 +87,25 @@
       <h2>Link to compression</h2>
       <p>For a path \(\mathcal{P}=\{S_1,\dots,S_n\}\), track where CS spikes. Common sites:</p>
       <ul>
-        <li>Retriever cutoffs (lost qualifying evidence)</li>
-        <li>Reranker thresholds (over-pruning dissent)</li>
-        <li>Prompt templates (role or instruction bias)</li>
-        <li>Sampler settings (top-\(k\), top-\(p\))</li>
+        <li>Retriever cutoffs that drop qualifying evidence</li>
+        <li>Reranker thresholds that over-prune dissent</li>
+        <li>Prompt templates that bias instruction or role</li>
+        <li>Sampler settings such as top-\(k\) and top-\(p\)</li>
       </ul>
-      <p>Combine CS with the Compression Tension Score (CTS) to localize blame.</p>
+      <p>Combine CS with the Compression Tension Score \( \mathrm{CTS}(\mathcal{P}) \) to localize blame and decide next steps.</p>
     </div>
   </section>
 
   <section class="card">
     <h2>Workflow: detect → map → resolve</h2>
     <ol>
-      <li><strong>Detect</strong>: generate candidate claims and run pairwise NLI to compute CS.</li>
-      <li><strong>Map</strong>: attribute each conflict to the earliest site whose removal eliminates the conflict spike.</li>
+      <li><strong>Detect</strong>: generate candidate claims and run pairwise NLI to compute CS</li>
+      <li><strong>Map</strong>: attribute each conflict to the earliest site whose removal eliminates the conflict spike</li>
       <li><strong>Resolve</strong>:
         <ul>
-          <li><em>Abstain</em> if entailment fails or scores exceed thresholds.</li>
-          <li><em>Re-retrieve</em> targeted evidence for high-CS pairs.</li>
-          <li><em>Present both</em> with provenance if the world is genuinely ambiguous.</li>
+          <li><em>Abstain</em> if entailment fails or scores exceed thresholds</li>
+          <li><em>Re-retrieve</em> targeted evidence for high CS pairs</li>
+          <li><em>Present both</em> with provenance when the world is genuinely ambiguous</li>
         </ul>
       </li>
     </ol>
@@ -112,21 +115,21 @@
     <div class="card">
       <h2>Thresholds and actions</h2>
       <ul>
-        <li><strong>CS threshold</strong>: \(\tau_{\text{cs}}\) (e.g., 0.2). Above this, trigger re-checks.</li>
-        <li><strong>Path tension</strong>: \(\mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}}\) to emit.</li>
-        <li><strong>Audit</strong>: \(\mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}}\) to emit.</li>
-        <li><strong>Entailment</strong>: \(V(E,\hat{y})=1\) required to emit.</li>
+        <li><strong>CS threshold</strong>: \(\tau_{\text{cs}}\) such as 0.2. Above this, trigger re-checks</li>
+        <li><strong>Path tension</strong>: \( \mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}} \) to emit</li>
+        <li><strong>Audit</strong>: \( \mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}} \) to emit</li>
+        <li><strong>Entailment</strong>: \( V(E,\hat{y}) = 1 \) required to emit</li>
       </ul>
       <p class="muted">Fail any check → abstain with a short reason and a next step.</p>
     </div>
 
     <div class="card">
-      <h2>UI hints</h2>
-      <ul>
-        <li>Inline conflict badge with CS value and link to evidence spans.</li>
-        <li>“Why” panel showing the first compression site tied to the conflict.</li>
-        <li>One-click “Re-retrieve and re-verify” action.</li>
-      </ul>
+      <h2>CE contract</h2>
+      <p>The contradiction engineering contract is a simple rule for safe emission:</p>
+      <p>\[
+        \big(V(E,\hat{y})=1\big) \land \big(\mathrm{CS}_{\max} \le \tau_{\text{cs}}\big) \land \big(\mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}}\big) \land \big(\mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}}\big)
+      \]</p>
+      <p>If any term fails, abstain or present both claims with provenance and a short note on the implicated compression site.</p>
     </div>
   </section>
 
@@ -157,27 +160,27 @@ Response
     }
   ],
   "action": "re-retrieve",
-  "note": "High CS; likely evidence pruning at S3."
+  "note": "High CS likely due to evidence pruning at S3."
 }
 </code></pre>
-    <p class="muted">This example pairs naturally with the CAI answer endpoint. Emit only after entailment passes and path scores are within thresholds.</p>
+    <p class="muted">This pairs with the CAI answer endpoint. Emit only after entailment passes and path scores are within thresholds.</p>
   </section>
 
   <section class="grid two">
     <div class="card">
       <h2>Good patterns</h2>
       <ul>
-        <li>Keep CS and CTS side by side in logs.</li>
-        <li>Store the earliest site that resolves a conflict when removed.</li>
-        <li>Show both claims when evidence is genuinely split, with sources.</li>
+        <li>Keep CS and CTS side by side in logs</li>
+        <li>Store the earliest site that resolves a conflict when removed</li>
+        <li>Show both claims when evidence is genuinely split, with sources</li>
       </ul>
     </div>
     <div class="card">
       <h2>Anti-patterns</h2>
       <ul>
-        <li>Silencing contradictions with heavier sampling filters.</li>
-        <li>Cherry picking evidence to force entailment.</li>
-        <li>Emitting confident answers when audit is low.</li>
+        <li>Silencing contradictions with heavier sampling filters</li>
+        <li>Cherry picking evidence to force entailment</li>
+        <li>Emitting confident answers when audit is low</li>
       </ul>
     </div>
   </section>
@@ -192,18 +195,18 @@ Response
       </ul>
     </div>
     <div class="card">
-      <h2>Attribution</h2>
-      <p>If this page helps your work, please cite the CAI overview and link to this site so others can find the source.</p>
-      <ul>
-        <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview (Zenodo)</a></li>
-        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">Prototype repo</a></li>
-      </ul>
+      <h2>More on CE</h2>
+      <p>For an extended treatment and examples, visit 
+        <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.
+      </p>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence.</small>
+  <small>© <span id="year"></span> Compression-Aware Intelligence. See also 
+    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>.
+  </small>
 </footer>
 </body>
 </html>
