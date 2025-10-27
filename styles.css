@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
+
 :root{
   /* Light theme tokens */
   --bg:#ffffff;
@@ -23,8 +25,7 @@
 html,body{
   margin:0; padding:0;
   background:var(--bg); color:var(--text);
-  font: var(--fs-body)/var(--lh) ui-sans-serif, system-ui, -apple-system,
-        Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  font: var(--fs-body)/var(--lh) 'EB Garamond', serif;
   text-rendering:optimizeLegibility;
 }
 
