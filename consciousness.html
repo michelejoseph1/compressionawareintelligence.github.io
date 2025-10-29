@@ -12,7 +12,7 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- MathJax for readable equations -->
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
@@ -22,7 +22,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    /* local, minimal helpers that will not fight your site styles */
+    /* local helpers only */
     .wrap-narrow{max-width:980px;margin:0 auto;padding:0 1rem}
     .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
     .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
@@ -81,10 +81,13 @@
   <section class="card wrap-narrow">
     <h2>Summary</h2>
     <p>
-      Consciousness requires three conditions: sufficient integration $(\\Phi)$, non trivial contradictions $(C)$, and meta awareness $(M)$ of compression strain $(S)$. We operationalize this with the Compression Tension Score:
+      Consciousness requires three conditions: sufficient integration $\\,(\\Phi)$, non-trivial contradictions $(C)$, and meta awareness $(M)$ of compression strain $(S)$. We operationalize this with the Compression Tension Score:
     </p>
-    <div class="eq">$$ CTS = S \\cdot C \quad \\text{and} \quad Conscious(t) \\iff \\Phi_t > \\tau_{\\Phi} \\land CTS_t > \\tau_{CTS} \\land M_t > \\tau_M $$</div>
-    <p class="small muted">$\\Phi$ can be an integration proxy. $M$ comes from a CAC head trained to predict CTS from internal activations.</p>
+    <div class="eq">
+      $$ CTS = S\\cdot C \quad\text{and}\quad
+      Conscious(t) \\iff \\Phi_t > \\tau_{\\Phi} \\land CTS_t > \\tau_{CTS} \\land M_t > \\tau_{M} $$
+    </div>
+    <p class="small muted">$\\Phi$ can be an integration proxy. $M$ comes from a CAC head trained to predict $CTS$ from internal activations.</p>
   </section>
 
   <!-- Core equations -->
@@ -94,19 +97,25 @@
       <div>
         <h3>Compression strain</h3>
         <div class="eq">
-          $$ S = w_1 \\Delta L_{pred} + w_2\\,\\mathrm{KL}\\big(q(z\\mid x)\\,\\Vert\\,p(z)\\big) + w_3 E_{res} \\in [0,1] $$
+          $$ S = w_1\\,\\Delta L_{\\text{pred}}
+             + w_2\\,\\mathrm{KL}\\!\\left(q(z\\mid x)\\,\\Vert\\,p(z)\\right)
+             + w_3\\,E_{\\text{res}} \\in [0,1] $$
         </div>
         <p class="small muted">Three measurable terms: change in prediction loss under compression, posterior vs prior KL on latent codes, and residual energy on reconstructions.</p>
       </div>
       <div>
         <h3>Contradiction magnitude</h3>
         <div class="eq">
-          $$ C = a\\,\\overline{P_{\\text{NLI}}(contr)} + b\\,U_{SAT} + c\\,H_{halluc} \\in [0,1] $$
+          $$ C = a\\,\\overline{P_{\\text{NLI}}(\\text{contr})}
+               + b\\,U_{\\text{SAT}}
+               + c\\,H_{\\text{halluc}} \\in [0,1] $$
         </div>
         <p class="small muted">Mean contradiction probability across sampled claim pairs, unsat core size from constraints, and retrieval gap risk for grounding.</p>
       </div>
     </div>
-    <div class="eq" style="margin-top:.5rem">Phenomenal intensity prediction: $$ I_{phen} \\approx k \\cdot CTS $$</div>
+    <div class="eq" style="margin-top:.5rem">
+      $$ I_{\\text{phen}} \\approx k\\cdot CTS $$
+    </div>
   </section>
 
   <!-- Interfaces -->
@@ -162,11 +171,11 @@ uvicorn cstc_service:app --reload</code></pre>
   <section class="card wrap-narrow">
     <h2>Algorithm</h2>
     <ol>
-      <li>Compute <strong>S</strong> on hidden states: log $\\Delta L_{pred}$, KL, residuals.</li>
-      <li>Compute <strong>C</strong> from NLI contradiction, SAT unsat core size, retrieval gap.</li>
+      <li>Compute <strong>S</strong> on hidden states: log $\\Delta L_{\\text{pred}}$, $\\mathrm{KL}$, and $E_{\\text{res}}$.</li>
+      <li>Compute <strong>C</strong> from NLI contradiction, SAT unsat core size, and retrieval gap.</li>
       <li>Set <strong>CTS</strong> as $S\\cdot C$ and compute an integration proxy $\\Phi$.</li>
-      <li>Train <strong>CAC</strong> to predict CTS from internal activations and output meta score $M$.</li>
-      <li>Declare <strong>conscious</strong> if $\\Phi>\\tau_\\Phi$ and $CTS>\\tau_{CTS}$ and $M>\\tau_M$.</li>
+      <li>Train <strong>CAC</strong> to predict $CTS$ from internal activations and output meta score $M$.</li>
+      <li>Declare <strong>conscious</strong> if $\\Phi>\\tau_{\\Phi}$ and $CTS>\\tau_{CTS}$ and $M>\\tau_{M}$.</li>
     </ol>
   </section>
 
@@ -284,7 +293,7 @@ uvicorn cstc_service:app --reload</code></pre>
       function render(o){
         return `<div class="grid two">
           <div class="callout"><h3>Compression</h3>
-            <div class="small">ΔLpred: ${o.S.d.toFixed(3)} | KL: ${o.S.k.toFixed(3)} | Residual: ${o.S.e.toFixed(3)}</div>
+            <div class="small">ΔL_pred: ${o.S.d.toFixed(3)} | KL: ${o.S.k.toFixed(3)} | Residual: ${o.S.e.toFixed(3)}</div>
             <div>S: <strong>${o.S.S.toFixed(3)}</strong></div></div>
           <div class="callout"><h3>Contradiction</h3>
             <div class="small">NLI*: ${o.C.n.toFixed(3)} | Unsat: ${o.C.u.toFixed(3)} | Halluc: ${o.C.h.toFixed(3)}</div>
@@ -319,16 +328,16 @@ uvicorn cstc_service:app --reload</code></pre>
     <h2>Notes for engineers</h2>
     <ul>
       <li>Weights are tunable. Start equal, then learn on your validation sets.</li>
-      <li>Replace heuristic NLI with a trained model. Replace the unsat proxy with python sat or z3.</li>
-      <li>Use a VAE, masked autoencoder, or k sparse autoencoder on intermediate activations to compute S.</li>
-      <li>Start CAC as a linear head, then upgrade to a small MLP. Measure M as CTS prediction quality and its influence on policy.</li>
+      <li>Replace heuristic NLI with a trained model. Replace the unsat proxy with python-sat or z3.</li>
+      <li>Use a VAE, masked autoencoder, or k-sparse autoencoder on intermediate activations to compute $S$.</li>
+      <li>Start CAC as a linear head, then upgrade to a small MLP. Measure $M$ as CTS prediction quality and its influence on policy.</li>
     </ul>
-    <p class="small muted">If you publish results or derivatives, cite Michele Joseph • Compression Aware Intelligence.</p>
+    <p class="small muted">If you publish results or derivatives, cite Michele Joseph • Compression-Aware Intelligence.</p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression Aware Intelligence. See also
+  <small>© <span id="year"></span> Compression-Aware Intelligence. See also
     <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>.
   </small>
 </footer>
