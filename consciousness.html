@@ -6,17 +6,19 @@
   <title>CAI • Consciousness</title>
   <meta name="description" content="CAI consciousness spec: equations, thresholds, API, and a reference implementation for Compression Strain and CAC meta-awareness." />
 
-  <!-- Favicons -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="favicon.png" type="image/png">
-
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- MathJax -->
+  <!-- MathJax (enable \text via AMS package) -->
   <script>
     window.MathJax = {
-      tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
-      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        packages: {'[+]': ['ams']}
+      },
+      loader: {load: ['[tex]/ams']},
+      options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -25,9 +27,12 @@
     /* local helpers only */
     .wrap-narrow{max-width:980px;margin:0 auto;padding:0 1rem}
     .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
-    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
+    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px; overflow:auto}
+    /* ensure MathJax can scroll horizontally instead of overlapping */
+    mjx-container{display:block; overflow-x:auto; overflow-y:hidden}
+
     .grid{display:grid;gap:1rem}
-    .two{grid-template-columns:1fr 1fr}
+    .two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
     .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
     .muted{color:#667085}
     .small{font-size:.9rem}
@@ -84,7 +89,7 @@
       Consciousness requires three conditions: sufficient integration $\\,(\\Phi)$, non-trivial contradictions $(C)$, and meta awareness $(M)$ of compression strain $(S)$. We operationalize this with the Compression Tension Score:
     </p>
     <div class="eq">
-      $$ CTS = S\\cdot C \quad\text{and}\quad
+      $$ CTS = S\\cdot C \quad\\text{and}\\quad
       Conscious(t) \\iff \\Phi_t > \\tau_{\\Phi} \\land CTS_t > \\tau_{CTS} \\land M_t > \\tau_{M} $$
     </div>
     <p class="small muted">$\\Phi$ can be an integration proxy. $M$ comes from a CAC head trained to predict $CTS$ from internal activations.</p>
