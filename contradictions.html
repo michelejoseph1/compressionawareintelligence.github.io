@@ -3,19 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contradictions | CAI</title>
-  <meta name="description" content="Contradiction engineering in Compression-Aware Intelligence: detect, map, and resolve conflicts as signals of hidden compression." />
-  <link rel="icon" href="assets/favicon.png" />
+  <title>CAI • Contradictions</title>
+  <meta name="description" content="CAI contradiction theory, equations, implementation, SVG diagram, JSON schema, and a browser demo for engineers." />
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+
   <link rel="stylesheet" href="styles.css" />
 
   <!-- MathJax for equations -->
   <script>
     window.MathJax = {
-      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
-      options: {skipHtmlTags: ['script','noscript','style','textarea','pre','code']}
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    /* Page-local helpers that should not conflict with your global styles */
+    .wrap-narrow{max-width:980px;margin:0 auto;padding:0 1rem}
+    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
+    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
+    .grid{display:grid;gap:1rem}
+    .two{grid-template-columns:1fr 1fr}
+    .three{grid-template-columns:1fr 1fr 1fr}
+    .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
+    .muted{color:#667085}
+    .small{font-size:.9rem}
+    pre{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:10px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid #eee;padding:.5rem;text-align:left}
+
+    /* SVG diagram */
+    .diagram{background:#ffffff;border:1px solid #e5e7eb;border-radius:10px;padding:.5rem}
+    .node{fill:#f8fafc;stroke:#111;stroke-width:1}
+    .edge{stroke:#111;stroke-width:1.5;marker-end:url(#arrow)}
+    .label{font-size:12px;fill:#111;font-family:Inter,system-ui,Arial,Helvetica,sans-serif}
+  </style>
 
   <script defer src="script.js"></script>
 </head>
@@ -32,6 +59,7 @@
     <a href="consciousness.html" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
     <a href="benchmarks.html" data-nav>Benchmarks</a>
+    <a href="hallucinet.html" data-nav>Hallucinet</a>
     <a href="research.html" data-nav>Research</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
@@ -42,18 +70,23 @@
 </header>
 
 <main class="wrap" id="main">
-  <h1>Contradictions</h1>
-  <p class="lede">In CAI, contradictions are not bugs to hide but signals to track. A conflict between claims points to where compression has bent truth out of shape.</p>
+  <section class="hero card">
+    <p class="pill">CAI core</p>
+    <h1>Contradictions</h1>
+    <p class="lede">
+      CAI treats contradiction as a first class signal. This page defines the math, the data model, a validation schema, a diagram of the flow, and a minimal implementation so engineers can detect, localize, and resolve contradictions in text pipelines today.
+    </p>
+  </section>
 
+  <!-- What and why (concise, no duplicate prose later) -->
   <section class="grid two">
     <div class="card">
       <h2>What is contradiction engineering</h2>
       <p>
-        Contradiction Engineering is the discipline of finding, scoring, and resolving conflicts that are created or amplified by compression. 
-        Instead of smoothing them away, CAI surfaces contradictions so systems can abstain, re-retrieve evidence, or present qualified answers with provenance.
+        Contradiction engineering finds, scores, and resolves conflicts created or amplified by compression. Instead of smoothing them away, CAI surfaces conflicts so systems can abstain, re-retrieve evidence, or present qualified answers with provenance.
       </p>
       <ul>
-        <li><strong>Detect</strong> conflicts among candidate claims and sources</li>
+        <li><strong>Detect</strong> conflicts across candidate claims and sources</li>
         <li><strong>Map</strong> the earliest compression site that induces the conflict</li>
         <li><strong>Resolve</strong> with abstention, re-retrieval, or side-by-side presentation</li>
       </ul>
@@ -61,114 +94,317 @@
     <div class="card">
       <h2>Why it is unique</h2>
       <ul>
-        <li><strong>Compression-aware</strong>: links each conflict to a concrete compression step on the path</li>
-        <li><strong>Actionable thresholds</strong>: conflicts drive abstain and re-check rules, not just scores</li>
-        <li><strong>Provenance tied</strong>: every resolution cites sources and replayable steps</li>
+        <li><strong>Compression-aware</strong>: each conflict links to a concrete compression step on the path</li>
+        <li><strong>Actionable thresholds</strong>: conflicts drive abstain and re-check rules, not only scores</li>
+        <li><strong>Provenance</strong>: every resolution cites sources and replayable steps</li>
         <li><strong>Human compatible</strong>: supports side-by-side answers when the world is genuinely ambiguous</li>
       </ul>
-      <p class="muted">See the broader method at 
-        <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.
-      </p>
+      <p class="small muted">See also <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.</p>
     </div>
   </section>
 
-  <section class="grid two">
-    <div class="card">
-      <h2>Contradiction Score (CS)</h2>
-      <p>Given two claims \(c_1, c_2\) with NLI probabilities \(p_E\) for entailment and \(p_C\) for contradiction:</p>
-      <p>\[
-        \mathrm{CS}(c_1,c_2) = p_C - p_E \quad \in [-1,1]
-      \]</p>
-      <ul>
-        <li>\(\mathrm{CS} > 0\): net contradiction. \(\mathrm{CS} < 0\): net entailment</li>
-        <li>Attach evidence spans for both claims</li>
-        <li>Global conflict: max pairwise CS or a graph aggregate over the claim set</li>
-      </ul>
-    </div>
+  <!-- Diagram -->
+  <section class="card wrap-narrow">
+    <h2>Data flow</h2>
+    <div class="diagram" role="img" aria-label="Contradiction pipeline diagram">
+      <svg viewBox="0 0 900 300" width="100%" height="100%">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#111"></path>
+          </marker>
+        </defs>
 
-    <div class="card">
-      <h2>Link to compression</h2>
-      <p>For a path \(\mathcal{P}=\{S_1,\dots,S_n\}\), track where CS spikes. Common sites:</p>
-      <ul>
-        <li>Retriever cutoffs that drop qualifying evidence</li>
-        <li>Reranker thresholds that over-prune dissent</li>
-        <li>Prompt templates that bias instruction or role</li>
-        <li>Sampler settings such as top-\(k\) and top-\(p\)</li>
-      </ul>
-      <p>Combine CS with the Compression Tension Score \( \mathrm{CTS}(\mathcal{P}) \) to localize blame and decide next steps.</p>
+        <!-- nodes -->
+        <rect class="node" x="20" y="40" width="140" height="60" rx="10"></rect>
+        <text class="label" x="90" y="75" text-anchor="middle">Text input</text>
+
+        <rect class="node" x="200" y="40" width="170" height="60" rx="10"></rect>
+        <text class="label" x="285" y="70" text-anchor="middle">Claim extractor</text>
+
+        <rect class="node" x="420" y="10" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="45" text-anchor="middle">NLI pairs</text>
+
+        <rect class="node" x="420" y="120" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="155" text-anchor="middle">Constraint checker</text>
+
+        <rect class="node" x="420" y="230" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="265" text-anchor="middle">Retrieval gap</text>
+
+        <rect class="node" x="640" y="90" width="230" height="80" rx="10"></rect>
+        <text class="label" x="755" y="120" text-anchor="middle">Aggregate</text>
+        <text class="label" x="755" y="140" text-anchor="middle">C = a·NLI + b·Unsat + c·Halluc</text>
+        <text class="label" x="755" y="160" text-anchor="middle">CTS = S · C (optional)</text>
+
+        <!-- edges -->
+        <line class="edge" x1="160" y1="70" x2="200" y2="70"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="40"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="150"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="260"></line>
+        <line class="edge" x1="600" y1="40" x2="640" y2="130"></line>
+        <line class="edge" x1="600" y1="150" x2="640" y2="130"></line>
+        <line class="edge" x1="600" y1="260" x2="640" y2="130"></line>
+      </svg>
     </div>
+    <p class="small muted">Goal: produce contradiction objects with minimal scopes and actionable edits that reduce C on re-evaluation.</p>
   </section>
 
-  <section class="card">
-    <h2>Workflow: detect → map → resolve</h2>
-    <ol>
-      <li><strong>Detect</strong>: generate candidate claims and run pairwise NLI to compute CS</li>
-      <li><strong>Map</strong>: attribute each conflict to the earliest site whose removal eliminates the conflict spike</li>
-      <li><strong>Resolve</strong>:
-        <ul>
-          <li><em>Abstain</em> if entailment fails or scores exceed thresholds</li>
-          <li><em>Re-retrieve</em> targeted evidence for high CS pairs</li>
-          <li><em>Present both</em> with provenance when the world is genuinely ambiguous</li>
+  <!-- Definitions and link to compression in one place to avoid repeats -->
+  <section class="card wrap-narrow">
+    <h2>Definitions</h2>
+    <div class="grid two">
+      <div>
+        <h3>Pairwise contradiction score</h3>
+        <div class="eq">For claims $c_1, c_2$ with NLI probabilities $p_E$ and $p_C$:
+          $$ \mathrm{CS}(c_1,c_2) = p_C - p_E \in [-1,1] $$
+        </div>
+        <ul class="small">
+          <li>CS &gt; 0: net contradiction. CS &lt; 0: net entailment</li>
+          <li>Attach evidence spans for both claims</li>
+          <li>Global conflict: max pairwise CS or graph aggregate over claims</li>
         </ul>
-      </li>
-    </ol>
+      </div>
+      <div>
+        <h3>Contradiction magnitude and strain</h3>
+        <div class="eq">Contradiction magnitude
+          $$ C = a\,\overline{P_{\text{NLI}}(contr)} + b\,U_{SAT} + c\,H_{halluc} \in [0,1] $$
+        </div>
+        <div class="eq" style="margin-top:.5rem">Compression tension
+          $$ CTS = S \cdot C $$
+        </div>
+        <p class="small muted">Use CTS to rank where resolution work matters most. Common compression sites: retriever cutoffs, reranker pruning, prompt bias, sampler settings.</p>
+      </div>
+    </div>
   </section>
 
+  <!-- Contract and workflow -->
   <section class="grid two">
     <div class="card">
-      <h2>Thresholds and actions</h2>
-      <ul>
-        <li><strong>CS threshold</strong>: \(\tau_{\text{cs}}\) such as 0.2. Above this, trigger re-checks</li>
-        <li><strong>Path tension</strong>: \( \mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}} \) to emit</li>
-        <li><strong>Audit</strong>: \( \mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}} \) to emit</li>
-        <li><strong>Entailment</strong>: \( V(E,\hat{y}) = 1 \) required to emit</li>
-      </ul>
-      <p class="muted">Fail any check → abstain with a short reason and a next step.</p>
+      <h2>Workflow</h2>
+      <ol>
+        <li><strong>Detect</strong>: generate claims and run pairwise NLI to compute CS</li>
+        <li><strong>Map</strong>: attribute each conflict to the earliest path site whose removal drops the spike</li>
+        <li><strong>Resolve</strong>:
+          <ul>
+            <li><em>Abstain</em> if entailment fails or scores exceed thresholds</li>
+            <li><em>Re-retrieve</em> targeted evidence for high CS pairs</li>
+            <li><em>Present both</em> with provenance when the world is split</li>
+          </ul>
+        </li>
+      </ol>
     </div>
-
     <div class="card">
       <h2>CE contract</h2>
-      <p>The contradiction engineering contract is a simple rule for safe emission:</p>
-      <p>\[
-        \big(V(E,\hat{y})=1\big) \land \big(\mathrm{CS}_{\max} \le \tau_{\text{cs}}\big) \land \big(\mathrm{CTS}(\mathcal{P}) \le \tau_{\text{cts}}\big) \land \big(\mathrm{Audit}(\mathcal{P}) \ge \tau_{\text{audit}}\big)
-      \]</p>
-      <p>If any term fails, abstain or present both claims with provenance and a short note on the implicated compression site.</p>
+      <p class="small">Emit only if all checks pass:</p>
+      <div class="eq">
+        $$ \big(V(E,\hat{y})=1\big)\;\land\;\big(\mathrm{CS}_{\max}\le\tau_{\text{cs}}\big)\;\land\;\big(\mathrm{CTS}(\mathcal{P})\le\tau_{\text{cts}}\big)\;\land\;\big(\mathrm{Audit}(\mathcal{P})\ge\tau_{\text{audit}}\big) $$
+      </div>
+      <p class="small muted">Fail any check → abstain or present both claims with provenance and a short note on the implicated compression site.</p>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Example (pseudo-API)</h2>
-<pre><code>// detect contradictions across candidate answers
-POST /cai/contradictions
-{
-  "claims": [
-    {"id":"c1","text":"Edison invented the lightbulb in 1879."},
-    {"id":"c2","text":"The first practical incandescent lamp dates to 1878."}
-  ],
-  "evidence_corpus": "encyclopedia:v1",
-  "policy": {"cs_threshold": 0.2}
-}
-
-Response
-{
-  "pairs": [
-    {
-      "c1":"c1","c2":"c2",
-      "cs": 0.27,
-      "evidence": [
-        {"doc_id":"D12","span":"L210-219"},
-        {"doc_id":"D45","span":"L102-110"}
-      ],
-      "attributed_site": "reranker_cutoff@S3"
-    }
-  ],
-  "action": "re-retrieve",
-  "note": "High CS likely due to evidence pruning at S3."
-}
-</code></pre>
-    <p class="muted">This pairs with the CAI answer endpoint but u need to make sure to emit only after entailment passes and path scores are within thresholds.</p>
+  <!-- Data model and schema -->
+  <section class="card wrap-narrow">
+    <h2>Data model</h2>
+    <div class="grid two">
+      <div>
+        <h3>Claim</h3>
+        <pre><code>{
+  "id": "c_102",
+  "text": "The vaccine reduces transmission by 60 percent.",
+  "spans": [[4, 10], [20, 33]],
+  "supports": ["src_7#p2"],
+  "modality": "text",
+  "certainty": 0.72,
+  "time": "2025-10-28T19:00:00Z"
+}</code></pre>
+      </div>
+      <div>
+        <h3>Contradiction object</h3>
+        <pre><code>{
+  "id": "co_9",
+  "type": "nli|symbolic|grounding",
+  "scope_claims": ["c_102", "c_141"],
+  "unsat_core": ["rate_def", "time_window"],
+  "score": 0.81,
+  "suggested_edits": [
+    "disambiguate time window",
+    "define transmission vs infection"
+  ]
+}</code></pre>
+      </div>
+    </div>
   </section>
 
+  <section class="card wrap-narrow">
+    <h2>JSON schema</h2>
+    <p class="small muted">Use this to validate contradiction objects across services.</p>
+    <pre><code>{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://compressionawareintelligence.com/schemas/contradiction-object.schema.json",
+  "title": "ContradictionObject",
+  "type": "object",
+  "required": ["id", "type", "scope_claims", "score"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^co_[A-Za-z0-9_-]+$" },
+    "type": { "type": "string", "enum": ["nli", "symbolic", "grounding"] },
+    "scope_claims": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^c_[A-Za-z0-9_-]+$" },
+      "minItems": 2
+    },
+    "unsat_core": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "suggested_edits": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}</code></pre>
+  </section>
+
+  <!-- APIs and minimal code path -->
+  <section class="card wrap-narrow">
+    <h2>Engineer API</h2>
+    <table class="table small">
+      <tr><th>POST</th><th>/contradiction/score</th><td><code>{ text, sources[], constraints[][] }</code></td><td>returns { C, details }</td></tr>
+      <tr><th>POST</th><th>/contradiction/extract</th><td><code>{ text }</code></td><td>returns claims[]</td></tr>
+      <tr><th>POST</th><th>/contradiction/resolve</th><td><code>{ claims[], co }</code></td><td>returns edit plan</td></tr>
+    </table>
+    <p class="small muted">The reference backend in <code>cstc_service.py</code> exposes compatible fields through <code>/compute</code>. Mirror these if you want a dedicated contradictions service.</p>
+
+    <h3 style="margin-top:.75rem">Minimal code path</h3>
+    <pre><code># 1) run the reference service
+uvicorn cstc_service:app --reload
+
+# 2) client request (pseudo)
+payload = {
+  "text": doc,
+  "sources": [doc_a, doc_b],
+  "constraints": [[1, -3], [2, 3]]  # optional CNF
+}
+res = POST("/compute", json=payload)
+C = res["contradiction"]["C"]  # fields include nli_contradiction, unsat_core, hallucination_risk
+</code></pre>
+  </section>
+
+  <!-- Browser demo (heuristic) -->
+  <section class="card wrap-narrow">
+    <h2>Browser demo</h2>
+    <p class="small muted">Heuristic only. The server gives stronger results. Paste a paragraph with conflicting statements and optionally add short source snippets separated by commas.</p>
+    <div class="callout">
+      <label for="txt" class="small">Text</label>
+      <textarea id="txt" style="width:100%;min-height:120px;margin:.5rem 0"></textarea>
+
+      <label for="src" class="small">Sources (comma separated, optional)</label>
+      <input id="src" type="text" style="width:100%;margin:.25rem 0" placeholder="source a, source b">
+
+      <div class="inline" style="margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn" id="run">Score contradiction</button>
+        <button class="btn secondary" id="clear">Clear</button>
+      </div>
+
+      <div id="out" style="margin-top:1rem"></div>
+    </div>
+
+    <script>
+      // Simple browser-only proxies that mirror server ideas
+      const STOP = new Set("the a an and or of for in on to is are was were be been being with by as at from this that it".split(" "));
+      function toks(s){return (s.toLowerCase().match(/[a-z0-9']+/g)||[]) }
+      function sents(t){return (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean))}
+      function terms(s){ return new Set(toks(s).filter(w=>!STOP.has(w) && w.length>3)); }
+
+      function nliHeuristic(t){
+        const S=sents(t); let scores=[];
+        const neg = w=>/(^|\s)(not|never|no|none|cannot|isn't|can't|without)(\s|$)/i.test(w);
+        for(let i=0;i<S.length;i++){
+          for(let j=i+1;j<S.length;j++){
+            const A=terms(S[i]), B=terms(S[j]);
+            const inter=[...A].filter(x=>B.has(x)).length;
+            const uni=new Set([...A,...B]).size;
+            const overlap = inter/Math.max(1,uni);
+            const n = (neg(S[i])^neg(S[j]))?1:0;
+            scores.push(overlap*n);
+          }
+        }
+        const m = scores.length? scores.reduce((a,b)=>a+b,0)/scores.length:0;
+        return Math.max(0, Math.min(1, m/0.6));
+      }
+
+      function hallucRisk(text, sources){
+        const W=new Set(toks(text));
+        const covs=sources.map(s=>{
+          const sw=new Set(toks(s));
+          const inter=[...W].filter(x=>sw.has(x)).length;
+          const uni=new Set([...W,...sw]).size;
+          return inter/Math.max(1, uni);
+        });
+        const coverage = covs.length? Math.max(...covs):0;
+        return Math.max(0, 1-coverage);
+      }
+
+      function unsatProxy(){ return 0 } // client has no SAT
+
+      function scoreC(t, srcs){
+        const n = nliHeuristic(t);
+        const u = unsatProxy();
+        const h = hallucRisk(t, srcs);
+        const a=0.5,b=0.25,c=0.25;
+        const C = Math.max(0, Math.min(1, a*n + b*u + c*h));
+        return {n,u,h,C};
+      }
+
+      function render(o){
+        return `
+        <div class="grid two">
+          <div class="callout">
+            <h3>NLI proxy</h3>
+            <p class="small muted">Overlap plus polarity heuristic</p>
+            <div>nli_contradiction: <strong>${o.n.toFixed(3)}</strong></div>
+          </div>
+          <div class="callout">
+            <h3>Grounding</h3>
+            <p class="small muted">Retrieval gap risk</p>
+            <div>hallucination_risk: <strong>${o.h.toFixed(3)}</strong></div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:1rem">
+          <h3>Contradiction magnitude</h3>
+          <div>C: <strong>${o.C.toFixed(3)}</strong></div>
+          <p class="small muted">Use the server to include SAT unsat cores and minimal contradiction scopes.</p>
+        </div>`;
+      }
+
+      document.getElementById('run').onclick = ()=>{
+        const text = document.getElementById('txt').value||'';
+        const srcs = (document.getElementById('src').value||'').split(',').map(s=>s.trim()).filter(Boolean);
+        const out = scoreC(text, srcs);
+        document.getElementById('out').innerHTML = render(out);
+      };
+      document.getElementById('clear').onclick = ()=>{
+        document.getElementById('txt').value='';
+        document.getElementById('src').value='';
+        document.getElementById('out').innerHTML='';
+      };
+    </script>
+  </section>
+
+  <!-- Good patterns / Anti-patterns -->
   <section class="grid two">
     <div class="card">
       <h2>Good patterns</h2>
@@ -188,26 +424,26 @@ Response
     </div>
   </section>
 
+  <!-- Cross-links -->
   <section class="grid two">
     <div class="card">
       <h2>See also</h2>
       <ul>
-        <li><a href="foundations.html">Foundations: metrics and equations</a></li>
-        <li><a href="glossary.html">Glossary: core terms</a></li>
-        <li><a href="principles.html">Principles</a></li>
+        <li><a href="foundations.html" data-nav>Foundations: metrics and equations</a></li>
+        <li><a href="implementations.html" data-nav>Implementations</a></li>
+        <li><a href="benchmarks.html" data-nav>Benchmarks</a></li>
+        <li><a href="hallucinet.html" data-nav>Hallucinet</a></li>
       </ul>
     </div>
     <div class="card">
       <h2>More on CE</h2>
-      <p>For an extended treatment and examples, visit 
-        <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.
-      </p>
+      <p>For extended examples, visit <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">ContradictionEngineering.com</a>.</p>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. See also 
+  <small>© <span id="year"></span> Compression-Aware Intelligence. See also
     <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>.
   </small>
 </footer>
