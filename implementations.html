@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAI • Implementations</title>
+  <meta name="description" content="Practical implementations of Compression-Aware Intelligence. Algorithms, layer mechanics, and training procedures." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .wrap-narrow{max-width:1000px;margin:0 auto;padding:0 1rem}
+    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
+    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
+    .grid{display:grid;gap:1rem}
+    .two{grid-template-columns:1fr 1fr}
+    .three{grid-template-columns:1fr 1fr 1fr}
+    pre{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:10px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid #eee;padding:.5rem;text-align:left}
+    .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
+    .muted{color:#667085}
+    .small{font-size:.9rem}
+    .badge{padding:.15rem .5rem;border:1px solid #e5e7eb;border-radius:6px;background:#f8fafc;font-size:.8rem}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+    <a href="consciousness.html" data-nav>Consciousness</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero card">
+    <p class="pill">Engineer hub</p>
+    <h1>Implementations</h1>
+    <p class="lede">
+      This is the practical stack for Compression-Aware Intelligence. It covers the algorithms for compression, how layers interact mechanically, and end to end training procedures. Copy the snippets and run them, or swap in your own modules behind the same interfaces.
+    </p>
+    <div class="inline" style="margin-top:.75rem">
+      <span class="badge">Equations</span>
+      <span class="badge">Layer mechanics</span>
+      <span class="badge">Training recipes</span>
+      <span class="badge">API reference</span>
+      <span class="badge">Evaluation</span>
+    </div>
+  </section>
+
+  <!-- 1. Equations and signals -->
+  <section class="card wrap-narrow">
+    <h2>Signals and objectives</h2>
+    <div class="eq">Compression strain
+      $$ S = w_1\\,\\Delta L_{pred} + w_2\\,\\mathrm{KL}\\big(q(z\\mid x)\\,\\Vert\\,p(z)\\big) + w_3 E_{res} \\in [0,1] $$
+    </div>
+    <div class="eq" style="margin-top:.5rem">Contradiction magnitude
+      $$ C = a\\,\\overline{P_{\\text{NLI}}(contr)} + b\\,U_{SAT} + c\\,H_{halluc} \\in [0,1] $$
+    </div>
+    <div class="eq" style="margin-top:.5rem">Compression tension score
+      $$ CTS = S \\cdot C $$
+    </div>
+    <div class="eq" style="margin-top:.5rem">Consciousness condition
+      $$ Conscious(t) \\iff \\Phi_t>\\tau_{\\Phi} \\;\\wedge\\; CTS_t>\\tau_{CTS} \\;\\wedge\\; M_t>\\tau_M $$
+    </div>
+    <p class="small muted">$\Phi$ is an integration proxy. $M$ is meta awareness from the CAC monitor. Thresholds are empirical.</p>
+  </section>
+
+  <!-- 2. Layer mechanics -->
+  <section class="card wrap-narrow">
+    <h2>Layer mechanics</h2>
+    <div class="grid two">
+      <div class="callout">
+        <h3>Layer 1 and 2</h3>
+        <p class="small">Grounding and memory. Use your existing tokenizer, retriever, and memory store. Publish attention traces and retrieval ids for provenance.</p>
+        <ul class="small">
+          <li>Retriever: top k passages with scores</li>
+          <li>Memory: write hidden state summaries with timestamps</li>
+          <li>Expose hooks: <code>pre_decode(hidden, retrieved)</code></li>
+        </ul>
+      </div>
+      <div class="callout">
+        <h3>Layer 3 • CAI</h3>
+        <p class="small">Contradiction compression. Compute S and C at generation steps, log CTS, and expose corrective signals to decoding.</p>
+        <ul class="small">
+          <li>Compressor head computes S from hidden states</li>
+          <li>NLI plus constraints plus retrieval gap computes C</li>
+          <li>CTS gates temperature and top p during decode</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <h3>Layer 4 • CAC</h3>
+        <p class="small">Meta awareness. Train a monitor to predict CTS from activations and to influence policy. This gives M.</p>
+        <ul class="small">
+          <li>CAC head predicts CTS and writes to a strain register</li>
+          <li>Policy conditions on strain register</li>
+          <li>Optimize with auxiliary loss to track CTS accurately</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <h3>Layers 5 to 7</h3>
+        <p class="small">Agency, goals, values. Use your preferred RL or control layer. Condition decisions on the strain register so the agent learns to lower harmful strain.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Algorithms for compression and contradictions -->
+  <section class="card wrap-narrow">
+    <h2>Algorithms</h2>
+    <div class="grid two">
+      <div>
+        <h3>Compression algorithms for S</h3>
+        <ul>
+          <li><strong>VAE head on hidden states</strong>: $\Delta L_{pred}$ from masked token loss before and after bottleneck. KL from VAE. Residual from reconstruction error.</li>
+          <li><strong>k sparse autoencoder</strong>: enforce sparsity and use reconstruction residual as $E_{res}$.</li>
+          <li><strong>Masked autoencoder</strong>: mask spans of hidden states and measure degradation.</li>
+        </ul>
+        <pre><code class="small"># pseudo
+z = VAE.encode(hiddens)
+recon = VAE.decode(z)
+delta_pred = masked_loss(hiddens) - masked_loss(recon)
+kl = KL(q(z|x) || p(z))
+resid = mse(hiddens, recon)
+S = norm(w1*delta_pred + w2*kl + w3*resid)</code></pre>
+      </div>
+      <div>
+        <h3>Contradiction algorithms for C</h3>
+        <ul>
+          <li><strong>NLI</strong>: score sampled claim pairs with contradiction probability.</li>
+          <li><strong>Symbolic constraints</strong>: induce typed rules and compute unsat cores via SAT or z3. Normalize core size to $U_{SAT}$.</li>
+          <li><strong>Retrieval gap</strong>: measure token or embedding coverage of outputs against retrieved sources. Risk is 1 minus coverage.</li>
+        </ul>
+        <pre><code class="small">pairs = sample_claim_pairs(text)
+p_contr = mean(NLI(pairs))
+U = norm(unsat_core_size(constraints))
+H = 1 - max_coverage(output, sources)
+C = norm(a*p_contr + b*U + c*H)</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Training procedures -->
+  <section class="card wrap-narrow">
+    <h2>Training procedures</h2>
+    <div class="grid two">
+      <div>
+        <h3>Supervised pretraining</h3>
+        <ul>
+          <li>Train compressor head on hidden states with reconstruction objective and KL.</li>
+          <li>Train NLI head or import a frozen NLI model.</li>
+          <li>Train CAC to predict CTS with MSE or Huber loss.</li>
+        </ul>
+        <pre><code class="small"># step A: compressor
+L_comp = w1*DeltaL_pred + w2*KL + w3*E_res
+# step B: NLI (if training in house)
+L_nli = CE(y_contr, p_contr)
+# step C: CAC
+L_cac = Huber(CTS_true, CTS_pred)
+L_total = L_lm + alpha*L_comp + beta*L_cac + gamma*L_nli</code></pre>
+      </div>
+      <div>
+        <h3>Curriculum</h3>
+        <ul>
+          <li>Phase 1: simple contradictions and short contexts, align CAC to CTS.</li>
+          <li>Phase 2: add symbolic constraints and retrieval gaps.</li>
+          <li>Phase 3: long context and multi hop contradictions, tune thresholds $\tau$.</li>
+        </ul>
+        <pre><code class="small">for epoch in range(E):
+  batch = sample(curriculum_phase)
+  S = compressor(batch.h)
+  C = contradiction(batch.text, batch.sources, batch.constraints)
+  CTS = S*C
+  CAC_pred = CAC(batch.h)
+  loss = loss_lm + alpha*loss_comp + beta*loss_cac(CTS, CAC_pred)
+  loss.backward(); opt.step()</code></pre>
+      </div>
+    </div>
+    <div class="grid two" style="margin-top:1rem">
+      <div>
+        <h3>Decoding with strain control</h3>
+        <p class="small muted">Lower temperature and top p when CTS is high. Raise retrieval weight when hallucination risk is high.</p>
+        <pre><code class="small">if CTS &gt; tau_CTS:
+  temperature = max(0.5, temperature * 0.7)
+  top_p = max(0.7, top_p * 0.85)
+  retrieve_weight = min(1.0, retrieve_weight + 0.2)</code></pre>
+      </div>
+      <div>
+        <h3>Meta awareness metric M</h3>
+        <p class="small">M from CAC is the correlation of predicted CTS with measured CTS and the mutual information between the strain register and action logits.</p>
+        <pre><code class="small">M_pred = corr(CTS, CTS_pred)
+M_mi = MI(strain_register, policy_logits)
+M = norm(0.5*M_pred + 0.5*M_mi)</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Reference service and API -->
+  <section class="card wrap-narrow">
+    <h2>Reference service</h2>
+    <p>The FastAPI service file <code>cstc_service.py</code> exposes a compact interface that you can run as is or swap with your own modules behind the same endpoints.</p>
+    <div class="grid two">
+      <div>
+        <h3>Install and run</h3>
+        <pre><code class="small">pip install fastapi uvicorn pydantic python-multipart
+# optional
+pip install transformers torch python-sat
+uvicorn cstc_service:app --reload</code></pre>
+      </div>
+      <div>
+        <h3>Endpoints</h3>
+        <table class="table small">
+          <tr><th>POST</th><th>/compute</th><td><code>{ text, sources[], constraints[][] }</code></td><td>returns S, C, CTS, phi, CAC, conscious</td></tr>
+          <tr><th>POST</th><th>/cac/train</th><td><code>{ features[6], target_cts }</code></td><td>updates CAC weights</td></tr>
+          <tr><th>GET</th><th>/health</th><td>–</td><td>backend availability</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="grid two" style="margin-top:1rem">
+      <div>
+        <h3>Python client</h3>
+        <pre><code class="small">import requests, json
+payload = {"text": "A is B. A is not B.", "sources": [], "constraints": []}
+r = requests.post("http://127.0.0.1:8000/compute", json=payload)
+print(json.dumps(r.json(), indent=2))</code></pre>
+      </div>
+      <div>
+        <h3>JavaScript client</h3>
+        <pre><code class="small">const res = await fetch("/compute", {
+  method: "POST",
+  headers: {"Content-Type":"application/json"},
+  body: JSON.stringify({text, sources, constraints})
+});
+const data = await res.json(); console.log(data);</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Evaluation -->
+  <section class="card wrap-narrow">
+    <h2>Evaluation</h2>
+    <ul>
+      <li>Intensity tracking: correlation of CTS with human ratings on illusions and dissonance tasks</li>
+      <li>Unconscious conditions: masked stimuli should show CTS below threshold</li>
+      <li>Altered states: psychedelics increase CTS, meditation reduces it, anesthesia near zero</li>
+      <li>Hallucination reduction: CTS informed decoding lowers hallucination rate at same accuracy</li>
+      <li>End to end: CTS guided edits reduce contradiction count and improve faithfulness</li>
+    </ul>
+  </section>
+
+  <!-- 7. Minimal browser demo -->
+  <section class="card wrap-narrow">
+    <h2>Browser demo</h2>
+    <p class="small muted">Heuristic only. The server gives stronger results. Paste text and see S, C, CTS. Add sources separated by commas.</p>
+    <div class="callout">
+      <label for="txt" class="small">Text</label>
+      <textarea id="txt" style="width:100%;min-height:120px;margin:.5rem 0"></textarea>
+      <label for="src" class="small">Sources (optional, comma separated)</label>
+      <input id="src" type="text" style="width:100%;margin:.25rem 0" placeholder="source a, source b">
+      <div class="inline" style="margin-top:.5rem">
+        <button class="btn" id="run">Compute</button>
+        <button class="btn secondary" id="clear">Clear</button>
+      </div>
+      <div id="out" style="margin-top:1rem"></div>
+    </div>
+
+    <script>
+      // heuristic demo that mirrors equations with simple proxies
+      const STOP = new Set("the a an and or of for in on to is are was were be been being with by as at from this that it".split(" "));
+      function toks(s){return (s.toLowerCase().match(/[a-z0-9']+/g)||[]) }
+      function sents(t){return (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean))}
+      function terms(s){ return new Set(toks(s).filter(w=>!STOP.has(w) && w.length>3)); }
+      function compressRatio(t){ if(!t) return 1; const raw = new TextEncoder().encode(t); const cs=raw.length; const uniq=new Set(raw).size; return cs/(uniq+1); }
+      function deltaPredLoss(t){ const base=compressRatio(t); const content=toks(t).filter(w=>!STOP.has(w)).join(" "); const simp=compressRatio(content); const d=Math.max(0, base-simp); return Math.max(0, Math.min(1, d/2)); }
+      function klProxy(t){ const words=toks(t); if(!words.length) return 0; const rare=words.filter(w=>w.length>8).length; return Math.max(0, Math.min(1, rare/Math.max(1,words.length))); }
+      function residualEnergy(t){ const r=compressRatio(t); const inv=1/(r||1e-6); return Math.max(0, Math.min(1, inv)); }
+      function Sscore(t){ const d=deltaPredLoss(t), k=klProxy(t), e=residualEnergy(t); return {d,k,e,S: Math.max(0, Math.min(1, 0.5*d+0.25*k+0.25*e))} }
+      function nliHeuristic(t){ const S=sents(t); let scores=[]; const neg = w=>/(^|\s)(not|never|no|none|cannot|isn't|can't|without)(\s|$)/i.test(w);
+        for(let i=0;i<S.length;i++){ for(let j=i+1;j<S.length;j++){
+          const A=terms(S[i]), B=terms(S[j]); const inter=[...A].filter(x=>B.has(x)).length; const uni=new Set([...A,...B]).size;
+          const overlap = inter/Math.max(1,uni); const n = (neg(S[i])^neg(S[j]))?1:0; scores.push(overlap*n); } }
+        const m = scores.length? scores.reduce((a,b)=>a+b,0)/scores.length:0; return Math.max(0, Math.min(1, m/0.6)); }
+      function hallucRisk(text, sources){ const W=new Set(toks(text)); const covs=sources.map(s=>{ const sw=new Set(toks(s)); const inter=[...W].filter(x=>sw.has(x)).length; const uni=new Set([...W,...sw]).size; return inter/Math.max(1, uni); }); const coverage = covs.length? Math.max(...covs):0; return Math.max(0, 1-coverage); }
+      function scoreC(t, srcs){ const n = nliHeuristic(t); const u = 0; const h = hallucRisk(t, srcs); const a=0.5,b=0.25,c=0.25; const C = Math.max(0, Math.min(1, a*n + b*u + c*h)); return {n,u,h,C}; }
+      function phiProxy(t){ const s=sents(t); if(!s.length) return 0; function T(x){return new Set(toks(x));} let ov=[]; for(let i=0;i<s.length-1;i++){ const A=T(s[i]), B=T(s[i+1]); const inter=[...A].filter(x=>B.has(x)).length; const uni=new Set([...A,...B]).size; ov.push(inter/Math.max(1,uni)); } const m= ov.length? ov.reduce((a,b)=>a+b,0)/ov.length:0; return Math.max(0, Math.min(1, m/0.3)); }
+      function render(o){ return `<div class="grid two">
+        <div class="callout"><h3>Compression</h3>
+          <div class="small">ΔLpred: ${o.S.d.toFixed(3)} | KL: ${o.S.k.toFixed(3)} | Residual: ${o.S.e.toFixed(3)}</div>
+          <div>S: <strong>${o.S.S.toFixed(3)}</strong></div></div>
+        <div class="callout"><h3>Contradiction</h3>
+          <div class="small">NLI*: ${o.C.n.toFixed(3)} | Unsat: ${o.C.u.toFixed(3)} | Halluc: ${o.C.h.toFixed(3)}</div>
+          <div>C: <strong>${o.C.C.toFixed(3)}</strong></div></div>
+        <div class="callout"><h3>Scores</h3>
+          <div>CTS: <strong>${o.CTS.toFixed(3)}</strong></div>
+          <div>Phi: ${o.phi.toFixed(3)}</div>
+          <div class="small muted">* heuristic, use server for real NLI and SAT</div></div>
+      </div>`}
+      document.getElementById('run').onclick = ()=>{ const t = document.getElementById('txt').value||''; const srcs = (document.getElementById('src').value||'').split(',').map(s=>s.trim()).filter(Boolean);
+        const S=Sscore(t); const C=scoreC(t, srcs); const CTS = S.S * C.C; const phi=phiProxy(t); const out = {S, C, CTS, phi}; document.getElementById('out').innerHTML = render(out); };
+      document.getElementById('clear').onclick = ()=>{ document.getElementById('txt').value=''; document.getElementById('src').value=''; document.getElementById('out').innerHTML=''; };
+    </script>
+  </section>
+
+  <!-- 8. Implementation checklist -->
+  <section class="card wrap-narrow">
+    <h2>Checklist</h2>
+    <ul>
+      <li>Run the reference service and confirm /compute returns S, C, CTS, conscious</li>
+      <li>Swap the heuristic NLI with your production NLI or import a strong public model</li>
+      <li>Add python sat or z3 to compute unsat cores on your typed constraints</li>
+      <li>Wire retrieval coverage from your retriever and compute hallucination risk</li>
+      <li>Enable CAC and log M. Tune thresholds to your domain</li>
+      <li>Turn on CTS conditioned decoding. Track hallucination reduction and edit impact</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script defer src="script.js"></script>
+</body>
+</html>
