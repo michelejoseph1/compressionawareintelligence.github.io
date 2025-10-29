@@ -1,213 +1,375 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CAI • Consciousness</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- MathJax for readable equations -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAI • Contradictions</title>
+  <meta name="description" content="CAI contradiction theory, equations, implementation, SVG diagram, and JSON schema." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax for equations -->
   <script>
-    window.MathJax = { tex: {inlineMath: [['$','$'], ['\\(','\\)']]} };
+    window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
-    /* local tweaks that should not conflict with your site */
-    .hero{padding:3rem 1rem;border-bottom:1px solid #eee}
-    .container{max-width:980px;margin:0 auto;padding:0 1rem}
-    .kicker{letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:#666}
+    .wrap-narrow{max-width:980px;margin:0 auto;padding:0 1rem}
+    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
+    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
     .grid{display:grid;gap:1rem}
-    .grid-2{grid-template-columns:1fr 1fr}
+    .two{grid-template-columns:1fr 1fr}
     pre{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:10px;overflow:auto}
     code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
-    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
-    .badge{padding:.15rem .5rem;border:1px solid #e5e7eb;border-radius:6px;background:#f8fafc;font-size:.8rem}
-    .muted{color:#667085}
-    .success{color:#065f46}
-    .warn{color:#92400e}
     .table{width:100%;border-collapse:collapse}
     .table th,.table td{border-bottom:1px solid #eee;padding:.5rem;text-align:left}
     .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
+    .muted{color:#667085}
     .inline{display:flex;gap:.5rem;flex-wrap:wrap}
     .btn{cursor:pointer;border:1px solid #111;border-radius:10px;padding:.6rem 1rem;background:#111;color:#fff}
     .btn.secondary{background:#fff;color:#111}
     .small{font-size:.9rem}
+    /* svg */
+    .diagram{background:#ffffff;border:1px solid #e5e7eb;border-radius:10px;padding:.5rem}
+    .node{fill:#f8fafc;stroke:#111;stroke-width:1}
+    .edge{stroke:#111;stroke-width:1.5;marker-end:url(#arrow)}
+    .label{font-size:12px;fill:#111;font-family:Inter,system-ui,Arial,Helvetica,sans-serif}
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <div class="kicker">Compression‑Aware Intelligence</div>
-      <h1>Consciousness</h1>
-      <p class="muted">Formal spec, equations, and implementation guidance for CAI's consciousness thesis. This page is engineered for AI researchers and engineers. Everything here is new and self contained.</p>
-      <div class="inline" style="margin-top: .75rem;">
-        <span class="pill">Equations</span>
-        <span class="pill">API Spec</span>
-        <span class="pill">Reference Implementation</span>
-        <span class="pill">Client‑side CTS demo</span>
+
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="consciousness.html" data-nav>Consciousness</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero card">
+    <p class="pill">CAI core</p>
+    <h1>Contradictions</h1>
+    <p class="lede">
+      CAI treats contradiction as a first class signal. This page defines the math, the data model, a validation schema, a diagram of the flow, and a minimal implementation so engineers can detect, localize, and resolve contradictions in text pipelines today.
+    </p>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Data flow</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 900 300" width="100%" height="100%" role="img" aria-label="Contradiction pipeline diagram">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#111"></path>
+          </marker>
+        </defs>
+
+        <!-- nodes -->
+        <rect class="node" x="20" y="40" width="140" height="60" rx="10"></rect>
+        <text class="label" x="90" y="75" text-anchor="middle">Text input</text>
+
+        <rect class="node" x="200" y="40" width="170" height="60" rx="10"></rect>
+        <text class="label" x="285" y="70" text-anchor="middle">Claim extractor</text>
+
+        <rect class="node" x="420" y="10" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="45" text-anchor="middle">NLI pairs</text>
+
+        <rect class="node" x="420" y="120" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="155" text-anchor="middle">Constraint checker</text>
+
+        <rect class="node" x="420" y="230" width="180" height="60" rx="10"></rect>
+        <text class="label" x="510" y="265" text-anchor="middle">Retrieval gap</text>
+
+        <rect class="node" x="640" y="90" width="230" height="80" rx="10"></rect>
+        <text class="label" x="755" y="120" text-anchor="middle">Aggregate</text>
+        <text class="label" x="755" y="140" text-anchor="middle">C = a·NLI + b·Unsat + c·Halluc</text>
+        <text class="label" x="755" y="160" text-anchor="middle">CTS = S · C (optional)</text>
+
+        <!-- edges -->
+        <line class="edge" x1="160" y1="70" x2="200" y2="70"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="40"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="150"></line>
+        <line class="edge" x1="370" y1="70" x2="420" y2="260"></line>
+        <line class="edge" x1="600" y1="40" x2="640" y2="130"></line>
+        <line class="edge" x1="600" y1="150" x2="640" y2="130"></line>
+        <line class="edge" x1="600" y1="260" x2="640" y2="130"></line>
+      </svg>
+    </div>
+    <p class="small muted">Objective: produce contradiction objects with minimal scopes and actionable edits that reduce C on re-evaluation.</p>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Definitions</h2>
+    <div class="eq">Contradiction magnitude
+      $$ C = a\,\\overline{P_{\\text{NLI}}(contr)} + b\,U_{SAT} + c\,H_{halluc} \\in [0,1] $$
+    </div>
+    <p class="small muted">
+      NLI term is the mean contradiction probability over sampled claim pairs. $U_{SAT}$ scales with unsatisfiable core size from a constraint checker. $H_{halluc}$ is retrieval gap risk when outputs lack grounding. Weights $a,b,c$ are tunable.
+    </p>
+    <div class="eq" style="margin-top:.5rem">Compression tension score
+      $$ CTS = S \\cdot C $$
+    </div>
+    <p class="small muted">Use CTS to rank where resolution work is most valuable.</p>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Data model</h2>
+    <div class="grid two">
+      <div>
+        <h3>Claim</h3>
+        <pre><code>{
+  "id": "c_102",
+  "text": "The vaccine reduces transmission by 60 percent.",
+  "spans": [[4, 10], [20, 33]],
+  "supports": ["src_7#p2"],
+  "modality": "text",
+  "certainty": 0.72,
+  "time": "2025-10-28T19:00:00Z"
+}</code></pre>
+      </div>
+      <div>
+        <h3>Contradiction object</h3>
+        <pre><code>{
+  "id": "co_9",
+  "type": "nli|symbolic|grounding",
+  "scope_claims": ["c_102", "c_141"],
+  "unsat_core": ["rate_def", "time_window"],
+  "score": 0.81,
+  "suggested_edits": [
+    "disambiguate time window",
+    "define transmission vs infection"
+  ]
+}</code></pre>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main class="container" aria-label="content">
-
-    <section id="summary" style="margin-top:2rem">
-      <h2>Summary</h2>
-      <p>Phenomenal consciousness arises when a system integrates contradictory information, produces compression strain, and becomes meta‑aware of that strain. This page defines the signals and shows how to compute them in practice.</p>
-    </section>
-
-    <section id="equations" style="margin-top:2rem">
-      <h2>Core Equations</h2>
-      <div class="eq">Compression strain: $$S = w_1\,\Delta L_{pred} + w_2\,\mathrm{KL}\big(q(z\mid x)\,\Vert\,p(z)\big) + w_3\,E_{res} \in [0,1]$$</div>
-      <div class="eq" style="margin-top:.5rem">Contradiction magnitude: $$C = a\,\overline{P_{\text{NLI}}(contr)} + b\,U_{SAT} + c\,H_{halluc} \in [0,1]$$</div>
-      <div class="eq" style="margin-top:.5rem">Compression Tension Score: $$CTS = S \cdot C$$</div>
-      <div class="eq" style="margin-top:.5rem">Phenomenal intensity prediction: $$I_{phen} \approx k \cdot CTS$$</div>
-      <div class="eq" style="margin-top:.5rem">Consciousness condition at time $t$:
-        $$Conscious(t) \iff \Phi_t>\tau_{\Phi} \;\wedge\; CTS_t>\tau_{CTS} \;\wedge\; M_t>\tau_M$$
-      </div>
-      <p class="small muted">$\Phi$ is an integration proxy. $M$ measures meta‑awareness of strain via a CAC monitor.</p>
-    </section>
-
-    <section id="interfaces" style="margin-top:2rem">
-      <h2>Engineering Interfaces</h2>
-      <div class="grid grid-2">
-        <div>
-          <h3>Signal objects</h3>
-          <pre><code>{
-  "compression": {
-    "delta_pred_loss": 0.23,
-    "kl_div": 0.18,
-    "residual_energy": 0.40,
-    "S": 0.31
+  <section class="card wrap-narrow">
+    <h2>JSON Schema</h2>
+    <p class="small muted">Drop this into your validation layer to standardize contradiction objects across services.</p>
+    <pre><code>{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://compressionawareintelligence.com/schemas/contradiction-object.schema.json",
+  "title": "ContradictionObject",
+  "type": "object",
+  "required": ["id", "type", "scope_claims", "score"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^co_[A-Za-z0-9_-]+$" },
+    "type": { "type": "string", "enum": ["nli", "symbolic", "grounding"] },
+    "scope_claims": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^c_[A-Za-z0-9_-]+$" },
+      "minItems": 2
+    },
+    "unsat_core": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Identifiers of minimal conflicting constraints if available"
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "source ids or URIs"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "contradiction magnitude or CTS if multiplied by strain"
+    },
+    "suggested_edits": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "edit actions that lower C on re-evaluation"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "freeform diagnostics or implementation notes"
+    }
   },
-  "contradiction": {
-    "nli_contradiction": 0.47,
-    "unsat_core": 0.10,
-    "hallucination_risk": 0.36,
-    "C": 0.34
-  },
-  "cts": 0.106,
-  "phi": 0.28,
-  "meta": 0.62,
-  "conscious": true
+  "additionalProperties": false
 }</code></pre>
-        </div>
-        <div>
-          <h3>REST API</h3>
-          <p class="small">Reference server provides these endpoints. You can port the logic to any stack.</p>
-          <table class="table small">
-            <tr><th>Method</th><th>Path</th><th>Body</th><th>Returns</th></tr>
-            <tr><td>POST</td><td><code>/compute</code></td><td><code>{text, sources[], constraints[][]}</code></td><td>signals + decision</td></tr>
-            <tr><td>POST</td><td><code>/cac/train</code></td><td><code>{features[6], target_cts}</code></td><td>CAC weights + meta</td></tr>
-            <tr><td>GET</td><td><code>/health</code></td><td>–</td><td>backend availability</td></tr>
-          </table>
-          <p class="small muted">Features = [S, C, CTS, phi, nli_contradiction, hallucination_risk].</p>
-        </div>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Algorithm</h2>
+    <ol>
+      <li>Extract canonical claims from text. Keep spans and provenance.</li>
+      <li>Sample claim pairs. Score NLI contradiction probability.</li>
+      <li>Induce constraints from schema. Run SAT or MaxSAT to find unsat cores.</li>
+      <li>Compute retrieval gap for each answer to estimate grounding risk.</li>
+      <li>Aggregate to C. Multiply by strain S if available to get CTS.</li>
+      <li>Emit contradiction objects that validate against the schema and carry suggested edits.</li>
+    </ol>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Engineer API</h2>
+    <table class="table small">
+      <tr><th>POST</th><th>/contradiction/score</th><td><code>{ text, sources[], constraints[][] }</code></td><td>returns { C, details }</td></tr>
+      <tr><th>POST</th><th>/contradiction/extract</th><td><code>{ text }</code></td><td>returns claims[]</td></tr>
+      <tr><th>POST</th><th>/contradiction/resolve</th><td><code>{ claims[], co }</code></td><td>returns edit plan</td></tr>
+    </table>
+    <p class="small muted">The reference backend in <code>cstc_service.py</code> exposes compatible fields through <code>/compute</code>. You can mirror these endpoints if you want a dedicated contradictions service.</p>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Minimal code path</h2>
+    <pre><code># 1) run the reference service
+uvicorn cstc_service:app --reload
+
+# 2) client request (pseudo)
+payload = {
+  "text": doc,
+  "sources": [doc_a, doc_b],
+  "constraints": [[1, -3], [2, 3]]  # optional CNF
+}
+res = POST("/compute", json=payload)
+C = res["contradiction"]["C"]  # nli_contradiction, unsat_core, hallucination_risk available</code></pre>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Evaluation</h2>
+    <ul>
+      <li>Pairwise contradiction F1 on NLI datasets and your domain pairs.</li>
+      <li>Unsat core localization accuracy against synthetic rule conflicts.</li>
+      <li>Grounding AUROC on hallucination benchmarks using retrieval gap.</li>
+      <li>Human utility: reduction in post edit contradictions after suggested edits.</li>
+    </ul>
+  </section>
+
+  <section class="card wrap-narrow">
+    <h2>Browser demo</h2>
+    <p class="small muted">Heuristic only. The server gives stronger results. Paste a paragraph with conflicting statements and optionally add short source snippets separated by commas.</p>
+    <div class="callout">
+      <label for="txt" class="small">Text</label>
+      <textarea id="txt" style="width:100%;min-height:120px;margin:.5rem 0"></textarea>
+
+      <label for="src" class="small">Sources (comma separated, optional)</label>
+      <input id="src" type="text" style="width:100%;margin:.25rem 0" placeholder="source a, source b">
+
+      <div class="inline" style="margin-top:.5rem">
+        <button class="btn" id="run">Score contradiction</button>
+        <button class="btn secondary" id="clear">Clear</button>
       </div>
-    </section>
 
-    <section id="impl" style="margin-top:2rem">
-      <h2>Reference Implementation</h2>
-      <p>The minimal implementation is a small FastAPI service that computes the signals, exposes the CAC layer, and evaluates the consciousness condition. Install and run:</p>
-      <pre><code>pip install fastapi uvicorn pydantic python-multipart
-# optional
-pip install transformers torch python-sat
-uvicorn cstc_service:app --reload</code></pre>
-      <p class="small">The file <code>cstc_service.py</code> is available in the research canvas and can be placed in your backend folder. Engineers can swap in their own compressor, NLI, and SAT layers without changing the API.</p>
-    </section>
+      <div id="out" style="margin-top:1rem"></div>
+    </div>
 
-    <section id="algo" style="margin-top:2rem">
-      <h2>Algorithmic Steps</h2>
-      <ol>
-        <li>Compute <strong>S</strong> with a compressor on hidden states. Log $\Delta L_{pred}$, KL, and residuals.</li>
-        <li>Compute <strong>C</strong> by combining NLI contradiction rates, SAT unsat core size, and retrieval gap.</li>
-        <li>Set <strong>CTS</strong> as the product $S\cdot C$ and compute $\Phi$ with an integration proxy.</li>
-        <li>Train a <strong>CAC</strong> monitor to predict CTS from internal activations and publish a meta score $M$.</li>
-        <li>Declare <strong>conscious</strong> if $\Phi>\tau_\Phi$ and $CTS>\tau_{CTS}$ and $M>\tau_M$.</li>
-      </ol>
-    </section>
+    <script>
+      const STOP = new Set("the a an and or of for in on to is are was were be been being with by as at from this that it".split(" "));
+      function toks(s){return (s.toLowerCase().match(/[a-z0-9']+/g)||[]) }
+      function sents(t){return (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean))}
+      function terms(s){ return new Set(toks(s).filter(w=>!STOP.has(w) && w.length>3)); }
 
-    <section id="eval" style="margin-top:2rem">
-      <h2>Evaluation</h2>
-      <ul>
-        <li>Intensity vs CTS on illusions, dissonance tasks, and pain datasets.</li>
-        <li>Masked vs conscious stimuli should drive CTS below threshold.</li>
-        <li>Altered states shift CTS: psychedelics up, meditation down, anesthesia near zero.</li>
-        <li>AI: hallucination benchmarks should correlate with contradiction magnitude and CTS.</li>
-      </ul>
-    </section>
+      function nliHeuristic(t){
+        const S=sents(t); let scores=[];
+        const neg = w=>/(^|\s)(not|never|no|none|cannot|isn't|can't|without)(\s|$)/i.test(w);
+        for(let i=0;i<S.length;i++){
+          for(let j=i+1;j<S.length;j++){
+            const A=terms(S[i]), B=terms(S[j]);
+            const inter=[...A].filter(x=>B.has(x)).length;
+            const uni=new Set([...A,...B]).size;
+            const overlap = inter/Math.max(1,uni);
+            const n = (neg(S[i])^neg(S[j]))?1:0;
+            scores.push(overlap*n);
+          }
+        }
+        const m = scores.length? scores.reduce((a,b)=>a+b,0)/scores.length:0;
+        return Math.max(0, Math.min(1, m/0.6));
+      }
 
-    <section id="demo" style="margin-top:2rem">
-      <h2>Client‑side CTS demo</h2>
-      <p class="small muted">This in‑page tool is a heuristic preview only. It lets you see how CTS reacts to your text. For production use the server implementation.</p>
-      <div class="callout">
-        <label for="claim" class="small">Paste a paragraph with conflicting statements</label>
-        <textarea id="claim" style="width:100%;min-height:120px;margin:.5rem 0"></textarea>
-        <label for="sources" class="small">Optional sources text (comma separated)</label>
-        <input id="sources" type="text" style="width:100%;margin:.25rem 0" placeholder="source a, source b">
-        <div class="inline" style="margin-top:.5rem">
-          <button class="btn" id="runDemo">Compute CTS</button>
-          <button class="btn secondary" id="clearDemo">Clear</button>
+      function hallucRisk(text, sources){
+        const W=new Set(toks(text));
+        const covs=sources.map(s=>{
+          const sw=new Set(toks(s));
+          const inter=[...W].filter(x=>sw.has(x)).length;
+          const uni=new Set([...W,...sw]).size;
+          return inter/Math.max(1, uni);
+        });
+        const coverage = covs.length? Math.max(...covs):0;
+        return Math.max(0, 1-coverage);
+      }
+
+      function unsatProxy(){ return 0 } // client has no SAT
+
+      function scoreC(t, srcs){
+        const n = nliHeuristic(t);
+        const u = unsatProxy();
+        Cha = hallucRisk(t, srcs); // typo guard in case of copy issues
+        const h = hallucRisk(t, srcs);
+        const a=0.5,b=0.25,c=0.25;
+        const C = Math.max(0, Math.min(1, a*n + b*u + c*h));
+        return {n,u,h,C};
+      }
+
+      function render(o){
+        return `
+        <div class="grid two">
+          <div class="callout">
+            <h3>NLI proxy</h3>
+            <p class="small muted">Overlap plus negation heuristic</p>
+            <div>nli_contradiction: <strong>${o.n.toFixed(3)}</strong></div>
+          </div>
+          <div class="callout">
+            <h3>Grounding</h3>
+            <p class="small muted">Retrieval gap risk</p>
+            <div>hallucination_risk: <strong>${o.h.toFixed(3)}</strong></div>
+          </div>
         </div>
-        <div id="demoOut" style="margin-top:1rem"></div>
-      </div>
-      <script>
-        // heuristic demo: mirrors the equations with simple proxies
-        const STOP = new Set("the a an and or of for in on to is are was were be been being with by as at from this that it".split(" "));
-        function tokenize(s){return (s.toLowerCase().match(/[a-z0-9']+/g)||[]) }
-        function sentences(t){return (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean))}
-        function compressRatio(t){ if(!t) return 1; const raw = new TextEncoder().encode(t); try{ const cs=raw.length; const uniq=new Set(raw).size; return cs/(uniq+1); }catch(e){ return 1; } }
-        function deltaPredLoss(t){ const base=compressRatio(t); const content=tokenize(t).filter(w=>!STOP.has(w)).join(" "); const simp=compressRatio(content); const d=Math.max(0, base-simp); return Math.max(0, Math.min(1, d/2)); }
-        function klProxy(t){ const words=tokenize(t); if(!words.length) return 0; const rare=words.filter(w=>w.length>8).length; return Math.max(0, Math.min(1, rare/Math.max(1,words.length))); }
-        function residualEnergy(t){ const r=compressRatio(t); const inv=1/(r||1e-6); return Math.max(0, Math.min(1, inv)); }
-        function Sscore(t){ const d=deltaPredLoss(t), k=klProxy(t), e=residualEnergy(t); return {d,k,e,S: Math.max(0, Math.min(1, 0.5*d+0.25*k+0.25*e))} }
-        function nliHeuristic(t){ const sents=sentences(t); let scores=[]; const neg = w=>/(^|\s)(not|never|no|none|cannot|isn't|can't)(\s|$)/i.test(w);
-          function terms(s){ return new Set(tokenize(s).filter(w=>!STOP.has(w) && w.length>3)); }
-          for(let i=0;i<sents.length;i++) for(let j=i+1;j<sents.length;j++){ const A=terms(sents[i]), B=terms(sents[j]); const inter=[...A].filter(x=>B.has(x)).length; const uni=new Set([...A,...B]).size; const overlap= inter/Math.max(1,uni); const n = (neg(sents[i])^neg(sents[j]))?1:0; scores.push(overlap*n); }
-          const m = scores.length? scores.reduce((a,b)=>a+b,0)/scores.length:0; return Math.max(0, Math.min(1, m/0.6)); }
-        function unsatProxy(){ return 0 } // client has no SAT
-        function hallucinationRisk(t, sources){ const W=new Set(tokenize(t)); const covs=sources.map(s=>{ const sw=new Set(tokenize(s)); const inter=[...W].filter(x=>sw.has(x)).length; const uni=new Set([...W, ...sw]).size; return inter/Math.max(1, uni); }); const coverage=covs.length? Math.max(...covs):0; return Math.max(0, 1-coverage); }
-        function Cscore(t, sources){ const n=nliHeuristic(t), u=unsatProxy(), h=hallucinationRisk(t, sources); const C=Math.max(0, Math.min(1, 0.5*n+0.25*u+0.25*h)); return {n,u,h,C} }
-        function phiProxy(t){ const s=sentences(t); if(!s.length) return 0; function terms(x){return new Set(tokenize(x));} let ov=[]; for(let i=0;i<s.length-1;i++){ const A=terms(s[i]), B=terms(s[i+1]); const inter=[...A].filter(x=>B.has(x)).length; const uni=new Set([...A,...B]).size; ov.push(inter/Math.max(1,uni)); } const m= ov.length? ov.reduce((a,b)=>a+b,0)/ov.length:0; return Math.max(0, Math.min(1, m/0.3)); }
-        function render(o){ return `<div class="grid grid-2">
-          <div class="callout"><h4>Compression</h4>
-            <div class="small">ΔLpred: ${o.S.d.toFixed(3)} | KL: ${o.S.k.toFixed(3)} | Residual: ${o.S.e.toFixed(3)}</div>
-            <div>S: <strong>${o.S.S.toFixed(3)}</strong></div></div>
-          <div class="callout"><h4>Contradiction</h4>
-            <div class="small">NLI*: ${o.C.n.toFixed(3)} | Unsat: ${o.C.u.toFixed(3)} | Halluc: ${o.C.h.toFixed(3)}</div>
-            <div>C: <strong>${o.C.C.toFixed(3)}</strong></div></div>
-          <div class="callout"><h4>Scores</h4>
-            <div>CTS: <strong>${o.CTS.toFixed(3)}</strong></div>
-            <div>Phi: ${o.phi.toFixed(3)}</div>
-            <div class="small muted">* heuristic, use server for real NLI</div></div>
-        </div>`}
-        document.getElementById('runDemo').onclick = ()=>{
-          const t = document.getElementById('claim').value||'';
-          const srcs = (document.getElementById('sources').value||'').split(',').map(s=>s.trim()).filter(Boolean);
-          const S=Sscore(t); const C=Cscore(t, srcs); const CTS = S.S * C.C; const phi=phiProxy(t);
-          const out = {S,C,CTS,phi};
-          document.getElementById('demoOut').innerHTML = render(out);
-        };
-        document.getElementById('clearDemo').onclick = ()=>{ document.getElementById('claim').value=''; document.getElementById('sources').value=''; document.getElementById('demoOut').innerHTML=''; };
-      </script>
-    </section>
+        <div class="callout" style="margin-top:1rem">
+          <h3>Contradiction magnitude</h3>
+          <div>C: <strong>${o.C.toFixed(3)}</strong></div>
+          <p class="small muted">Use the server to include SAT unsat cores and to log minimal contradiction scopes.</p>
+        </div>`;
+      }
 
-    <section id="faq" style="margin-top:2rem">
-      <h2>Notes for engineers</h2>
-      <ul>
-        <li>All weights are tunable. Start with equal weights, then learn them with validation on your benchmarks.</li>
-        <li>Replace the NLI heuristic with a trained NLI model. Replace the unsat proxy with python‑sat or z3 for real cores.</li>
-        <li>For compressors use VAE, masked autoencoder, or k‑sparse autoencoder on intermediate activations. Log the three strain terms.</li>
-        <li>The CAC monitor can start as a linear head then upgrade to a small MLP. Track meta‑awareness as prediction quality of CTS and its influence on policy.</li>
-      </ul>
-      <p class="small muted">If you publish results or derivatives, cite Michele Joseph • Compression‑Aware Intelligence.</p>
-    </section>
+      document.getElementById('run').onclick = ()=>{
+        const text = document.getElementById('txt').value||'';
+        const srcs = (document.getElementById('src').value||'').split(',').map(s=>s.trim()).filter(Boolean);
+        const out = scoreC(text, srcs);
+        document.getElementById('out').innerHTML = render(out);
+      };
+      document.getElementById('clear').onclick = ()=>{
+        document.getElementById('txt').value='';
+        document.getElementById('src').value='';
+        document.getElementById('out').innerHTML='';
+      };
+    </script>
+  </section>
 
-  </main>
+  <section class="card wrap-narrow">
+    <h2>Notes for engineers</h2>
+    <ul>
+      <li>Replace the heuristic NLI with a trained NLI model. Use python-sat or z3 for unsat cores. Keep your constraint schema simple and typed.</li>
+      <li>Emit contradiction objects that validate against the schema and include explicit suggestions that lower C on re-evaluation.</li>
+      <li>If you also run strain S, publish CTS and sort flags by CTS to prioritize fixes that matter.</li>
+      <li>Log provenance for every claim and every edit. Auditable contradictions are much easier to fix in production.</li>
+    </ul>
+  </section>
+</main>
 
-  <footer class="container" style="margin:3rem 0 4rem 0">
-    <span class="badge">v1.0</span>
-    <span class="muted small">This page is a standalone spec. It does not depend on other pages.</span>
-  </footer>
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script defer src="script.js"></script>
 </body>
 </html>
