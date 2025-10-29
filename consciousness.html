@@ -332,10 +332,10 @@ uvicorn cstc_service:app --reload</code></pre>
   <section class="card wrap-narrow">
     <h2>Notes for engineers</h2>
     <ul>
-      <li>Weights are tunable. Start equal, then learn on your validation sets.</li>
+      <li>Weights are tunable so maybe start equal then learn on your validation sets.</li>
       <li>Replace heuristic NLI with a trained model. Replace the unsat proxy with python-sat or z3.</li>
       <li>Use a VAE, masked autoencoder, or k-sparse autoencoder on intermediate activations to compute $S$.</li>
-      <li>Start CAC as a linear head, then upgrade to a small MLP. Measure $M$ as CTS prediction quality and its influence on policy.</li>
+      <li>Start CAC as a linear head then upgrade to a small MLP. Measure $M$ as CTS prediction quality and its influence on policy.</li>
     </ul>
     <p class="small muted">If you publish results or derivatives, cite Michele Joseph • Compression-Aware Intelligence.</p>
   </section>
