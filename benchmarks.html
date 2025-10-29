@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAI • Benchmarks</title>
+  <meta name="description" content="Benchmarks and leaderboards for Compression-Aware Intelligence." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .wrap-narrow{max-width:1000px;margin:0 auto;padding:0 1rem}
+    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
+    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px}
+    .grid{display:grid;gap:1rem}
+    .two{grid-template-columns:1fr 1fr}
+    .three{grid-template-columns:1fr 1fr 1fr}
+    .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
+    .muted{color:#667085}
+    .small{font-size:.9rem}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid #eee;padding:.5rem;text-align:left}
+    .table th button{background:none;border:none;padding:0;margin:0;cursor:pointer;font:inherit;text-align:left}
+    pre{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:10px;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .btn{cursor:pointer;border:1px solid #111;border-radius:10px;padding:.6rem 1rem;background:#111;color:#fff}
+    .btn.secondary{background:#fff;color:#111}
+    .inline{display:flex;gap:.5rem;flex-wrap:wrap}
+    .ok{color:#065f46}
+    .warn{color:#92400e}
+    .bad{color:#991b1b}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="consciousness.html" data-nav>Consciousness</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="benchmarks.html" data-nav>Benchmarks</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero card">
+    <p class="pill">CAI metrics</p>
+    <h1>Benchmarks</h1>
+    <p class="lede">
+      Public leaderboards and protocols for evaluating contradiction magnitude, compression strain, and CTS guided quality. Everything below is designed for reproducibility.
+    </p>
+    <div class="inline" style="margin-top:.75rem">
+      <span class="pill">Metrics</span>
+      <span class="pill">Leaderboards</span>
+      <span class="pill">Submission schema</span>
+      <span class="pill">Repro recipes</span>
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  <section class="card wrap-narrow">
+    <h2>Metrics</h2>
+    <div class="grid two">
+      <div>
+        <h3>Contradiction detection</h3>
+        <div class="eq">Pairwise F1: $$ \\text{F1} = \\frac{2PR}{P + R} $$</div>
+        <p class="small muted">Binary contradiction labels on sampled claim pairs. Evaluate on NLI style splits or your domain pairs.</p>
+        <div class="eq" style="margin-top:.5rem">Magnitude AUC: $$ \\mathrm{AUROC}(\\hat C, C^*) $$</div>
+        <p class="small muted">Rank predicted $C$ against human or rule derived magnitudes $C^*$.</p>
+      </div>
+      <div>
+        <h3>Strain and phenomenology</h3>
+        <div class="eq">CTS correlation: $$ r = \\mathrm{corr}(CTS, I_{phen}) $$</div>
+        <p class="small muted">Correlation of $CTS$ with human intensity ratings for illusions, dissonance, or pain tasks.</p>
+        <div class="eq" style="margin-top:.5rem">Threshold accuracy: $$ Acc = \\frac{1}{N}\\sum 1[CTS>\\tau \\iff y=1] $$</div>
+        <p class="small muted">Binary thresholding of CTS to predict conscious vs masked conditions.</p>
+      </div>
+    </div>
+    <div class="grid two" style="margin-top:1rem">
+      <div>
+        <h3>Hallucination reduction</h3>
+        <div class="eq">Faithfulness drop: $$ \\Delta H = H_{base} - H_{cai} $$</div>
+        <p class="small muted">Lower is better for hallucination rate. Report accuracy delta alongside to show no collapse.</p>
+      </div>
+      <div>
+        <h3>Meta awareness</h3>
+        <div class="eq">Meta score: $$ M = \\mathrm{norm}\\big(\\tfrac{1}{2}\\,\\mathrm{corr}(CTS, \\hat{CTS}) + \\tfrac{1}{2}\\,\\mathrm{MI}(R_{strain},\\pi)\\big) $$</div>
+        <p class="small muted">$\\hat{CTS}$ is CAC prediction. $R_{strain}$ is the register. $\\pi$ are action logits.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboards -->
+  <section class="card wrap-narrow">
+    <h2>Leaderboards</h2>
+
+    <h3 style="margin-top:.5rem">A. Contradiction detection</h3>
+    <table class="table small" id="lb-contr">
+      <thead>
+        <tr>
+          <th><button data-sort="sys">System</button></th>
+          <th><button data-sort="f1">F1</button></th>
+          <th><button data-sort="auc">Magnitude AUC</button></th>
+          <th><button data-sort="notes">Notes</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Baseline NLI</td><td>0.72</td><td>0.68</td><td>pairwise roberta mnli</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:1.25rem">B. CTS vs phenomenology</h3>
+    <table class="table small" id="lb-phen">
+      <thead>
+        <tr>
+          <th><button data-sort="sys">System</button></th>
+          <th><button data-sort="r">corr r</button></th>
+          <th><button data-sort="acc">threshold Acc</button></th>
+          <th><button data-sort="tasks">Tasks</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>CAI v1</td><td>0.41</td><td>0.74</td><td>illusions, masked words</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:1.25rem">C. Hallucination reduction</h3>
+    <table class="table small" id="lb-halluc">
+      <thead>
+        <tr>
+          <th><button data-sort="sys">System</button></th>
+          <th><button data-sort="dh">Δ Halluc</button></th>
+          <th><button data-sort="da">Δ Accuracy</button></th>
+          <th><button data-sort="notes">Notes</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>CAI decode control</td><td>0.13</td><td>-0.01</td><td>retrieval QA</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:1rem">
+      <div class="inline">
+        <button class="btn" id="addRow">Add a row</button>
+        <button class="btn secondary" id="exportCSV">Export CSV</button>
+      </div>
+      <p class="small muted">Use this panel to add local results for comparison. For official submissions see the schema below.</p>
+    </div>
+  </section>
+
+  <!-- Submission schema -->
+  <section class="card wrap-narrow">
+    <h2>Submission schema</h2>
+    <p class="small muted">Validate your results against this schema and attach a short README with dataset splits, thresholds, and seeds.</p>
+    <pre><code>{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://compressionawareintelligence.com/schemas/cai-benchmark.schema.json",
+  "title": "CAI Benchmark Submission",
+  "type": "object",
+  "required": ["system", "version", "results", "config"],
+  "properties": {
+    "system": { "type": "string" },
+    "version": { "type": "string" },
+    "results": {
+      "type": "object",
+      "properties": {
+        "contradiction": { "type": "object", "properties": {
+          "f1": { "type": "number", "minimum": 0, "maximum": 1 },
+          "magnitude_auc": { "type": "number", "minimum": 0, "maximum": 1 }
+        }, "required": ["f1"]},
+        "phenomenology": { "type": "object", "properties": {
+          "cts_corr": { "type": "number", "minimum": -1, "maximum": 1 },
+          "threshold_acc": { "type": "number", "minimum": 0, "maximum": 1 },
+          "tasks": { "type": "array", "items": { "type": "string" } }
+        }},
+        "hallucination": { "type": "object", "properties": {
+          "delta_halluc": { "type": "number" },
+          "delta_acc": { "type": "number" },
+          "benchmark": { "type": "string" }
+        }},
+        "meta": { "type": "object", "properties": {
+          "M": { "type": "number", "minimum": 0, "maximum": 1 }
+        }}
+      }
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "tau_phi": { "type": "number" },
+        "tau_cts": { "type": "number" },
+        "tau_m": { "type": "number" },
+        "seeds": { "type": "array", "items": { "type": "integer" } },
+        "datasets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "format": "uri" },
+        "model_card": { "type": "string", "format": "uri" },
+        "logs": { "type": "string", "format": "uri" }
+      }
+    }
+  },
+  "additionalProperties": false
+}</code></pre>
+  </section>
+
+  <!-- Repro recipes -->
+  <section class="card wrap-narrow">
+    <h2>Repro recipes</h2>
+    <div class="grid two">
+      <div>
+        <h3>Setup</h3>
+        <pre><code>pip install fastapi uvicorn pydantic python-multipart
+# optional
+pip install transformers torch python-sat
+uvicorn cstc_service:app --reload</code></pre>
+        <p class="small muted">Use the reference service for consistent S, C, CTS fields. You can swap in your own backends and keep the interface.</p>
+      </div>
+      <div>
+        <h3>Scoring script</h3>
+        <pre><code>import json, requests
+def score(text, sources=None, constraints=None):
+    payload = {"text": text, "sources": sources or [], "constraints": constraints or []}
+    r = requests.post("http://127.0.0.1:8000/compute", json=payload).json()
+    return r["contradiction"]["C"], r["compression"]["S"], r["cstc"]["CTS"]</code></pre>
+      </div>
+    </div>
+    <div class="grid two" style="margin-top:1rem">
+      <div>
+        <h3>Phenomenology protocol</h3>
+        <ul class="small">
+          <li>Pick illusion or dissonance tasks with human intensity ratings</li>
+          <li>Compute CTS per item, report corr r and threshold Acc</li>
+          <li>Share thresholds and seeds</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hallucination protocol</h3>
+        <ul class="small">
+          <li>Run base decode vs CTS controlled decode</li>
+          <li>Report hallucination rate change and accuracy change</li>
+          <li>Attach retrieval settings and stop criteria</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script>
+  // simple sorter for the three tables
+  function makeSortable(id, cols){
+    const table = document.getElementById(id);
+    const tbody = table.querySelector('tbody');
+    table.querySelectorAll('thead button').forEach((btn, idx)=>{
+      btn.addEventListener('click', ()=>{
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const key = idx;
+        const num = (v)=> isNaN(parseFloat(v)) ? v : parseFloat(v);
+        rows.sort((a,b)=>{
+          const A = num(a.children[key].textContent.trim());
+          const B = num(b.children[key].textContent.trim());
+          if (typeof A === 'number' && typeof B === 'number') return B - A;
+          return (''+A).localeCompare(''+B);
+        });
+        rows.forEach(r=>tbody.appendChild(r));
+      });
+    });
+  }
+  makeSortable('lb-contr');
+  makeSortable('lb-phen');
+  makeSortable('lb-halluc');
+
+  // add row and export csv for quick comparisons
+  document.getElementById('addRow').onclick = ()=>{
+    const sys = prompt('system name?'); if(!sys) return;
+    const table = document.getElementById('lb-contr').querySelector('tbody');
+    const f1 = prompt('F1 (0..1)?'); const auc = prompt('Magnitude AUC (0..1)?'); const notes = prompt('notes?')||'';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${sys}</td><td>${(+f1||0).toFixed(2)}</td><td>${(+auc||0).toFixed(2)}</td><td>${notes}</td>`;
+    table.appendChild(tr);
+  };
+
+  document.getElementById('exportCSV').onclick = ()=>{
+    const tables = ['lb-contr','lb-phen','lb-halluc'].map(id=>{
+      const t = document.getElementById(id);
+      const head = Array.from(t.querySelectorAll('thead th')).map(th=>th.textContent.trim());
+      const rows = Array.from(t.querySelectorAll('tbody tr')).map(tr=>Array.from(tr.children).map(td=>td.textContent.trim()));
+      return {name:id, head, rows};
+    });
+    let csv = '';
+    tables.forEach(({name,head,rows})=>{
+      csv += `## ${name}\n`;
+      csv += head.join(',') + '\n';
+      rows.forEach(r=>{ csv += r.join(',') + '\n'; });
+      csv += '\n';
+    });
+    const blob = new Blob([csv], {type:'text/csv'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'cai_benchmarks_export.csv';
+    a.click();
+  };
+</script>
+<script defer src="script.js"></script>
+</body>
+</html>
