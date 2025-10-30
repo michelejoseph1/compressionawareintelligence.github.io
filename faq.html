@@ -4,51 +4,77 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FAQ | CAI</title>
-  <meta name="description" content="Frequently asked questions about Compression-Aware Intelligence." />
+  <meta name="description" content="Frequently asked questions about Compression-Aware Intelligence: what it is, how it differs from IB, Schmidhuber, and RAG, how to evaluate it, and how to get involved." />
   <link rel="icon" href="assets/favicon.png" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/faq.html" />
+  <meta property="og:title" content="FAQ | Compression-Aware Intelligence" />
+  <meta property="og:description" content="Clear answers about CAI novelty, metrics, guarantees, and how to evaluate and adopt it." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/faq.html" />
+  <meta name="twitter:card" content="summary" />
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
 
-  <!-- Optional: SEO structured data for richer search results -->
+  <!-- FAQPage structured data -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
       {
-        "@type": "Question",
-        "name": "What is CAI in one sentence?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Compression-Aware Intelligence is a framework for recognizing, measuring, and leveraging the distortions created by compression in AI systems, human cognition, and collective narratives, in order to improve reliability and accountability." }
+        "@type":"Question",
+        "name":"What is CAI in one sentence?",
+        "acceptedAnswer":{"@type":"Answer","text":"Compression-Aware Intelligence (CAI) is a system contract that detects, scores, and governs the effects of compression at each step of an AI or human-information pipeline so that outputs stay within evidence and uncertainty is made explicit."}
       },
       {
-        "@type": "Question",
-        "name": "How is CAI different from typical AI safety or RAG approaches?",
-        "acceptedAnswer": { "@type": "Answer", "text": "CAI treats compression as the root variable. It maps compression sites, scores their tension, attaches provenance, and enforces abstention if claims are not entailed. RAG is a retrieval pattern. CAI is a system contract that spans retrieval, verification, scoring, and audit." }
+        "@type":"Question",
+        "name":"Is CAI just Information Bottleneck?",
+        "acceptedAnswer":{"@type":"Answer","text":"No. IB studies representation sufficiency under a compression objective. CAI operationalizes compression sites across an end-to-end system with provenance, per-step tension scoring, abstention policy, and audit surfaces. IB is an analysis lens. CAI is a governance and execution layer."}
       },
       {
-        "@type": "Question",
-        "name": "Can CAI guarantee zero hallucination?",
-        "acceptedAnswer": { "@type": "Answer", "text": "For open-ended generation no. CAI guarantees no unsupported claims only when outputs are restricted to verified evidence and the system abstains if entailment or thresholds fail." }
+        "@type":"Question",
+        "name":"Is CAI just Schmidhuber style compression ideas?",
+        "acceptedAnswer":{"@type":"Answer","text":"Prior work links compression to learning and curiosity. CAI is distinct in that it treats compression as an auditable variable with thresholds, provenance, and abstention. The unit of analysis is the compression site with a measurable tension score that gates claims."}
       },
       {
-        "@type": "Question",
-        "name": "What is the Compression Tension Score?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A per-site metric that combines information loss, task degradation, provenance gaps, and uncertainty into a normalized score that estimates the cost of a compression step." }
+        "@type":"Question",
+        "name":"How is CAI different from RAG or typical AI safety toolchains?",
+        "acceptedAnswer":{"@type":"Answer","text":"RAG retrieves. CAI governs. CAI scores the cost of each compression step, attaches sources, and blocks unsupported claims. It spans retrieval, verification, scoring, and audit, not only search."}
       },
       {
-        "@type": "Question",
-        "name": "Where is the math and implementation detail?",
-        "acceptedAnswer": { "@type": "Answer", "text": "See the Foundations page for definitions, equations, thresholds, and a reference pipeline, plus links to the prototype repo and the CAI overview paper." }
+        "@type":"Question",
+        "name":"Can CAI guarantee zero hallucination?",
+        "acceptedAnswer":{"@type":"Answer","text":"For open ended generation no. CAI can guarantee no unsupported claims when the output space is restricted to verified evidence and the system abstains if entailment or thresholds fail."}
       },
       {
-        "@type": "Question",
-        "name": "Where can I read the overview paper and see code?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Overview: https://zenodo.org/records/16467706. Code: https://github.com/michelejoseph/compression-aware-intelligence-demo." }
+        "@type":"Question",
+        "name":"What is the Compression Tension Score?",
+        "acceptedAnswer":{"@type":"Answer","text":"A normalized per site metric combining information loss, task degradation, provenance gaps, and uncertainty. It estimates the risk cost of a compression step and feeds aggregate path scores."}
       },
       {
-        "@type": "Question",
-        "name": "How can I get involved?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Open issues and pull requests on GitHub, propose evaluation datasets with compression tags, or reach out on the Contact page for collaborations." }
+        "@type":"Question",
+        "name":"How do I evaluate CAI on my workload?",
+        "acceptedAnswer":{"@type":"Answer","text":"Tag compression sites in your pipeline, run with and without CAI gating, and compare accuracy, unsupported claim rate, abstention rate, and review time saved. Use the Benchmarks page for starter tasks and a scorecard template."}
+      },
+      {
+        "@type":"Question",
+        "name":"Where are the math and implementation details?",
+        "acceptedAnswer":{"@type":"Answer","text":"See Foundations for definitions, equations, thresholds, and a reference pipeline. The overview paper is on Zenodo and a prototype repo is on GitHub."}
+      },
+      {
+        "@type":"Question",
+        "name":"How do I cite CAI?",
+        "acceptedAnswer":{"@type":"Answer","text":"Use the provided BibTeX on this page or the Zenodo record. Please also credit the site and the founder in first mentions."}
+      },
+      {
+        "@type":"Question",
+        "name":"What about privacy and governance?",
+        "acceptedAnswer":{"@type":"Answer","text":"CAI supports local only scoring, redaction at source, and differential access to provenance. Tension metrics can be logged without raw content. See Implementations for patterns."}
+      },
+      {
+        "@type":"Question",
+        "name":"How can I get involved?",
+        "acceptedAnswer":{"@type":"Answer","text":"Open issues or pull requests, propose evaluation datasets with compression tags, or reach out on Contact for pilots and research collaborations."}
       }
     ]
   }
@@ -69,7 +95,7 @@
     <a href="benchmarks.html" data-nav>Benchmarks</a>
     <a href="research.html" data-nav>Research</a>
     <a href="glossary.html" data-nav>Glossary</a>
-    <a href="faq.html" data-nav>FAQ</a>
+    <a href="faq.html" class="active" data-nav>FAQ</a>
     <a href="media.html" data-nav>Media</a>
     <a href="about.html" data-nav>About</a>
     <a href="contact.html" data-nav>Contact</a>
@@ -78,37 +104,71 @@
 
 <main class="wrap" id="main">
   <h1>FAQ</h1>
-  <p class="lede">Straight answers to the questions we hear most about CAI.</p>
+  <p class="lede">Clear answers about CAI novelty, measurement, guarantees, and adoption.</p>
 
-  <section class="card">
-    <h2>Basics</h2>
+  <!-- Quick links -->
+  <nav class="pill-nav" aria-label="FAQ sections">
+    <a href="#basics">basics</a>
+    <a href="#myths">myths</a>
+    <a href="#metrics">metrics</a>
+    <a href="#evaluation">evaluation</a>
+    <a href="#code">code</a>
+    <a href="#privacy">privacy</a>
+    <a href="#cite">cite</a>
+    <a href="#get-involved">get involved</a>
+  </nav>
+
+  <section class="card" id="basics">
+    <h2>basics</h2>
+
     <details>
-      <summary>What is CAI in one sentence?</summary>
-      <p>Compression-Aware Intelligence is a framework for recognizing, measuring, and leveraging the distortions created by compression in AI systems, human cognition, and collective narratives, in order to improve reliability and accountability.</p>
+      <summary>what is CAI in one sentence?</summary>
+      <p>Compression-Aware Intelligence is a system contract that detects, scores, and governs the effects of compression at each step of an AI or human-information pipeline so that outputs stay within evidence and uncertainty is explicit.</p>
     </details>
 
     <details>
-      <summary>How is CAI different from typical AI safety or RAG approaches?</summary>
-      <p>CAI treats compression as the root variable. It maps compression sites, scores their tension, attaches provenance, and enforces abstention if claims are not entailed. RAG is a retrieval pattern. CAI is a system contract that spans retrieval, verification, scoring, and audit.</p>
+      <summary>how is CAI different from RAG and typical safety approaches?</summary>
+      <p>RAG retrieves. CAI governs. CAI maps compression sites, scores tension, attaches provenance, and enforces abstention if claims are not entailed. It spans retrieval, verification, scoring, and audit.</p>
     </details>
 
     <details>
-      <summary>Can CAI guarantee zero hallucination?</summary>
-      <p>For open-ended generation no. CAI can guarantee no unsupported claims only when outputs are restricted to verified evidence and the system abstains if entailment or thresholds fail.</p>
+      <summary>can CAI guarantee zero hallucination?</summary>
+      <p>for open ended generation no. CAI can guarantee no unsupported claims only when outputs are restricted to verified evidence and the system abstains if entailment or thresholds fail.</p>
     </details>
   </section>
 
-  <section class="card">
-    <h2>Math and metrics</h2>
+  <section class="card" id="myths">
+    <h2>myths and comparisons</h2>
+
     <details>
-      <summary>What is the Compression Tension Score?</summary>
-      <p>A per-site metric that combines information loss, task degradation, provenance gaps, and uncertainty into a normalized score that estimates the cost of a compression step.</p>
-      <p>See <a href="foundations.html">Foundations</a> for the equation and path aggregation.</p>
+      <summary>is CAI just Information Bottleneck?</summary>
+      <p>no. IB studies representation sufficiency under a compression objective. CAI operationalizes compression sites across an end to end system with provenance, per step tension scoring, abstention policy, and audit surfaces. IB is an analysis lens. CAI is governance and execution.</p>
+      <p>see <a href="foundations.html">Foundations</a> for the formal elements that CAI adds.</p>
     </details>
 
     <details>
-      <summary>Do you publish proofs or formal specs?</summary>
-      <p>Yes. Start with the overview on Zenodo, then the Foundations page for equations and the reference pipeline.</p>
+      <summary>is CAI just Schmidhuber style compression ideas?</summary>
+      <p>prior work connects compression to learning and curiosity. CAI is different because it treats compression as an auditable variable with thresholds, provenance, and abstention that gate claims. the unit of analysis is the compression site with a measurable tension score.</p>
+    </details>
+
+    <details>
+      <summary>is CAI only for language models?</summary>
+      <p>no. any pipeline that compresses information can be instrumented. examples include data cleaning, schema mapping, retrieval, summarization, tool use, and human review.</p>
+    </details>
+  </section>
+
+  <section class="card" id="metrics">
+    <h2>metrics</h2>
+
+    <details>
+      <summary>what is the Compression Tension Score?</summary>
+      <p>a normalized per site metric that combines information loss, task degradation, provenance gaps, and uncertainty. it estimates the risk cost of a compression step and feeds path aggregation.</p>
+      <p>see <a href="foundations.html">Foundations</a> for the equation and aggregation.</p>
+    </details>
+
+    <details>
+      <summary>do you publish proofs or formal specs?</summary>
+      <p>yes. start with the overview on zenodo, then the foundations page.</p>
       <ul>
         <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview</a></li>
         <li><a href="foundations.html">Foundations</a></li>
@@ -116,29 +176,102 @@
     </details>
   </section>
 
-  <section class="card">
-    <h2>Code and participation</h2>
+  <section class="card" id="evaluation">
+    <h2>evaluation</h2>
+
     <details>
-      <summary>Where can I see code and working demos?</summary>
-      <p>Prototype repos with compression tags live here:</p>
-      <ul>
-        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">compression-aware-intelligence-demo</a></li>
-      </ul>
+      <summary>how do i evaluate CAI on my workload?</summary>
+      <ol>
+        <li>tag compression sites in your pipeline</li>
+        <li>run baseline vs CAI gated</li>
+        <li>measure accuracy, unsupported claim rate, abstention rate, mean time to review, and escalation patterns</li>
+        <li>report per site tension distributions and path scores</li>
+      </ol>
+      <p>see <a href="benchmarks.html">Benchmarks</a> for a starter scorecard and tasks.</p>
     </details>
 
     <details>
-      <summary>How can I get involved?</summary>
-      <p>Open issues or pull requests on GitHub, propose evaluation datasets with tagged compression sites, or reach out for collaborations.</p>
-      <p>Contact: <a href="contact.html">Contact page</a></p>
+      <summary>what outcomes should improve with CAI?</summary>
+      <p>lower unsupported claims at equal or better accuracy, calibrated abstention, faster human review through provenance, and simpler audit trails.</p>
     </details>
+  </section>
+
+  <section class="card" id="code">
+    <h2>code and demos</h2>
+
+    <details>
+      <summary>where can i see code and working demos?</summary>
+      <p>prototype repos with compression tags live here:</p>
+      <ul>
+        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">compression-aware-intelligence-demo</a></li>
+      </ul>
+      <p>see <a href="implementations.html">Implementations</a> for integration patterns.</p>
+    </details>
+  </section>
+
+  <section class="card" id="privacy">
+    <h2>privacy and governance</h2>
+
+    <details>
+      <summary>can i keep data private while using CAI?</summary>
+      <p>yes. you can run local only scoring, log tension metrics without raw text, and use tiered provenance views for different roles. examples are on <a href="implementations.html">Implementations</a>.</p>
+    </details>
+
+    <details>
+      <summary>does CAI require proprietary model weights?</summary>
+      <p>no. CAI is model agnostic. it instruments the pipeline and sources you already use.</p>
+    </details>
+  </section>
+
+  <section class="card" id="cite">
+    <h2>cite CAI</h2>
+
+    <details open>
+      <summary>how do i cite CAI?</summary>
+      <p>please cite the overview and the site. example bibtex:</p>
+<pre><code>@misc{joseph_cai_overview,
+  author = {Michele Joseph},
+  title = {Compression-Aware Intelligence: Overview and Reference Pipeline},
+  year = {2025},
+  howpublished = {Zenodo},
+  url = {https://zenodo.org/records/16467706}
+}
+</code></pre>
+      <p>also reference the website: https://www.compressionawareintelligence.com</p>
+    </details>
+  </section>
+
+  <section class="card" id="get-involved">
+    <h2>get involved</h2>
+
+    <details>
+      <summary>how can i contribute?</summary>
+      <p>open issues or pull requests on GitHub, propose evaluation datasets with tagged compression sites, or contact us to run a pilot.</p>
+      <ul>
+        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo/issues" target="_blank" rel="noopener">GitHub issues</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="media.html">Media</a></li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p><small>last updated: <time id="last-updated"></time></small></p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. 
-  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-</small>
-
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
 </footer>
+
+<script>
+  // simple helpers for dates
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated');
+  if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+</script>
 </body>
 </html>
