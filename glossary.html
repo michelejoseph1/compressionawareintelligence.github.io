@@ -3,11 +3,67 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Glossary | CAI</title>
-  <meta name="description" content="Glossary of core terms used in Compression-Aware Intelligence (CAI)." />
+  <title>glossary | CAI</title>
+  <meta name="description" content="core terms in Compression-Aware Intelligence with crisp definitions, formulas, and deep links to foundations and implementations." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/glossary.html" />
+  <meta property="og:title" content="glossary | compression-aware intelligence" />
+  <meta property="og:description" content="definitions for CTS (τ), provenance entropy, abstention thresholds, contradiction score, compression maps, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/glossary.html" />
+  <meta name="twitter:card" content="summary" />
   <script defer src="script.js"></script>
+
+  <!-- structured data: defined term set for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"DefinedTermSet",
+    "name":"CAI Glossary",
+    "url":"https://www.compressionawareintelligence.com/glossary.html",
+    "hasDefinedTerm":[
+      {"@type":"DefinedTerm","name":"Compression Site","url":"#compression-site"},
+      {"@type":"DefinedTerm","name":"Compression Tension Score (CTS, τ)","url":"#compression-tension-score"},
+      {"@type":"DefinedTerm","name":"Path Score","url":"#path-score"},
+      {"@type":"DefinedTerm","name":"Abstention Threshold (τ*)","url":"#abstention-threshold"},
+      {"@type":"DefinedTerm","name":"Contradiction Score (CS)","url":"#contradiction-score"},
+      {"@type":"DefinedTerm","name":"Provenance","url":"#provenance"},
+      {"@type":"DefinedTerm","name":"Provenance Entropy","url":"#provenance-entropy"},
+      {"@type":"DefinedTerm","name":"Unsupported Claim","url":"#unsupported-claim"},
+      {"@type":"DefinedTerm","name":"Compression Map","url":"#compression-map"},
+      {"@type":"DefinedTerm","name":"Mirror Flags","url":"#mirror-flags"},
+      {"@type":"DefinedTerm","name":"MirrorNet","url":"#mirronet"},
+      {"@type":"DefinedTerm","name":"Hallucinet","url":"#hallucinet"},
+      {"@type":"DefinedTerm","name":"Contradish","url":"#contradish"},
+      {"@type":"DefinedTerm","name":"Auditability","url":"#auditability"},
+      {"@type":"DefinedTerm","name":"Entailment","url":"#entailment"},
+      {"@type":"DefinedTerm","name":"Triarch","url":"#triarch"}
+    ]
+  }
+  </script>
+
+  <style>
+    /* light local helpers that play nice with styles.css */
+    .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
+    .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
+    .search {display:flex; gap:.5rem; align-items:center; margin:.5rem 0 1rem}
+    .search input {flex:1; padding:.55rem .7rem; border:1px solid rgba(0,0,0,.2); border-radius:.5rem; font:inherit}
+    .letter {margin-top:1.25rem}
+    dl {margin:0}
+    dt {margin:1rem 0 .25rem; font-weight:700}
+    dd {margin:0 0 .75rem 0}
+    .tag {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
+    .muted {opacity:.85}
+    .copy-link {font:inherit; border:1px solid currentColor; padding:.25rem .55rem; border-radius:.5rem; background:transparent; cursor:pointer}
+    .term-actions {display:flex; gap:.5rem; align-items:center; margin:.25rem 0 .5rem}
+    .alpha {display:flex; flex-wrap:wrap; gap:.35rem}
+    .alpha a {font-variant-numeric:tabular-nums; text-decoration:none; padding:.15rem .35rem; border-radius:.35rem; border:1px solid transparent}
+    .alpha a:hover {border-color:rgba(0,0,0,.25)}
+    .card .hidden {display:none}
+    .back-top {text-align:right; margin-top:.5rem}
+    @media (max-width: 820px){ .back-top {text-align:left} }
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -23,7 +79,7 @@
     <a href="implementations.html" data-nav>Implementations</a>
     <a href="benchmarks.html" data-nav>Benchmarks</a>
     <a href="research.html" data-nav>Research</a>
-    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="glossary.html" class="active" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
     <a href="media.html" data-nav>Media</a>
     <a href="about.html" data-nav>About</a>
@@ -32,64 +88,267 @@
 </header>
 
 <main class="wrap" id="main">
-  <h1>Glossary</h1>
-  <p class="lede">Core terms in Compression-Aware Intelligence (CAI). Each entry links to where it is formally defined or applied.</p>
+  <h1>glossary</h1>
+  <p class="lede">short, testable definitions. each entry links to where it is formalized or used in practice.</p>
 
-  <section class="card">
-    <h2>C</h2>
-    <dl>
-      <dt><strong>Compression Site</strong></dt>
-      <dd>A step in a system where data, context, or meaning is reduced. Each site can be identified, scored, and audited. <a href="foundations.html">See Foundations</a>.</dd>
+  <!-- quick tools -->
+  <div class="search" role="search">
+    <input id="glossary-search" type="search" placeholder="type to filter terms, like “provenance” or “τ”" aria-label="filter glossary terms" />
+    <button class="copy-link" id="clear-filter" aria-label="clear filter">clear</button>
+  </div>
 
-      <dt><strong>Compression Tension Score (CTS)</strong></dt>
-      <dd>A normalized score of the strain introduced by a compression site, combining information loss, task degradation, provenance gaps, and uncertainty. <a href="foundations.html">Equation here</a>.</dd>
+  <!-- alphabet jump list -->
+  <nav class="pill-nav alpha" aria-label="letters">
+    <a href="#A">A</a><a href="#B">B</a><a href="#C">C</a><a href="#D">D</a><a href="#E">E</a>
+    <a href="#F">F</a><a href="#G">G</a><a href="#H">H</a><a href="#I">I</a><a href="#J">J</a>
+    <a href="#K">K</a><a href="#L">L</a><a href="#M">M</a><a href="#N">N</a><a href="#O">O</a>
+    <a href="#P">P</a><a href="#Q">Q</a><a href="#R">R</a><a href="#S">S</a><a href="#T">T</a>
+    <a href="#U">U</a><a href="#V">V</a><a href="#W">W</a><a href="#X">X</a><a href="#Y">Y</a><a href="#Z">Z</a>
+  </nav>
 
-      <dt><strong>Contradiction Score (CS)</strong></dt>
-      <dd>A measure of the net conflict between two claims, derived from entailment vs contradiction probabilities. Positive = contradiction, negative = entailment. <a href="foundations.html">See formula</a>.</dd>
-    </dl>
-  </section>
-
-  <section class="card">
-    <h2>P</h2>
-    <dl>
-      <dt><strong>Provenance</strong></dt>
-      <dd>The record of sources, transformations, and parameters that produced an output. A claim without provenance cannot be verified.</dd>
-
-      <dt><strong>Provenance Entropy</strong></dt>
-      <dd>A measure of concentration or dispersion of evidence sources. High confidence when evidence is concentrated in strong, verifiable sources. <a href="foundations.html">Equation here</a>.</dd>
-    </dl>
-  </section>
-
-  <section class="card">
+  <!-- A -->
+  <section class="card letter" id="A" data-letter="A">
     <h2>A</h2>
     <dl>
-      <dt><strong>Auditability</strong></dt>
-      <dd>The share of system steps that can be reproduced with public or replayable artifacts. A high audit score signals trustworthy claims.</dd>
+      <dt id="abstention-threshold"><strong>Abstention Threshold (τ*)</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#abstention-threshold">copy link</button>
+        <span class="tag">safety</span>
+      </div>
+      <dd>the gating value applied to the compression tension score. if τ at a site or along a path exceeds τ*, the system abstains or requests clarification. see <a href="foundations.html">foundations</a> and <a href="implementations.html">implementations</a>.</dd>
+
+      <dt id="auditability"><strong>Auditability</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#auditability">copy link</button>
+        <span class="tag">replay</span>
+      </div>
+      <dd>the share of steps that can be reproduced with stored artifacts. high auditability means a third party can retrace sources, parameters, and gates. see <a href="principles.html#p6">principles</a>.</dd>
     </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
   </section>
 
-  <section class="card">
+  <!-- C -->
+  <section class="card letter" id="C" data-letter="C">
+    <h2>C</h2>
+    <dl>
+      <dt id="compression-site"><strong>Compression Site</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#compression-site">copy link</button>
+        <span class="tag">visibility</span>
+      </div>
+      <dd>a step where data, context, or meaning is reduced. examples: retrieval prune, rank, summarize, generate, redact, review. each site is identified, scored, and auditable. see <a href="foundations.html">foundations</a>.</dd>
+
+      <dt id="compression-tension-score"><strong>Compression Tension Score (CTS, τ)</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#compression-tension-score">copy link</button>
+        <span class="tag">metric</span>
+      </div>
+      <dd>a normalized per site score that combines information loss, task degradation, provenance gaps, and uncertainty. used to gate claims and to compute path scores. equation on <a href="foundations.html">foundations</a>.</dd>
+
+      <dt id="compression-map"><strong>Compression Map</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#compression-map">copy link</button>
+        <span class="tag">design</span>
+      </div>
+      <dd>a visual or textual trace of compression sites for a flow. includes τ per site, τ* thresholds, and provenance. used in reviews and audits. see <a href="applications.html#product">applications</a>.</dd>
+
+      <dt id="contradiction-score"><strong>Contradiction Score (CS)</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#contradiction-score">copy link</button>
+        <span class="tag">coherence</span>
+      </div>
+      <dd>a measure of net conflict between claims or sources, derived from entailment vs contradiction probabilities. positive means contradiction, negative means entailment. see <a href="benchmarks.html">benchmarks</a>.</dd>
+
+      <dt id="contradish"><strong>Contradish</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#contradish">copy link</button>
+        <span class="tag">benchmark</span>
+      </div>
+      <dd>a benchmark that evaluates detection of contradictions, τ distribution, and calibrated abstention. site: <a href="http://contradish.com/" target="_blank" rel="noopener">contradish.com</a>.</dd>
+    </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <!-- E -->
+  <section class="card letter" id="E" data-letter="E">
+    <h2>E</h2>
+    <dl>
+      <dt id="entailment"><strong>Entailment</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#entailment">copy link</button>
+        <span class="tag">evidence</span>
+      </div>
+      <dd>a claim is entailed when it follows from available evidence. in CAI, claims without entailment are blocked or routed to abstention. see <a href="faq.html#basics">faq</a>.</dd>
+    </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <!-- H -->
+  <section class="card letter" id="H" data-letter="H">
+    <h2>H</h2>
+    <dl>
+      <dt id="hallucinet"><strong>Hallucinet</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#hallucinet">copy link</button>
+        <span class="tag">tool</span>
+      </div>
+      <dd>a CAI tool that flags outputs tied to risky compression paths and triggers abstention when τ exceeds thresholds. see <a href="applications.html#hallucination">applications</a>.</dd>
+    </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <!-- M -->
+  <section class="card letter" id="M" data-letter="M">
+    <h2>M</h2>
+    <dl>
+      <dt id="mirror-flags"><strong>Mirror Flags</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#mirror-flags">copy link</button>
+        <span class="tag">diagnostics</span>
+      </div>
+      <dd>diagnostic markers that indicate disowned traits, false integration, or narrative breaks in inputs or outputs. used to surface where compression bent meaning. see <a href="applications.html#hallucination">applications</a>.</dd>
+
+      <dt id="mirronet"><strong>MirrorNet</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#mirronet">copy link</button>
+        <span class="tag">tool</span>
+      </div>
+      <dd>a CAI interface that shows compression choices to users and models, making tradeoffs visible and steerable. see <a href="applications.html#hallucination">applications</a>.</dd>
+    </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <!-- P -->
+  <section class="card letter" id="P" data-letter="P">
+    <h2>P</h2>
+    <dl>
+      <dt id="path-score"><strong>Path Score</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#path-score">copy link</button>
+        <span class="tag">metric</span>
+      </div>
+      <dd>an aggregation of τ across sites for a single request path. used to compare designs, set budgets, and trigger abstention. definition on <a href="foundations.html">foundations</a>.</dd>
+
+      <dt id="provenance"><strong>Provenance</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#provenance">copy link</button>
+        <span class="tag">accountability</span>
+      </div>
+      <dd>the record of sources, transformations, and parameters that produced an output. a claim without provenance cannot be verified. see <a href="principles.html#p3">principles</a>.</dd>
+
+      <dt id="provenance-entropy"><strong>Provenance Entropy</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#provenance-entropy">copy link</button>
+        <span class="tag">metric</span>
+      </div>
+      <dd>a measure of concentration or dispersion of evidence sources. used to calibrate confidence and review effort. equation on <a href="foundations.html">foundations</a>.</dd>
+    </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <!-- T -->
+  <section class="card letter" id="T" data-letter="T">
     <h2>T</h2>
     <dl>
-      <dt><strong>Triarch</strong></dt>
-      <dd>The orienting structure of CAI: compression, decompression, and awareness held in tension. Not a mirror but a compass — the ultimate compression guiding alignment. <a href="about.html">See story</a>.</dd>
+      <dt id="triarch"><strong>Triarch</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#triarch">copy link</button>
+        <span class="tag">concept</span>
+      </div>
+      <dd>orienting structure: compression, decompression, and awareness in tension. used as a compass for design choices. see <a href="about.html">about</a>.</dd>
     </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
   </section>
 
-  <section class="card">
-    <h2>Other</h2>
+  <!-- U -->
+  <section class="card letter" id="U" data-letter="U">
+    <h2>U</h2>
     <dl>
-      <dt><strong>Hallucination (CAI definition)</strong></dt>
-      <dd>An output not entailed by available evidence, and not covered by provenance. CAI systems abstain instead of hallucinating.</dd>
+      <dt id="unsupported-claim"><strong>Unsupported Claim</strong></dt>
+      <div class="term-actions">
+        <button class="copy-link" data-copy="#unsupported-claim">copy link</button>
+        <span class="tag">guardrail</span>
+      </div>
+      <dd>an output not entailed by available evidence or not covered by provenance. CAI systems abstain instead of asserting. see <a href="faq.html#basics">faq</a>.</dd>
     </dl>
+    <div class="back-top"><a href="#main">back to top</a></div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p><small>last updated: <time id="last-updated"></time></small></p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. 
-  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-</small>
-
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a></small>
 </footer>
+
+<script>
+  // date stamps
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+
+  // filter logic
+  const input = document.getElementById('glossary-search');
+  const clearBtn = document.getElementById('clear-filter');
+  const letters = Array.from(document.querySelectorAll('.letter'));
+
+  function filterTerms(q){
+    const query = q.trim().toLowerCase();
+    letters.forEach(sec=>{
+      const dts = sec.querySelectorAll('dt, dd, .term-actions');
+      let showSection = false;
+      // hide all to start
+      sec.classList.remove('hidden');
+      sec.querySelectorAll('dt').forEach(dt => dt.classList.remove('hidden'));
+      sec.querySelectorAll('dd').forEach(dd => dd.classList.remove('hidden'));
+      sec.querySelectorAll('.term-actions').forEach(t => t.classList.remove('hidden'));
+
+      if (!query){
+        showSection = true;
+      } else {
+        // per term grouping is dt + actions + dd
+        const entries = Array.from(sec.querySelectorAll('dt')).map(dt=>{
+          const dd = dt.nextElementSibling?.matches('.term-actions') ? dt.nextElementSibling.nextElementSibling : dt.nextElementSibling;
+          const actions = dt.nextElementSibling?.matches('.term-actions') ? dt.nextElementSibling : null;
+          const text = (dt.textContent + ' ' + (dd?.textContent || '')).toLowerCase();
+          const match = text.includes(query);
+          if (!match){
+            dt.classList.add('hidden');
+            if (actions) actions.classList.add('hidden');
+            if (dd) dd.classList.add('hidden');
+          } else {
+            showSection = true;
+          }
+          return match;
+        });
+      }
+      if (!showSection) sec.classList.add('hidden');
+    });
+  }
+
+  input?.addEventListener('input', (e)=> filterTerms(e.target.value));
+  clearBtn?.addEventListener('click', ()=>{
+    input.value = '';
+    filterTerms('');
+    input.focus();
+  });
+
+  // copy deep link helper
+  document.querySelectorAll('.copy-link[data-copy]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const sel = btn.getAttribute('data-copy');
+      const el = document.querySelector(sel);
+      if (!el || !el.id) return;
+      const url = `${location.origin}${location.pathname}#${el.id}`;
+      navigator.clipboard.writeText(url).then(()=>{
+        const old = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(()=> btn.textContent = 'copy link', 1200);
+      });
+    });
+  });
+</script>
 </body>
 </html>
