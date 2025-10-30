@@ -3,11 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Principles | CAI</title>
-  <meta name="description" content="Core principles of Compression-Aware Intelligence." />
+  <title>principles | CAI</title>
+  <meta name="description" content="the CAI principles as testable rules. each principle includes an antipattern, a quick test, and the outcome it protects." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/principles.html" />
+  <meta property="og:title" content="principles | compression-aware intelligence" />
+  <meta property="og:description" content="testable rules for reliable ai: name the compression, score the loss, attach provenance, gate with abstention, map contradictions, audit by default." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/principles.html" />
+  <meta name="twitter:card" content="summary" />
   <script defer src="script.js"></script>
+
+  <!-- structured data: list the principles for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    "name":"CAI Principles",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"name the compression"},
+      {"@type":"ListItem","position":2,"name":"score the loss"},
+      {"@type":"ListItem","position":3,"name":"provenance first"},
+      {"@type":"ListItem","position":4,"name":"gate with abstention"},
+      {"@type":"ListItem","position":5,"name":"map contradictions"},
+      {"@type":"ListItem","position":6,"name":"audit by default"},
+      {"@type":"ListItem","position":7,"name":"privacy by design"},
+      {"@type":"ListItem","position":8,"name":"optimize for outcomes"}
+    ]
+  }
+  </script>
+
+  <style>
+    /* light local helpers that play nice with styles.css */
+    .principle {border-left:4px solid var(--ink,#111); padding:1rem; margin:1rem 0;}
+    .p-head {display:flex; align-items:center; gap:.5rem; margin-bottom:.4rem}
+    .p-num {font-weight:700; font-variant-numeric:tabular-nums}
+    .tag {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
+    .muted {opacity:.8}
+    .grid {display:grid; gap:1rem}
+    .grid.two {grid-template-columns:repeat(2, minmax(0,1fr))}
+    .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
+    .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
+    .inline-list {display:flex; flex-wrap:wrap; gap:.5rem}
+    .checklist {width:100%; border-collapse:collapse; font-size:.95rem}
+    .checklist th,.checklist td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left}
+    .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
+    .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
+    @media (max-width: 860px){ .grid.two {grid-template-columns:1fr} }
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -15,7 +59,7 @@
   <nav class="nav">
     <a href="index.html" data-nav>Home</a>
     <a href="proof.html" data-nav>Proof</a>
-    <a href="principles.html" data-nav>Principles</a>
+    <a href="principles.html" class="active" data-nav>Principles</a>
     <a href="foundations.html" data-nav>Foundations</a>
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
@@ -31,42 +75,169 @@
   </nav>
 </header>
 
-<main class="wrap">
-  <h1>Principles</h1>
-  <p class="lede">
-    If an AI system cannot meet the principles below, it cannot claim to be reliable.
-  </p>
+<main class="wrap" id="main">
+  <h1>principles</h1>
+  <p class="lede">not slogans. testable rules. if a system cannot meet these, it should not claim reliability.</p>
+
+  <nav class="pill-nav" aria-label="quick links">
+    <a href="#p1">name the compression</a>
+    <a href="#p2">score the loss</a>
+    <a href="#p3">provenance first</a>
+    <a href="#p4">gate with abstention</a>
+    <a href="#p5">map contradictions</a>
+    <a href="#p6">audit by default</a>
+    <a href="#p7">privacy by design</a>
+    <a href="#p8">optimize for outcomes</a>
+  </nav>
 
   <section class="grid two">
-    <div class="card">
-      <h2>1. Name the compression</h2>
-      <p>Every system compresses. If we cannot point to the step where it happens, we cannot reason about the error it creates.</p>
+    <!-- P1 -->
+    <article class="card principle" id="p1">
+      <div class="p-head">
+        <span class="p-num">1.</span><h2>name the compression</h2><span class="tag">visibility</span>
+      </div>
+      <p>every useful system compresses. list the steps where it happens: retrieval, rank, summarize, generate, redact, review.</p>
+      <p class="muted">quick test: can a new engineer draw the compression path for a single request without guessing.</p>
+      <p class="muted">antipattern: hidden heuristics and silent truncation.</p>
+    </article>
+
+    <!-- P2 -->
+    <article class="card principle" id="p2">
+      <div class="p-head">
+        <span class="p-num">2.</span><h2>score the loss</h2><span class="tag">measurement</span>
+      </div>
+      <p>compute a per site tension score τ that combines information loss, task degradation, provenance gaps, and uncertainty. aggregate along the path.</p>
+      <p class="muted">quick test: does τ increase when sources conflict or when summarization is lossy.</p>
+      <p class="muted">antipattern: confidence without a cost model.</p>
+    </article>
+
+    <!-- P3 -->
+    <article class="card principle" id="p3">
+      <div class="p-head">
+        <span class="p-num">3.</span><h2>provenance first</h2><span class="tag">accountability</span>
+      </div>
+      <p>every claim carries receipts. attach sources and step metadata so reviewers can retrace without digging.</p>
+      <p class="muted">quick test: can a third party reproduce the claim with the provided sources.</p>
+      <p class="muted">antipattern: fluent output with no citations.</p>
+    </article>
+
+    <!-- P4 -->
+    <article class="card principle" id="p4">
+      <div class="p-head">
+        <span class="p-num">4.</span><h2>gate with abstention</h2><span class="tag">safety</span>
+      </div>
+      <p>block unsupported claims. if entailment fails or τ passes a threshold τ*, abstain or request clarification.</p>
+      <p class="muted">quick test: do abstentions cluster where τ spikes.</p>
+      <p class="muted">antipattern: answer anyway.</p>
+    </article>
+
+    <!-- P5 -->
+    <article class="card principle" id="p5">
+      <div class="p-head">
+        <span class="p-num">5.</span><h2>map contradictions</h2><span class="tag">coherence</span>
+      </div>
+      <p>treat conflicts as signals, not noise. detect and tag contradictions in inputs, tools, and policy so tension is visible.</p>
+      <p class="muted">quick test: can the system highlight the exact tokens or records that disagree.</p>
+      <p class="muted">antipattern: silent tie breaking.</p>
+    </article>
+
+    <!-- P6 -->
+    <article class="card principle" id="p6">
+      <div class="p-head">
+        <span class="p-num">6.</span><h2>audit by default</h2><span class="tag">replay</span>
+      </div>
+      <p>make replay cheap. logs should reconstruct the path, sources, scores, and gates for any output.</d>
+      <p class="muted">quick test: can you rebuild yesterday’s answer bit for bit with stored artifacts.</p>
+      <p class="muted">antipattern: ephemeral steps with no trace.</p>
+    </article>
+
+    <!-- P7 -->
+    <article class="card principle" id="p7">
+      <div class="p-head">
+        <span class="p-num">7.</span><h2>privacy by design</h2><span class="tag">governance</span>
+      </div>
+      <p>log tension, not secrets. support local scoring, redaction at source, and tiered provenance views based on role.</p>
+      <p class="muted">quick test: can you run CAI with sensitive text withheld while still computing τ.</p>
+      <p class="muted">antipattern: raw data in every log.</p>
+    </article>
+
+    <!-- P8 -->
+    <article class="card principle" id="p8">
+      <div class="p-head">
+        <span class="p-num">8.</span><h2>optimize for outcomes</h2><span class="tag">impact</span>
+      </div>
+      <p>judge CAI by business or safety outcomes: fewer unsupported claims at equal or better accuracy, calibrated abstention, faster review.</p>
+      <p class="muted">quick test: does unsupported claim rate fall at fixed quality when CAI is on.</p>
+      <p class="muted">antipattern: metric theater that ignores harm.</p>
+    </article>
+  </section>
+
+  <!-- quick checklist -->
+  <section class="card">
+    <h2>self audit checklist</h2>
+    <table class="checklist" aria-describedby="checklist-desc">
+      <caption id="checklist-desc" class="muted">use this before shipping or auditing a pipeline</caption>
+      <thead>
+        <tr>
+          <th>item</th>
+          <th>status</th>
+          <th>owner</th>
+          <th>notes</th>
+        </tr>
+      </thead>
+      <tbody id="checklist-body">
+        <tr><td>compression sites listed</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>τ per site computed</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>provenance attached</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>τ* abstention thresholds set</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>contradiction detector wired</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>replay log verified</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>privacy controls enforced</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td>outcome metrics tracked</td><td>—</td><td>—</td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="cta">
+      <button class="copy-btn" data-copy="#audit-yaml">copy as yaml</button>
+      <a class="button" href="benchmarks.html">open benchmarks</a>
+      <a class="button" href="foundations.html">see equations</a>
     </div>
-    <div class="card">
-      <h2>2. Score the loss</h2>
-      <p>Each compression has a cost. Measure it, weight it, and show it. Reliability starts with visible trade-offs.</p>
-    </div>
-    <div class="card">
-      <h2>3. Mirror the illusion</h2>
-      <p>Outputs look seamless, but they are stitched from compressed paths. Showing that chain lowers false trust and raises awareness.</p>
-    </div>
-    <div class="card">
-      <h2>4. Map contradictions</h2>
-      <p>Conflicts are not errors to hide but signals to track. Contradictions show where compression has bent truth out of shape.</p>
-    </div>
-    <div class="card">
-      <h2>5. Provenance first</h2>
-      <p>Every output must carry its receipts. A short record of sources and steps is not extra; it is essential.</p>
-    </div>
-    <div class="card">
-      <h2>6. Audit by default</h2>
-      <p>Reliability means replay. A claim is only as strong as the ease with which a third party can retrace it.</p>
-    </div>
+<pre id="audit-yaml"><code>cai_audit:
+  compression_sites_listed: false
+  tension_score_tau_per_site: false
+  provenance_attached: false
+  abstention_threshold_tau_star: false
+  contradiction_detector: false
+  replay_log_verified: false
+  privacy_controls_enforced: false
+  outcome_metrics_tracked: false</code></pre>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p class="muted"><small>last updated: <time id="last-updated"></time></small></p>
   </section>
 </main>
 
 <footer class="site-footer">
   <small>© <span id="year"></span> Compression-Aware Intelligence.</small>
 </footer>
+
+<script>
+  // dates
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+  // copy helpers
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = document.querySelector(btn.dataset.copy);
+      if (!target) return;
+      const text = target.innerText;
+      navigator.clipboard.writeText(text).then(()=>{
+        const old = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(()=>btn.textContent = old, 1400);
+      });
+    });
+  });
+</script>
 </body>
 </html>
