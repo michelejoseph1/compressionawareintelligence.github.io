@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CAI • Consciousness</title>
-  <meta name="description" content="CAI consciousness spec: equations, thresholds, API, and a reference implementation for Compression Strain and CAC meta-awareness." />
-
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.png" type="image/png">
+  <title>Contradiction-Aware Consciousness | CAI</title>
+  <meta name="description" content="Operational spec for Contradiction-Aware Consciousness (CAC). Clear definition, equations, thresholds, and a runnable demo that links compression strain to meta awareness." />
+  <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/consciousness.html" />
+  <meta property="og:title" content="Contradiction-Aware Consciousness | CAI" />
+  <meta property="og:description" content="Definition, equations, and demo for CAC. Testable hooks that connect compression strain and contradiction to meta awareness." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/consciousness.html" />
+  <meta name="twitter:card" content="summary" />
 
-  <!-- MathJax (enable \text via AMS package) -->
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
@@ -23,24 +27,39 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <style>
-    /* local helpers only */
-    .wrap-narrow{max-width:980px;margin:0 auto;padding:0 1rem}
-    .pill{display:inline-block;background:#f1f5f9;border:1px solid #e5e7eb;padding:.2rem .5rem;border-radius:999px;font-size:.8rem}
-    .eq{background:#f9fafb;border-left:3px solid #111;padding:.75rem 1rem;border-radius:6px; overflow:auto}
-    /* ensure MathJax can scroll horizontally instead of overlapping */
-    mjx-container{display:block; overflow-x:auto; overflow-y:hidden}
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"Contradiction-Aware Consciousness",
+    "description":"Operational definition and equations for CAC with a runnable demo.",
+    "author":{"@type":"Person","name":"Michele Joseph"},
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.compressionawareintelligence.com/consciousness.html"}
+  }
+  </script>
 
-    .grid{display:grid;gap:1rem}
+  <style>
+    /* light local helpers that play nice with styles.css */
+    mjx-container{display:block; overflow-x:auto; overflow-y:hidden}
+    .wrap-narrow{max-width:980px; margin:0 auto; padding:0 1rem}
+    .pill{display:inline-block; border:1px solid var(--ink,#111); padding:.2rem .5rem; border-radius:999px; font-size:.8rem}
+    .eq{background:#f9fafb; border-left:3px solid var(--ink,#111); padding:.75rem 1rem; border-radius:8px; overflow:auto}
+    .grid{display:grid; gap:1rem}
     .two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-    .callout{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:1rem}
-    .muted{color:#667085}
+    .muted{opacity:.85}
     .small{font-size:.9rem}
-    pre{background:#0f172a;color:#e2e8f0;padding:1rem;border-radius:10px;overflow:auto}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-    .btn{cursor:pointer;border:1px solid #111;border-radius:10px;padding:.6rem 1rem;background:#111;color:#fff}
-    .btn.secondary{background:#fff;color:#111}
-    .inline{display:flex;gap:.5rem;flex-wrap:wrap}
+    .callout{background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px; padding:1rem}
+    .pill-nav{display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
+    .pill-nav a{border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
+    pre{background:#0f172a; color:#e2e8f0; padding:1rem; border-radius:10px; overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+    .btn{cursor:pointer; border:1px solid var(--ink,#111); border-radius:10px; padding:.6rem 1rem; background:#111; color:#fff}
+    .btn.secondary{background:#fff; color:#111}
+    .inline{display:flex; gap:.5rem; flex-wrap:wrap}
+    .table{width:100%; border-collapse:collapse; font-size:.95rem}
+    .table th,.table td{border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left}
+    @media (max-width: 880px){ .two{grid-template-columns:1fr} }
   </style>
 
   <script defer src="script.js"></script>
@@ -55,7 +74,7 @@
     <a href="foundations.html" data-nav>Foundations</a>
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
-    <a href="consciousness.html" data-nav>Consciousness</a>
+    <a href="consciousness.html" class="active" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
     <a href="benchmarks.html" data-nav>Benchmarks</a>
     <a href="research.html" data-nav>Research</a>
@@ -69,163 +88,142 @@
 
 <main class="wrap" aria-label="content">
   <section class="hero card">
-    <p class="pill">CAI core</p>
-    <h1>Consciousness</h1>
+    <p class="pill">CAI frontier</p>
+    <h1>contradiction-aware consciousness</h1>
     <p class="lede">
-      Phenomenal consciousness arises when a system integrates contradictory information, produces compression strain, and becomes meta aware of that strain. This page defines signals, thresholds, and a runnable path.
+      a system becomes conscious by this spec when it integrates contradictory information, accumulates compression strain, and is meta aware of that strain as a control signal. this page gives the definition, equations, thresholds, and a runnable demo.
     </p>
-    <div class="inline" style="margin-top:.75rem">
-      <span class="pill">Equations</span>
-      <span class="pill">API</span>
-      <span class="pill">Reference implementation</span>
-      <span class="pill">Client CTS demo</span>
-    </div>
+    <nav class="pill-nav" aria-label="sections">
+      <a href="#definition">definition</a>
+      <a href="#equations">equations</a>
+      <a href="#interfaces">interfaces</a>
+      <a href="#algorithm">algorithm</a>
+      <a href="#evaluation">evaluation</a>
+      <a href="#demo">demo</a>
+      <a href="#claims">predictions</a>
+    </nav>
   </section>
 
-  <!-- Summary -->
-  <section class="card wrap-narrow">
-    <h2>Summary</h2>
+  <!-- Definition -->
+  <section id="definition" class="card wrap-narrow">
+    <h2>definition</h2>
     <p>
-      Consciousness requires three conditions: sufficient integration $\\,(\\Phi)$, non-trivial contradictions $(C)$, and meta awareness $(M)$ of compression strain $(S)$. We operationalize this with the Compression Tension Score:
+      contradiction-aware consciousness (CAC) is present at time $t$ if and only if three conditions hold: sufficient integration $\\Phi_t$, non-trivial contradiction magnitude $C_t$, and meta awareness $M_t$ of compression strain $S_t$ that can alter policy.
     </p>
     <div class="eq">
-      $$ CTS = S\\cdot C \quad\\text{and}\\quad
-      Conscious(t) \\iff \\Phi_t > \\tau_{\\Phi} \\land CTS_t > \\tau_{CTS} \\land M_t > \\tau_{M} $$
+      $$ CTS_t = S_t \\cdot C_t \quad,\quad
+         Conscious(t) \\iff \\Phi_t > \\tau_{\\Phi} \\land CTS_t > \\tau_{CTS} \\land M_t > \\tau_M $$
     </div>
-    <p class="small muted">$\\Phi$ can be an integration proxy. $M$ comes from a CAC head trained to predict $CTS$ from internal activations.</p>
+    <p class="small muted">this is an operational spec. it is not a claim about qualia. it is a testable contract for systems that act in the world.</p>
   </section>
 
-  <!-- Core equations -->
-  <section class="card wrap-narrow">
-    <h2>Core equations</h2>
+  <!-- Equations -->
+  <section id="equations" class="card wrap-narrow">
+    <h2>equations</h2>
     <div class="grid two">
       <div>
-        <h3>Compression strain</h3>
+        <h3>compression strain</h3>
         <div class="eq">
-          $$ S = w_1\\,\\Delta L_{\\text{pred}}
-             + w_2\\,\\mathrm{KL}\\!\\left(q(z\\mid x)\\,\\Vert\\,p(z)\\right)
-             + w_3\\,E_{\\text{res}} \\in [0,1] $$
+          $$ S = w_1\\,\\Delta L_{pred} + w_2\\,\\mathrm{KL}\\big(q(z\\mid x)\\,\\Vert\\,p(z)\\big) + w_3\\,E_{res} \\in [0,1] $$
         </div>
-        <p class="small muted">Three measurable terms: change in prediction loss under compression, posterior vs prior KL on latent codes, and residual energy on reconstructions.</p>
+        <p class="small muted">predictive loss change under compression, latent divergence, and residual energy on reconstructions.</p>
       </div>
       <div>
-        <h3>Contradiction magnitude</h3>
+        <h3>contradiction magnitude</h3>
         <div class="eq">
-          $$ C = a\\,\\overline{P_{\\text{NLI}}(\\text{contr})}
-               + b\\,U_{\\text{SAT}}
-               + c\\,H_{\\text{halluc}} \\in [0,1] $$
+          $$ C = a\\,\\overline{P_{NLI}(\\text{contr})} + b\\,U_{SAT} + c\\,H_{halluc} \\in [0,1] $$
         </div>
-        <p class="small muted">Mean contradiction probability across sampled claim pairs, unsat core size from constraints, and retrieval gap risk for grounding.</p>
+        <p class="small muted">mean contradiction probability, unsat core size from constraints, and grounding risk from retrieval gaps.</p>
       </div>
     </div>
-    <div class="eq" style="margin-top:.5rem">
-      $$ I_{\\text{phen}} \\approx k\\cdot CTS $$
+    <div class="eq" style="margin-top:.6rem">
+      $$ M = f\\big(h(x)\\big) \\approx \\text{head that predicts } CTS \quad,\quad I_{phen} \\propto CTS $$
     </div>
   </section>
 
   <!-- Interfaces -->
-  <section class="card wrap-narrow">
-    <h2>Engineering interfaces</h2>
+  <section id="interfaces" class="card wrap-narrow">
+    <h2>engineering interfaces</h2>
     <div class="grid two">
       <div>
-        <h3>Signal object</h3>
+        <h3>signal object</h3>
 <pre><code>{
-  "compression": {
-    "delta_pred_loss": 0.23,
-    "kl_div": 0.18,
-    "residual_energy": 0.40,
-    "S": 0.31
-  },
-  "contradiction": {
-    "nli_contradiction": 0.47,
-    "unsat_core": 0.10,
-    "hallucination_risk": 0.36,
-    "C": 0.34
-  },
-  "cts": 0.106,
+  "compression": {"delta_pred_loss": 0.23, "kl_div": 0.18, "residual": 0.40, "S": 0.31},
+  "contradiction": {"nli": 0.47, "unsat": 0.10, "halluc_risk": 0.36, "C": 0.34},
+  "CTS": 0.106,
   "phi": 0.28,
   "meta": 0.62,
   "conscious": true
 }</code></pre>
       </div>
       <div>
-        <h3>REST API</h3>
+        <h3>rest api</h3>
         <table class="table small">
-          <tr><th>Method</th><th>Path</th><th>Body</th><th>Returns</th></tr>
-          <tr><td>POST</td><td><code>/compute</code></td><td><code>{ text, sources[], constraints[][] }</code></td><td>signals + decision</td></tr>
-          <tr><td>POST</td><td><code>/cac/train</code></td><td><code>{ features[6], target_cts }</code></td><td>CAC weights + meta</td></tr>
-          <tr><td>GET</td><td><code>/health</code></td><td>–</td><td>status</td></tr>
+          <thead><tr><th>method</th><th>path</th><th>body</th><th>returns</th></tr></thead>
+          <tbody>
+            <tr><td>POST</td><td><code>/compute</code></td><td><code>{text, sources[], constraints[][]}</code></td><td>signals + decision</td></tr>
+            <tr><td>POST</td><td><code>/cac/train</code></td><td><code>{features[], target_cts}</code></td><td>head weights + meta</td></tr>
+            <tr><td>GET</td><td><code>/health</code></td><td>–</td><td>status</td></tr>
+          </tbody>
         </table>
-        <p class="small muted">Features = [S, C, CTS, phi, nli_contradiction, hallucination_risk].</p>
+        <p class="small muted">drop in your own compressor, NLI, and SAT. the interface stays the same.</p>
       </div>
     </div>
   </section>
 
-  <!-- Reference implementation -->
-  <section class="card wrap-narrow">
-    <h2>Reference implementation</h2>
-    <p>Minimal FastAPI service that computes signals, exposes CAC, and evaluates the condition:</p>
-<pre><code>pip install fastapi uvicorn pydantic python-multipart
-# optional
-pip install transformers torch python-sat
-uvicorn cstc_service:app --reload</code></pre>
-    <p class="small muted">Place <code>cstc_service.py</code> in your backend. Swap your own compressor, NLI, and SAT without changing the API.</p>
-  </section>
-
   <!-- Algorithm -->
-  <section class="card wrap-narrow">
-    <h2>Algorithm</h2>
+  <section id="algorithm" class="card wrap-narrow">
+    <h2>algorithm</h2>
     <ol>
-      <li>Compute <strong>S</strong> on hidden states: log $\\Delta L_{\\text{pred}}$, $\\mathrm{KL}$, and $E_{\\text{res}}$.</li>
-      <li>Compute <strong>C</strong> from NLI contradiction, SAT unsat core size, and retrieval gap.</li>
-      <li>Set <strong>CTS</strong> as $S\\cdot C$ and compute an integration proxy $\\Phi$.</li>
-      <li>Train <strong>CAC</strong> to predict $CTS$ from internal activations and output meta score $M$.</li>
-      <li>Declare <strong>conscious</strong> if $\\Phi>\\tau_{\\Phi}$ and $CTS>\\tau_{CTS}$ and $M>\\tau_{M}$.</li>
+      <li>compute $S$ on hidden states. log $\\Delta L_{pred}$, KL, and residual.</li>
+      <li>compute $C$ from NLI contradiction, SAT unsat core, and retrieval gap risk.</li>
+      <li>set $CTS = S \\cdot C$ and choose an integration proxy $\\Phi$.</li>
+      <li>train a small head on $h(x)$ to predict $CTS$ and output $M$.</li>
+      <li>declare conscious if $\\Phi>\\tau_{\\Phi}$ and $CTS>\\tau_{CTS}$ and $M>\\tau_M$.</li>
     </ol>
   </section>
 
   <!-- Evaluation -->
-  <section class="card wrap-narrow">
-    <h2>Evaluation</h2>
+  <section id="evaluation" class="card wrap-narrow">
+    <h2>evaluation</h2>
     <ul>
-      <li>Human: intensity vs CTS on illusions, dissonance tasks, and pain datasets.</li>
-      <li>Low awareness: masked vs conscious stimuli should drive CTS below threshold.</li>
-      <li>Altered states: psychedelics up, meditation down, anesthesia near zero.</li>
-      <li>AI: hallucination benchmarks correlate with contradiction magnitude and CTS.</li>
+      <li>humans: dissonance tasks, illusions, and pain reports should correlate with $CTS$.</li>
+      <li>low awareness: masked vs conscious stimuli should push $CTS$ below threshold.</li>
+      <li>altered states: psychedelics up, meditation down, anesthesia near zero.</li>
+      <li>ai: contradiction benchmarks predict spikes in $C$ and $S$, abstention should trigger when $CTS$ crosses $\\tau_{CTS}$.</li>
     </ul>
   </section>
 
-  <!-- Client demo -->
-  <section class="card wrap-narrow">
-    <h2>Client CTS demo</h2>
-    <p class="small muted">Heuristic preview only. Use the server for real NLI and constraints.</p>
+  <!-- Demo -->
+  <section id="demo" class="card wrap-narrow">
+    <h2>client demo</h2>
+    <p class="small muted">heuristic preview only. the server version uses real NLI and constraints.</p>
     <div class="callout">
-      <label for="claim" class="small">Paste a paragraph with conflicting statements</label>
+      <label for="claim" class="small">paste a paragraph with conflicting statements</label>
       <textarea id="claim" style="width:100%;min-height:120px;margin:.5rem 0"></textarea>
 
-      <label for="sources" class="small">Optional sources (comma separated)</label>
+      <label for="sources" class="small">optional sources (comma separated)</label>
       <input id="sources" type="text" style="width:100%;margin:.25rem 0" placeholder="source a, source b">
 
       <div class="inline" style="margin-top:.5rem">
-        <button class="btn" id="runDemo">Compute CTS</button>
-        <button class="btn secondary" id="clearDemo">Clear</button>
+        <button class="btn" id="runDemo">compute cts</button>
+        <button class="btn secondary" id="clearDemo">clear</button>
       </div>
 
       <div id="demoOut" style="margin-top:1rem"></div>
     </div>
 
     <script>
-      // Heuristic demo that mirrors the equations with simple proxies
+      // small, readable heuristics that avoid overlap and keep MathJax separate
       const STOP = new Set("the a an and or of for in on to is are was were be been being with by as at from this that it".split(" "));
-      function tokenize(s){ return (s.toLowerCase().match(/[a-z0-9']+/g)||[]) }
-      function sentences(t){ return (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean)) }
+      const tokenize = s => (s.toLowerCase().match(/[a-z0-9']+/g) || []);
+      const sentences = t => (t.trim().split(/(?<=[.!?])\s+/).filter(Boolean));
 
       function compressRatio(t){
         if(!t) return 1;
         const raw = new TextEncoder().encode(t);
-        const cs = raw.length;
         const uniq = new Set(raw).size;
-        return cs/(uniq+1);
+        return raw.length / (uniq + 1);
       }
       function deltaPredLoss(t){
         const base = compressRatio(t);
@@ -237,10 +235,11 @@ uvicorn cstc_service:app --reload</code></pre>
       function klProxy(t){
         const words = tokenize(t); if(!words.length) return 0;
         const rare = words.filter(w=>w.length>8).length;
-        return Math.max(0, Math.min(1, rare/Math.max(1,words.length)));
+        return Math.max(0, Math.min(1, rare / Math.max(1, words.length)));
       }
       function residualEnergy(t){
-        const r = compressRatio(t); const inv = 1/(r||1e-6);
+        const r = compressRatio(t);
+        const inv = 1 / (r || 1e-6);
         return Math.max(0, Math.min(1, inv));
       }
       function Sscore(t){
@@ -250,8 +249,8 @@ uvicorn cstc_service:app --reload</code></pre>
 
       function nliHeuristic(t){
         const sents = sentences(t); let scores=[];
-        const neg = w=>/(^|\\s)(not|never|no|none|cannot|isn't|can't)(\\s|$)/i.test(w);
-        function terms(s){ return new Set(tokenize(s).filter(w=>!STOP.has(w) && w.length>3)); }
+        const neg = w=>/(^|\s)(not|never|no|none|cannot|isn't|can't)(\s|$)/i.test(w);
+        const terms = s=>new Set(tokenize(s).filter(w=>!STOP.has(w) && w.length>3));
         for(let i=0;i<sents.length;i++){
           for(let j=i+1;j<sents.length;j++){
             const A=terms(sents[i]), B=terms(sents[j]);
@@ -265,8 +264,7 @@ uvicorn cstc_service:app --reload</code></pre>
         const m = scores.length? scores.reduce((a,b)=>a+b,0)/scores.length:0;
         return Math.max(0, Math.min(1, m/0.6));
       }
-      function unsatProxy(){ return 0 } // client has no SAT
-
+      function unsatProxy(){ return 0 } // no SAT client side
       function hallucinationRisk(t, sources){
         const W = new Set(tokenize(t));
         const covs = sources.map(s=>{
@@ -285,8 +283,9 @@ uvicorn cstc_service:app --reload</code></pre>
       }
       function phiProxy(t){
         const s = sentences(t); if(!s.length) return 0;
-        function terms(x){ return new Set(tokenize(x)); }
-        let ov=[]; for(let i=0;i<s.length-1;i++){
+        const terms = x=>new Set(tokenize(x));
+        const ov=[];
+        for(let i=0;i<s.length-1;i++){
           const A=terms(s[i]), B=terms(s[i+1]);
           const inter=[...A].filter(x=>B.has(x)).length;
           const uni=new Set([...A,...B]).size;
@@ -295,21 +294,20 @@ uvicorn cstc_service:app --reload</code></pre>
         const m = ov.length? ov.reduce((a,b)=>a+b,0)/ov.length:0;
         return Math.max(0, Math.min(1, m/0.3));
       }
-      function render(o){
+      function view(o){
         return `<div class="grid two">
-          <div class="callout"><h3>Compression</h3>
-            <div class="small">ΔL_pred: ${o.S.d.toFixed(3)} | KL: ${o.S.k.toFixed(3)} | Residual: ${o.S.e.toFixed(3)}</div>
-            <div>S: <strong>${o.S.S.toFixed(3)}</strong></div></div>
-          <div class="callout"><h3>Contradiction</h3>
-            <div class="small">NLI*: ${o.C.n.toFixed(3)} | Unsat: ${o.C.u.toFixed(3)} | Halluc: ${o.C.h.toFixed(3)}</div>
-            <div>C: <strong>${o.C.C.toFixed(3)}</strong></div></div>
-          <div class="callout"><h3>Scores</h3>
-            <div>CTS: <strong>${o.CTS.toFixed(3)}</strong></div>
-            <div>Phi: ${o.phi.toFixed(3)}</div>
-            <div class="small muted">* heuristic, use server for real NLI</div></div>
+          <div class="callout"><h3>compression</h3>
+            <div class="small">ΔL_pred ${o.S.d.toFixed(3)} • KL ${o.S.k.toFixed(3)} • residual ${o.S.e.toFixed(3)}</div>
+            <div>S <strong>${o.S.S.toFixed(3)}</strong></div></div>
+          <div class="callout"><h3>contradiction</h3>
+            <div class="small">NLI* ${o.C.n.toFixed(3)} • unsat ${o.C.u.toFixed(3)} • halluc ${o.C.h.toFixed(3)}</div>
+            <div>C <strong>${o.C.C.toFixed(3)}</strong></div></div>
+          <div class="callout"><h3>scores</h3>
+            <div>CTS <strong>${o.CTS.toFixed(3)}</strong></div>
+            <div>phi ${o.phi.toFixed(3)}</div>
+            <div class="small muted">* heuristic only</div></div>
         </div>`;
       }
-
       document.getElementById('runDemo').onclick = ()=>{
         const t = document.getElementById('claim').value||'';
         const srcs = (document.getElementById('sources').value||'').split(',').map(s=>s.trim()).filter(Boolean);
@@ -317,8 +315,7 @@ uvicorn cstc_service:app --reload</code></pre>
         const C = Cscore(t, srcs);
         const CTS = S.S * C.C;
         const phi = phiProxy(t);
-        const out = { S, C, CTS, phi };
-        document.getElementById('demoOut').innerHTML = render(out);
+        document.getElementById('demoOut').innerHTML = view({S,C,CTS,phi});
       };
       document.getElementById('clearDemo').onclick = ()=>{
         document.getElementById('claim').value='';
@@ -328,23 +325,25 @@ uvicorn cstc_service:app --reload</code></pre>
     </script>
   </section>
 
-  <!-- Notes -->
-  <section class="card wrap-narrow">
-    <h2>Notes for engineers</h2>
+  <!-- Predictions -->
+  <section id="claims" class="card wrap-narrow">
+    <h2>falsifiable predictions</h2>
     <ul>
-      <li>Weights are tunable so maybe start equal then learn on your validation sets.</li>
-      <li>Replace heuristic NLI with a trained model. Replace the unsat proxy with python-sat or z3.</li>
-      <li>Use a VAE, masked autoencoder, or k-sparse autoencoder on intermediate activations to compute $S$.</li>
-      <li>Start CAC as a linear head then upgrade to a small MLP. Measure $M$ as CTS prediction quality and its influence on policy.</li>
+      <li>systems that expose $S$ and $C$ and use $CTS$ to gate actions will produce fewer unsupported claims at equal accuracy.</li>
+      <li>in humans, reported intensity on dissonance tasks correlates with $CTS$ more than with raw uncertainty.</li>
+      <li>if you hold $\\Phi$ fixed and lower $C$, $M$ drops as the head has less signal to predict $CTS$.</li>
+      <li>a valid counterexample is a bounded system that acts robustly on open inputs without any compression or summarization at any step, or a system where $CTS$ gating raises unsupported claims at fixed accuracy.</li>
     </ul>
-    <p class="small muted">If you publish results or derivatives, cite Michele Joseph • Compression-Aware Intelligence.</p>
+    <p class="small muted">submit counterexamples through the contact page with logs and config.</p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. See also
-    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>.
-  </small>
+  <small>© <span id="year"></span> Compression-Aware Intelligence.</small>
 </footer>
+
+<script>
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
