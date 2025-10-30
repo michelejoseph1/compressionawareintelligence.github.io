@@ -3,11 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Applications | CAI</title>
-  <meta name="description" content="Practical uses of Compression-Aware Intelligence." />
+  <title>applications | CAI</title>
+  <meta name="description" content="practical CAI playbooks with steps, metrics, and templates for hallucination control, compliance, support automation, and more." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/applications.html" />
+  <meta property="og:title" content="applications | compression-aware intelligence" />
+  <meta property="og:description" content="playbooks and templates to deploy CAI in days: hallucination control, compliance, support QA, knowledge ops, and benchmarks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/applications.html" />
+  <meta name="twitter:card" content="summary" />
   <script defer src="script.js"></script>
+
+  <!-- structured data: list of applications + a how-to for quick start -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ItemList",
+    "name":"CAI Applications",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"hallucination control"},
+      {"@type":"ListItem","position":2,"name":"compliance and liability"},
+      {"@type":"ListItem","position":3,"name":"support automation and QA"},
+      {"@type":"ListItem","position":4,"name":"knowledge ops and RAG governance"},
+      {"@type":"ListItem","position":5,"name":"benchmarking contradictions"},
+      {"@type":"ListItem","position":6,"name":"product analytics and review"}
+    ]
+  }
+  </script>
+
+  <style>
+    /* light local helpers that work with styles.css */
+    .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
+    .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
+    .grid {display:grid; gap:1rem}
+    .grid.two {grid-template-columns:repeat(2, minmax(0,1fr))}
+    .grid.three {grid-template-columns:repeat(3, minmax(0,1fr))}
+    .muted {opacity:.85}
+    .kpi {display:flex; gap:1rem; flex-wrap:wrap}
+    .kpi .card {flex:1 1 220px; text-align:center}
+    .score {font-size:2rem; font-variant-numeric:tabular-nums}
+    .table {width:100%; border-collapse:collapse; font-size:.95rem}
+    .table th,.table td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left}
+    .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
+    .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
+    .badge {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
+    @media (max-width: 920px){
+      .grid.two, .grid.three {grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
 <header class="site-header">
@@ -17,7 +61,7 @@
     <a href="proof.html" data-nav>Proof</a>
     <a href="principles.html" data-nav>Principles</a>
     <a href="foundations.html" data-nav>Foundations</a>
-    <a href="applications.html" data-nav>Applications</a>
+    <a href="applications.html" class="active" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="consciousness.html" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
@@ -31,49 +75,267 @@
   </nav>
 </header>
 
-<main class="wrap">
-  <h1>Applications</h1>
+<main class="wrap" id="main">
+  <h1>applications</h1>
+  <p class="lede">not ideas. playbooks with steps, metrics, and templates. pick a lane below and ship a pilot in days.</p>
 
-  <section class="grid two">
-    <div class="card">
-      <h2>Hallucination control</h2>
-      <ul>
-        <li>MirrorNet: Show compression choices to users and models.</li>
-        <li>Hallucinet: Flag outputs tied to risky compression paths.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>Compliance and liability</h2>
-      <ul>
-        <li>Attach compression provenance to regulated outputs.</li>
-        <li>Show foreseeable risks from design choices.</li>
-      </ul>
+  <nav class="pill-nav" aria-label="sections">
+    <a href="#hallucination">hallucination control</a>
+    <a href="#compliance">compliance and liability</a>
+    <a href="#support">support automation and QA</a>
+    <a href="#knowledge">knowledge ops and RAG governance</a>
+    <a href="#contradish">contradish benchmark</a>
+    <a href="#product">product analytics and review</a>
+    <a href="#quickstart">quick start</a>
+  </nav>
+
+  <!-- KPIs -->
+  <section class="card">
+    <h2>target outcomes</h2>
+    <div class="kpi">
+      <div class="card"><div class="score">↓</div><p class="muted">unsupported claim rate down at fixed accuracy</p></div>
+      <div class="card"><div class="score">✓</div><p class="muted">calibrated abstention when tension crosses threshold</p></div>
+      <div class="card"><div class="score">Δt ↓</div><p class="muted">faster human review due to attached provenance</p></div>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Contradish: The Contradiction Benchmark</h2>
-    <p><a href="http://contradish.com/" target="_blank">Contradish</a> is the first benchmark designed to measure how AI systems and enterprises handle contradictions. 
-    It evaluates whether models can detect, surface, and reconcile conflicting information which is a critical capability for reliability/trustworthiness. 
-    Contradish operationalizes CAI principles by turning contradiction into a measurable standard.</p>
+  <!-- 1. Hallucination control -->
+  <section class="card" id="hallucination">
+    <h2>hallucination control</h2>
+    <p class="muted">stop fluent error by surfacing compression sites and gating unsupported claims.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>tools</h3>
+        <ul>
+          <li><strong>MirrorNet</strong>: show compression choices to users and models.</li>
+          <li><strong>Hallucinet</strong>: flag outputs tied to risky compression paths.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>playbook</h3>
+        <ol>
+          <li>tag compression sites: retrieval, summarization, tool calls, post edit</li>
+          <li>compute per site tension score τ and set threshold τ*</li>
+          <li>attach provenance to each claim and enable abstention on fail</li>
+          <li>report unsupported claim rate, accuracy, abstention rate, review time</li>
+        </ol>
+        <div class="cta">
+          <a class="button" href="benchmarks.html">open benchmarks</a>
+          <a class="button" href="implementations.html">see integrations</a>
+        </div>
+      </div>
+    </div>
+<pre id="yaml-hallucinet"><code>hallucination_control:
+  compression_sites: [retrieve, summarize, tool, generate, redact]
+  tau_per_site: true
+  tau_star: 0.7
+  abstain_if: ["no_entailment", "tau &gt; tau_star"]
+  metrics: [unsupported_claim_rate, accuracy, abstention_rate, review_time]</code></pre>
+    <button class="copy-btn" data-copy="#yaml-hallucinet">copy yaml</button>
   </section>
 
+  <!-- 2. Compliance and liability -->
+  <section class="card" id="compliance">
+    <h2>compliance and liability</h2>
+    <p class="muted">show foreseeable risk from design choices and carry receipts for every regulated output.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>patterns</h3>
+        <ul>
+          <li>attach provenance and τ to each step that touches regulated text</li>
+          <li>tiered provenance views for roles and least privilege</li>
+          <li>export audit bundles for counsel and regulators</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>evidence pack</h3>
+        <table class="table">
+          <thead><tr><th>artifact</th><th>purpose</th></tr></thead>
+          <tbody>
+            <tr><td>compression map</td><td>design intent and foreseeable risks</td></tr>
+            <tr><td>τ report</td><td>risk scoring per site and path</td></tr>
+            <tr><td>provenance ledger</td><td>sources and transformation history</td></tr>
+            <tr><td>abstention log</td><td>when and why the system refused</td></tr>
+          </tbody>
+        </table>
+        <div class="cta">
+          <a class="button" href="implementations.html">governance templates</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Support automation and QA -->
+  <section class="card" id="support">
+    <h2>support automation and QA</h2>
+    <p class="muted">reduce escalations by detecting contradictions in docs and tickets before response.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>playbook</h3>
+        <ol>
+          <li>index knowledge with contradiction tags and version lineage</li>
+          <li>compute τ at retrieval and answer time</li>
+          <li>abstain and route to human when sources disagree past τ*</li>
+          <li>attach receipts in the reply so agents can verify fast</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>kpis</h3>
+        <ul>
+          <li>first contact resolution up</li>
+          <li>unsupported claim rate down</li>
+          <li>agent handle time down with provenance links</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Knowledge ops and RAG governance -->
+  <section class="card" id="knowledge">
+    <h2>knowledge ops and RAG governance</h2>
+    <p class="muted">tune retrieval and summarization as explicit compression choices, not magic.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>controls</h3>
+        <ul>
+          <li>per query compression budget with user steer</li>
+          <li>summary style that optimizes τ not length alone</li>
+          <li>rankers that penalize contradictory sources</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>config template</h3>
+<pre id="yaml-rag"><code>rag_cai:
+  budget:
+    tokens_max: 2200
+    tau_target: 0.45
+  ranker:
+    prefer: ["high_provenance", "low_contradiction"]
+  summarizer:
+    objective: "minimize_tau_at_equal_accuracy"
+  user_controls:
+    knobs: ["evidence_strictness", "abstention_level"]</code></pre>
+        <button class="copy-btn" data-copy="#yaml-rag">copy yaml</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Contradish -->
+  <section class="card" id="contradish">
+    <h2>contradish: the contradiction benchmark</h2>
+    <p><a href="http://contradish.com/" target="_blank" rel="noopener">Contradish</a> measures whether systems detect, surface, and reconcile conflicting information. it operationalizes CAI by turning contradiction into a measurable standard.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>tracks</h3>
+        <ul>
+          <li>detection: find contradictions in mixed sources</li>
+          <li>tension: produce τ distribution per site</li>
+          <li>response: abstain or resolve with receipts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>report schema</h3>
+<pre id="json-contradish"><code>{
+  "system": "your-model",
+  "run_id": "2025-10-30",
+  "metrics": {
+    "contradiction_detection_f1": 0.0,
+    "unsupported_claim_rate": 0.0,
+    "abstention_rate": 0.0
+  },
+  "tau_histogram": [ ],
+  "provenance_coverage": 0.0
+}</code></pre>
+        <button class="copy-btn" data-copy="#json-contradish">copy json</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Product analytics and review -->
+  <section class="card" id="product">
+    <h2>product analytics and review</h2>
+    <p class="muted">treat product decisions as compression. expose tradeoffs so reviews are about cost of loss, not opinion.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>use cases</h3>
+        <ul>
+          <li>release notes with compression map and τ changes</li>
+          <li>red team reports keyed to high τ sites</li>
+          <li>risk registers that track τ trends over time</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>review table</h3>
+        <table class="table">
+          <thead><tr><th>area</th><th>change</th><th>τ impact</th><th>risk</th></tr></thead>
+          <tbody>
+            <tr><td>retrieval</td><td>index pruning</td><td>+0.08</td><td>loss of niche sources</td></tr>
+            <tr><td>summarizer</td><td>style update</td><td>-0.03</td><td>better evidence density</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- quick start -->
+  <section class="card" id="quickstart">
+    <h2>quick start in 48 hours</h2>
+    <ol>
+      <li>list compression sites in one existing flow</li>
+      <li>compute τ per site and set τ*</li>
+      <li>turn on abstention and attach provenance in the reply</li>
+    </ol>
+    <div class="cta">
+      <a class="button" href="foundations.html">see equations</a>
+      <a class="button" href="benchmarks.html">run benchmarks</a>
+      <a class="button" href="implementations.html">integration guides</a>
+      <a class="button" href="contact.html">start a pilot</a>
+    </div>
+  </section>
+
+  <!-- mini scorecard -->
   <section class="card">
-    <h2>More uses</h2>
-    <ul class="cols">
-      <li>Evaluations that weight scores by cost of compression.</li>
-      <li>Model choice with legible tradeoffs.</li>
-      <li>UI that lets users steer compression for the task.</li>
-      <li>Debug flows that start from the highest loss site.</li>
-    </ul>
+    <h2>pilot scorecard</h2>
+    <table class="table" aria-describedby="pilot-desc">
+      <caption id="pilot-desc" class="muted">fill this for baseline vs CAI gated</caption>
+      <thead><tr><th>metric</th><th>baseline</th><th>cai gated</th><th>target</th></tr></thead>
+      <tbody>
+        <tr><td>unsupported claim rate</td><td>—</td><td>—</td><td>less than or equal to baseline</td></tr>
+        <tr><td>task accuracy</td><td>—</td><td>—</td><td>maintain or improve</td></tr>
+        <tr><td>abstention rate</td><td>—</td><td>—</td><td>calibrated at τ*</td></tr>
+        <tr><td>mean time to review</td><td>—</td><td>—</td><td>decrease</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p><small>last updated: <time id="last-updated"></time></small></p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. 
-  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-</small>
-
+  <small>© <span id="year"></span> Compression-Aware Intelligence.
+  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a></small>
 </footer>
+
+<script>
+  // dates
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+
+  // copy helpers
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = document.querySelector(btn.dataset.copy);
+      if (!target) return;
+      const text = target.innerText;
+      navigator.clipboard.writeText(text).then(()=>{
+        const old = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(()=>btn.textContent = old, 1400);
+      });
+    });
+  });
+</script>
 </body>
 </html>
