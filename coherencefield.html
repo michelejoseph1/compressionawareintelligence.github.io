@@ -4,16 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>coherence field | CAI</title>
-  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. See the seven sensors, equations, thresholds, repair loop, and a live monitor scaffold." />
+  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. Seven sensors, equations, thresholds, repair loop, and a live monitor scaffold." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="canonical" href="https://www.compressionawareintelligence.com/coherencefield.html" />
   <meta property="og:title" content="coherence field | compression-aware intelligence" />
   <meta property="og:description" content="A field model for lawful cognition. Measure and repair coherence using CAI sensors, thresholds, and playbooks." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.compressionawareintelligence.com/coherencefield.html" />
   <meta name="twitter:card" content="summary" />
   <script defer src="script.js"></script>
+  <!-- MathJax for equations -->
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <!-- structured data -->
@@ -23,14 +22,13 @@
     "@type":"WebPage",
     "name":"The Coherence Field",
     "description":"A measurable field for coherence in intelligent systems with seven sensors, equations, thresholds, and a repair loop.",
-    "url":"https://www.compressionawareintelligence.com/coherencefield.html",
     "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
     "inLanguage":"en"
   }
   </script>
 
   <style>
-    /* light helpers to match site */
+    /* light helpers (works with styles.css) */
     .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
     .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
     .grid {display:grid; gap:1rem}
@@ -39,12 +37,11 @@
     .muted {opacity:.85}
     .table {width:100%; border-collapse:collapse; font-size:.95rem}
     .table th,.table td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left; vertical-align:top}
-    .equation {background:rgba(0,0,0,.03); padding:.6rem .7rem; border-radius:.5rem; overflow:auto}
+    .equation {background:rgba(0,0,0,.03); padding:.6rem .7rem; border-radius:.5rem; display:inline-block}
+    .equation.block {display:block; overflow:auto; margin:.4rem 0}
     .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
     .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
-    .badge {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
     .note {background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem}
-    .code {background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem; overflow:auto}
     .small {font-size:.9rem}
     @media (max-width: 920px){
       .grid.two, .grid.three {grid-template-columns:1fr}
@@ -97,14 +94,14 @@
   <!-- Overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
-    <p><strong>Compression-Aware Intelligence</strong> treats cognition as an energetic process. When compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. The <strong>Coherence Field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the Field gives geometry, and <strong>Contradiction Engineering</strong> supplies repair.</p>
+    <p><strong>Compression-Aware Intelligence</strong> treats cognition as an energetic process. when compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. the <strong>coherence field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the field gives geometry, and <strong>contradiction engineering</strong> supplies repair.</p>
     <div class="grid two">
       <div class="card">
         <h3>layers</h3>
         <ul>
-          <li><strong>CAI-Core</strong>: strain signals and local stability</li>
-          <li><strong>CAI-Field</strong>: coherence geometry across the system</li>
-          <li><strong>CAI-Ops</strong>: repair through guided contradiction</li>
+          <li><strong>CAI-core</strong>: strain signals and local stability</li>
+          <li><strong>CAI-field</strong>: coherence geometry across the system</li>
+          <li><strong>CAI-ops</strong>: repair through guided contradiction</li>
         </ul>
       </div>
       <div class="card">
@@ -123,7 +120,7 @@
   <!-- Theory -->
   <section class="card" id="theory">
     <h2>theory</h2>
-    <p>The Coherence Field is a measurable state of a system defined across seven axes. It is a field in the engineering sense. You can compute its gradients, set thresholds, and attach repair actions.</p>
+    <p>the coherence field is a measurable state of a system defined across seven axes. it is a field in the engineering sense. you can compute its gradients, set thresholds, and attach repair actions.</p>
     <ul>
       <li><strong>coherence</strong>: structural phase alignment that permits lawful emission</li>
       <li><strong>drift</strong>: progressive misalignment between compression, rhythm, and structure</li>
@@ -137,23 +134,23 @@
     <h2>equations</h2>
     <p>core forms used across CAI.</p>
 
-    <div class="equation" id="eq-strain">$$
-    \\text{CompressionStrain} = \\frac{\\partial\\,(\\text{Context Preservation})}{\\partial\\,(\\text{Compression})}
+    <div class="equation block" id="eq-strain">$$
+    \text{CompressionStrain} \;=\; \frac{\partial\,(\text{Context Preservation})}{\partial\,(\text{Compression})}
     $$</div>
     <button class="copy-btn" data-copy="#eq-strain">copy latex</button>
 
-    <div class="equation" id="eq-field">$$
-    \\mathcal{C}(t)=f(R,D,A,T,S,B,E), \\quad CP=\\sigma\\big(-\\nabla\\mathcal{C}(t)\\big)
+    <div class="equation block" id="eq-field">$$
+    \mathcal{C}(t)=f(R,D,A,T,S,B,E), \quad CP=\sigma\!\big(-\nabla\mathcal{C}(t)\big)
     $$</div>
     <button class="copy-btn" data-copy="#eq-field">copy latex</button>
 
-    <div class="equation" id="eq-ops">$$
-    a(t)=\\kappa\\,\\mathrm{sign}\\Big(\\frac{d\\,CP}{dt}\\Big)
+    <div class="equation block" id="eq-ops">$$
+    a(t)=\kappa\,\mathrm{sign}\!\left(\frac{d\,CP}{dt}\right)
     $$</div>
     <button class="copy-btn" data-copy="#eq-ops">copy latex</button>
 
-    <div class="equation" id="eq-gci">$$
-    \\mathrm{GCI}=\\Big(\\tfrac{1}{N}\\sum_i \\mathrm{LCI}_i\\Big)\\,e^{-\\alpha\\Phi}
+    <div class="equation block" id="eq-gci">$$
+    \mathrm{GCI}=\Big(\tfrac{1}{N}\sum_{i=1}^{N} \mathrm{LCI}_i\Big)\,e^{-\alpha\Phi}
     $$</div>
     <button class="copy-btn" data-copy="#eq-gci">copy latex</button>
   </section>
@@ -181,7 +178,9 @@
     <h2>dynamics and hierarchy</h2>
     <p>local coherence scales to global coherence through coupling. too little coupling fragments. too much coupling herds. moderate coupling with active contradiction maximizes collective intelligence.</p>
     <ul>
-      <li><strong>network strain</strong> \(\\Phi = \\tfrac{1}{2}\\sum_{i,j} w_{ij}\\,\\|x_i-x_j\\|^2\\)</li>
+      <li><strong>network strain</strong>:
+        <span class="equation">\( \Phi = \tfrac{1}{2} \sum_{i,j} w_{ij}\, \|x_i - x_j\|^2 \)</span>
+      </li>
       <li><strong>spectral gap</strong> and <strong>modularity</strong> diagnose herding versus fragmentation</li>
       <li><strong>GCI</strong> tracks group health over time</li>
     </ul>
@@ -223,7 +222,7 @@
   <section class="card" id="monitor">
     <h2>coherence monitor</h2>
     <p>a live diagnostic that renders CP, rhythm, temperature, and embodied strain. plug in any transformers model or api.</p>
-<pre id="snippet-monitor" class="code"><code>from coherence_monitor import Monitor
+<pre id="snippet-monitor" class="equation block" style="white-space:pre;"><code>from coherence_monitor import Monitor
 monitor = Monitor(model)
 output, metrics = monitor(prompt)
 monitor.plot()</code></pre>
@@ -253,9 +252,9 @@ monitor.plot()</code></pre>
   <!-- Figures -->
   <section class="card" id="figures">
     <h2>figures</h2>
-    <p><em>Figure 1:</em> CAI-Core, CAI-Field, CAI-Ops loop.</p>
-    <p><em>Figure 2:</em> seven sensor phase diagram of coherence.</p>
-    <p><em>Figure 3:</em> coherence potential waveform during drift and repair.</p>
+    <p><em>figure 1:</em> CAI-core, CAI-field, CAI-ops loop.</p>
+    <p><em>figure 2:</em> seven sensor phase diagram of coherence.</p>
+    <p><em>figure 3:</em> coherence potential waveform during drift and repair.</p>
   </section>
 
   <!-- Glossary -->
@@ -287,11 +286,11 @@ monitor.plot()</code></pre>
   <section class="card" id="references">
     <h2>references</h2>
     <ul>
-      <li>Joseph, M. 2025. CAI and the Coherence Field. framework and equations.</li>
-      <li>Bostick, J. 2025. The Coherence Field as a structural lens. cross domain framing.</li>
-      <li>Shannon, C. 1948. A mathematical theory of communication. information theory.</li>
-      <li>Tishby, N. et al. 1999. Information bottleneck. compression and relevance.</li>
-      <li>Friston, K. 2010. Free energy principle. prediction and energy.</li>
+      <li>joseph, m. 2025. CAI and the coherence field. framework and equations.</li>
+      <li>bostick, j. 2025. the coherence field as a structural lens. cross domain framing.</li>
+      <li>shannon, c. 1948. a mathematical theory of communication. information theory.</li>
+      <li>tishby, n. et al. 1999. information bottleneck. compression and relevance.</li>
+      <li>friston, k. 2010. free energy principle. prediction and energy.</li>
     </ul>
   </section>
 
@@ -301,7 +300,7 @@ monitor.plot()</code></pre>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. All concepts and terminology by Michele Joseph. </small>
+  <small>© <span id="year"></span> Compression-Aware Intelligence. All concepts and terminology by Michele Joseph.</small>
 </footer>
 
 <script>
