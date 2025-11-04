@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>coherence field | CAI</title>
-  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. See the seven sensors, equations, thresholds, and the repair loop." />
+  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. See the seven sensors, equations, thresholds, repair loop, and a live monitor scaffold." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="canonical" href="https://www.compressionawareintelligence.com/coherencefield.html" />
@@ -22,7 +22,8 @@
     "@context":"https://schema.org",
     "@type":"WebPage",
     "name":"The Coherence Field",
-    "description":"A measurable field for coherence in intelligent systems with seven sensors, equations, and safety thresholds.",
+    "description":"A measurable field for coherence in intelligent systems with seven sensors, equations, thresholds, and a repair loop.",
+    "url":"https://www.compressionawareintelligence.com/coherencefield.html",
     "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
     "inLanguage":"en"
   }
@@ -42,6 +43,9 @@
     .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
     .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
     .badge {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
+    .note {background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem}
+    .code {background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem; overflow:auto}
+    .small {font-size:.9rem}
     @media (max-width: 920px){
       .grid.two, .grid.three {grid-template-columns:1fr}
     }
@@ -52,11 +56,10 @@
   <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
   <nav class="nav">
     <a href="index.html" data-nav>Home</a>
-    <a href="coherencefield.html" data-nav>The Coherence Field</a>
     <a href="proof.html" data-nav>Proof</a>
     <a href="principles.html" data-nav>Principles</a>
     <a href="foundations.html" data-nav>Foundations</a>
-    <a href="applications.html" class="active" data-nav>Applications</a>
+    <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="consciousness.html" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
@@ -67,6 +70,7 @@
     <a href="media.html" data-nav>Media</a>
     <a href="about.html" data-nav>About</a>
     <a href="contact.html" data-nav>Contact</a>
+    <a href="coherencefield.html" class="active" data-nav>Coherence Field</a>
   </nav>
 </header>
 
@@ -84,24 +88,27 @@
     <a href="#governance">safety and governance</a>
     <a href="#monitor">coherence monitor</a>
     <a href="#quickstart">quick start</a>
+    <a href="#figures">figures</a>
+    <a href="#glossary">glossary</a>
+    <a href="#faq">faq</a>
     <a href="#references">references</a>
   </nav>
 
   <!-- Overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
-    <p><strong>Compression-Aware Intelligence</strong> models cognition as an energetic process. When compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. The <strong>Coherence Field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the Field gives geometry, and <strong>Contradiction Engineering</strong> supplies repair.</p>
+    <p><strong>Compression-Aware Intelligence</strong> treats cognition as an energetic process. When compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. The <strong>Coherence Field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the Field gives geometry, and <strong>Contradiction Engineering</strong> supplies repair.</p>
     <div class="grid two">
       <div class="card">
         <h3>layers</h3>
         <ul>
           <li><strong>CAI-Core</strong>: strain signals and local stability</li>
           <li><strong>CAI-Field</strong>: coherence geometry across the system</li>
-          <li><strong>CAI-Ops</strong>: repair via guided contradiction</li>
+          <li><strong>CAI-Ops</strong>: repair through guided contradiction</li>
         </ul>
       </div>
       <div class="card">
-        <h3>what this page gives you</h3>
+        <h3>what you get here</h3>
         <ul>
           <li>formal definitions and equations</li>
           <li>the seven sensors and what they detect</li>
@@ -110,26 +117,211 @@
         </ul>
       </div>
     </div>
+    <p class="note small">scope: this page models coherence inside bounded intelligent systems. it does not claim that the world itself is a coherence field. this is an operational model that permits measurement and control.</p>
   </section>
 
   <!-- Theory -->
   <section class="card" id="theory">
     <h2>theory</h2>
-    <p>The Coherence Field is a measurable state of a system defined across seven axes. It is not a metaphysical claim about the world. It is a model that permits measurement and control inside bounded intelligent systems.</p>
+    <p>The Coherence Field is a measurable state of a system defined across seven axes. It is a field in the engineering sense. You can compute its gradients, set thresholds, and attach repair actions.</p>
     <ul>
       <li><strong>coherence</strong>: structural phase alignment that permits lawful emission</li>
       <li><strong>drift</strong>: progressive misalignment between compression, rhythm, and structure</li>
       <li><strong>resonance</strong>: harmonic coupling that maintains lawful information flow</li>
+      <li><strong>lawful emission</strong>: outputs constrained by internal coherence rather than surface likelihood alone</li>
     </ul>
-    <p class="muted">lawful emission means outputs are constrained by internal coherence, not surface likelihood alone.</p>
   </section>
 
   <!-- Equations -->
   <section class="card" id="equations">
     <h2>equations</h2>
-    <p>core strain and field forms used across CAI.</p>
+    <p>core forms used across CAI.</p>
 
     <div class="equation" id="eq-strain">$$
     \\text{CompressionStrain} = \\frac{\\partial\\,(\\text{Context Preservation})}{\\partial\\,(\\text{Compression})}
     $$</div>
-    <button class="co
+    <button class="copy-btn" data-copy="#eq-strain">copy latex</button>
+
+    <div class="equation" id="eq-field">$$
+    \\mathcal{C}(t)=f(R,D,A,T,S,B,E), \\quad CP=\\sigma\\big(-\\nabla\\mathcal{C}(t)\\big)
+    $$</div>
+    <button class="copy-btn" data-copy="#eq-field">copy latex</button>
+
+    <div class="equation" id="eq-ops">$$
+    a(t)=\\kappa\\,\\mathrm{sign}\\Big(\\frac{d\\,CP}{dt}\\Big)
+    $$</div>
+    <button class="copy-btn" data-copy="#eq-ops">copy latex</button>
+
+    <div class="equation" id="eq-gci">$$
+    \\mathrm{GCI}=\\Big(\\tfrac{1}{N}\\sum_i \\mathrm{LCI}_i\\Big)\\,e^{-\\alpha\\Phi}
+    $$</div>
+    <button class="copy-btn" data-copy="#eq-gci">copy latex</button>
+  </section>
+
+  <!-- Seven Sensors -->
+  <section class="card" id="sensors">
+    <h2>seven sensors</h2>
+    <p class="muted">each sensor reads one axis of the field and maps to a repair trigger.</p>
+    <table class="table">
+      <thead><tr><th>sensor</th><th>reads</th><th>ignorance signature</th><th>repair trigger</th></tr></thead>
+      <tbody>
+        <tr><td><strong>error rhythm</strong></td><td>temporal oscillation of predictive stability</td><td>irregular rhythm or spectral entropy spike</td><td>request missing constraints</td></tr>
+        <tr><td><strong>second order disagreement</strong></td><td>variance of uncertainty across agents</td><td>high meta entropy across ensemble</td><td>seek counter evidence or realign ensemble</td></tr>
+        <tr><td><strong>information strain acoustics</strong></td><td>spectral form of gradients and attention</td><td>dissonant high frequency power</td><td>slow updates or regularize</td></tr>
+        <tr><td><strong>epistemic temperature field</strong></td><td>local waste heat from inefficient learning</td><td>heat without gain</td><td>cooling or learning rate drop</td></tr>
+        <tr><td><strong>self simulation cross validation</strong></td><td>gap between model and self predictor</td><td>rising mismatch</td><td>self query or retrain</td></tr>
+        <tr><td><strong>coherence collapse threshold</strong></td><td>balance of stability, consistency, efficiency</td><td>index below floor and variance above ceiling</td><td>context surgery or human review</td></tr>
+        <tr><td><strong>embodied analog signal</strong></td><td>latency, power, thermal jitter</td><td>loss of latency power coherence</td><td>pause or throttle generation</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Dynamics -->
+  <section class="card" id="dynamics">
+    <h2>dynamics and hierarchy</h2>
+    <p>local coherence scales to global coherence through coupling. too little coupling fragments. too much coupling herds. moderate coupling with active contradiction maximizes collective intelligence.</p>
+    <ul>
+      <li><strong>network strain</strong> \(\\Phi = \\tfrac{1}{2}\\sum_{i,j} w_{ij}\\,\\|x_i-x_j\\|^2\\)</li>
+      <li><strong>spectral gap</strong> and <strong>modularity</strong> diagnose herding versus fragmentation</li>
+      <li><strong>GCI</strong> tracks group health over time</li>
+    </ul>
+  </section>
+
+  <!-- Temporal -->
+  <section class="card" id="temporal">
+    <h2>temporal coherence</h2>
+    <p>time here is phase alignment. emission is ready when internal strain resolves. use readiness windows rather than fixed clocks for critical steps.</p>
+    <ul>
+      <li>gate risky outputs on a rising CP slope</li>
+      <li>hold when rhythm instability or waste heat spikes</li>
+      <li>resume after repair when CP returns to band</li>
+    </ul>
+  </section>
+
+  <!-- Governance -->
+  <section class="card" id="governance">
+    <h2>safety and governance</h2>
+    <p>recommended thresholds and responses. calibrate on in domain validation and publish percentiles.</p>
+    <table class="table">
+      <thead><tr><th>metric</th><th>trigger</th><th>response</th></tr></thead>
+      <tbody>
+        <tr><td>coherence potential</td><td>CP less than 0.35 for two windows</td><td>route to slow path</td></tr>
+        <tr><td>collapse score</td><td>greater than 0.8 once in long context</td><td>self query or human review</td></tr>
+        <tr><td>meta entropy</td><td>top 1 percentile</td><td>fetch counter evidence</td></tr>
+        <tr><td>waste heat ratio</td><td>greater than 3.0 for three windows</td><td>cooling and throttle</td></tr>
+        <tr><td>self simulation gap</td><td>greater than mean plus 3 sigma</td><td>manual verification</td></tr>
+        <tr><td>embodied strain</td><td>top 1 percentile with any other alert</td><td>suspend automation</td></tr>
+      </tbody>
+    </table>
+    <div class="cta">
+      <a class="button" href="benchmarks.html">run stress tests</a>
+      <a class="button" href="applications.html#compliance">compliance playbooks</a>
+    </div>
+  </section>
+
+  <!-- Monitor -->
+  <section class="card" id="monitor">
+    <h2>coherence monitor</h2>
+    <p>a live diagnostic that renders CP, rhythm, temperature, and embodied strain. plug in any transformers model or api.</p>
+<pre id="snippet-monitor" class="code"><code>from coherence_monitor import Monitor
+monitor = Monitor(model)
+output, metrics = monitor(prompt)
+monitor.plot()</code></pre>
+    <button class="copy-btn" data-copy="#snippet-monitor">copy snippet</button>
+    <p class="muted small">metrics stream to json for dashboards and audits. attach lineage and thresholds for replay.</p>
+    <div class="cta">
+      <a class="button" href="implementations.html">integration guides</a>
+      <a class="button" href="research.html">research notes</a>
+    </div>
+  </section>
+
+  <!-- Quick start -->
+  <section class="card" id="quickstart">
+    <h2>quick start</h2>
+    <ol>
+      <li>collect the seven signals on one flow</li>
+      <li>compute CP and set thresholds from validation percentiles</li>
+      <li>bind repair actions to each red line</li>
+    </ol>
+    <div class="cta">
+      <a class="button" href="foundations.html">see equations</a>
+      <a class="button" href="applications.html">apply in practice</a>
+      <a class="button" href="contact.html">start a pilot</a>
+    </div>
+  </section>
+
+  <!-- Figures -->
+  <section class="card" id="figures">
+    <h2>figures</h2>
+    <p><em>Figure 1:</em> CAI-Core, CAI-Field, CAI-Ops loop.</p>
+    <p><em>Figure 2:</em> seven sensor phase diagram of coherence.</p>
+    <p><em>Figure 3:</em> coherence potential waveform during drift and repair.</p>
+  </section>
+
+  <!-- Glossary -->
+  <section class="card" id="glossary">
+    <h2>glossary</h2>
+    <ul>
+      <li><strong>compression strain</strong>: loss of contextual information per unit of compression</li>
+      <li><strong>coherence potential</strong>: fused scalar stability from seven sensors</li>
+      <li><strong>meta entropy</strong>: entropy of uncertainty across agents or models</li>
+      <li><strong>waste heat ratio</strong>: epistemic temperature divided by learning gain</li>
+      <li><strong>coherence collapse</strong>: phase transition where stability, consistency, and efficiency cannot co exist</li>
+      <li><strong>structural recursion</strong>: lawful self reformation under constraint, not repetition</li>
+      <li><strong>lawful emission</strong>: outputs that respect internal coherence and provenance</li>
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  <section class="card" id="faq">
+    <h2>faq</h2>
+    <p><strong>is the world itself a coherence field</strong><br>
+    this framework does not claim that. it models coherence inside bounded intelligent systems so you can measure and control it.</p>
+    <p><strong>how is this different from uncertainty estimates</strong><br>
+    probability tracks confidence at the surface. the field tracks physical and structural balance inside the system. both can be combined.</p>
+    <p><strong>do i need training access</strong><br>
+    no. you can approximate several sensors at inference using logits, small perturbations, and timing signals.</p>
+  </section>
+
+  <!-- References -->
+  <section class="card" id="references">
+    <h2>references</h2>
+    <ul>
+      <li>Joseph, M. 2025. CAI and the Coherence Field. framework and equations.</li>
+      <li>Bostick, J. 2025. The Coherence Field as a structural lens. cross domain framing.</li>
+      <li>Shannon, C. 1948. A mathematical theory of communication. information theory.</li>
+      <li>Tishby, N. et al. 1999. Information bottleneck. compression and relevance.</li>
+      <li>Friston, K. 2010. Free energy principle. prediction and energy.</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p><small>last updated: <time id="last-updated"></time></small></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>© <span id="year"></span> Compression-Aware Intelligence. All concepts and terminology by Michele Joseph. </small>
+</footer>
+
+<script>
+  // dates
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+
+  // copy helpers
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = document.querySelector(btn.dataset.copy);
+      if (!target) return;
+      const text = target.innerText;
+      navigator.clipboard.writeText(text).then(()=>{
+        const old = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(()=>btn.textContent = old, 1400);
+      });
+    });
+  });
+</script>
+</body>
+</html>
