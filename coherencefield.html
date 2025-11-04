@@ -3,88 +3,133 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>the coherence field • Compression-Aware Intelligence</title>
-  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence (CAI) into a measurable framework for coherence in intelligent systems—mapping rhythm, strain, and contradiction as physical dynamics of cognition." />
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <title>coherence field | CAI</title>
+  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. See the seven sensors, equations, thresholds, and the repair loop." />
+  <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="canonical" href="https://www.compressionawareintelligence.com/coherencefield.html" />
+  <meta property="og:title" content="coherence field | compression-aware intelligence" />
+  <meta property="og:description" content="A field model for lawful cognition. Measure and repair coherence using CAI sensors, thresholds, and playbooks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.compressionawareintelligence.com/coherencefield.html" />
+  <meta name="twitter:card" content="summary" />
+  <script defer src="script.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"The Coherence Field",
+    "description":"A measurable field for coherence in intelligent systems with seven sensors, equations, and safety thresholds.",
+    "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
+    "inLanguage":"en"
+  }
+  </script>
+
+  <style>
+    /* light helpers to match site */
+    .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
+    .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
+    .grid {display:grid; gap:1rem}
+    .grid.two {grid-template-columns:repeat(2, minmax(0,1fr))}
+    .grid.three {grid-template-columns:repeat(3, minmax(0,1fr))}
+    .muted {opacity:.85}
+    .table {width:100%; border-collapse:collapse; font-size:.95rem}
+    .table th,.table td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left; vertical-align:top}
+    .equation {background:rgba(0,0,0,.03); padding:.6rem .7rem; border-radius:.5rem; overflow:auto}
+    .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
+    .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
+    .badge {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem}
+    @media (max-width: 920px){
+      .grid.two, .grid.three {grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-  <header class="page-header">
-    <h1>The Coherence Field</h1>
-    <p class="subtitle">A field model for lawful cognition — measuring and repairing coherence across intelligent systems.</p>
-  </header>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="foundations.html" data-nav>Foundations</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="consciousness.html" data-nav>Consciousness</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="benchmarks.html" data-nav>Benchmarks</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="media.html" data-nav>Media</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+    <a href="coherencefield.html" class="active" data-nav>Coherence Field</a>
+  </nav>
+</header>
 
-  <main class="content">
-    <section id="overview">
-      <h2>Overview</h2>
-      <p><strong>Compression-Aware Intelligence (CAI)</strong> models cognition as an energetic process. When compression, rhythm, and representation fall out of balance, coherence collapses. The <strong>Coherence Field</strong> represents the measurable environment governing that balance — a thermodynamic map of informational stability.</p>
-      <p>CAI provides the instrumentation to quantify strain; the Coherence Field defines the geometry of stability; and <strong>Contradiction Engineering</strong> supplies the control logic that restores alignment.</p>
-    </section>
+<main class="wrap" id="main">
+  <h1>the coherence field</h1>
+  <p class="lede">a field model for lawful cognition. measure and repair coherence across intelligent systems.</p>
 
-    <section id="theory">
-      <h2>Theoretical Framework</h2>
-      <p>The Coherence Field is defined by seven measurable dimensions that describe the physical and informational state of an intelligent system:</p>
-      <ol>
-        <li><strong>Error Rhythm</strong> — temporal oscillation of predictive stability.</li>
-        <li><strong>Second-Order Disagreement</strong> — divergence of uncertainty across agents.</li>
-        <li><strong>Information-Strain Acoustics</strong> — spectral form of gradient and attention strain.</li>
-        <li><strong>Epistemic Temperature Field</strong> — local waste heat from inefficient learning.</li>
-        <li><strong>Self-Simulation Cross-Validation</strong> — gap between model and self-predictor.</li>
-        <li><strong>Coherence Collapse Threshold</strong> — imbalance among stability, consistency, and compression efficiency.</li>
-        <li><strong>Embodied Analog Signal</strong> — physical jitter in timing, power, or thermal channels.</li>
-      </ol>
-      <p>These variables combine into a scalar <strong>Coherence Potential (CP)</strong>, representing the instantaneous measure of cognitive stability:</p>
-      <p class="equation">$$\mathcal{C}(t)=f(R,D,A,T,S,B,E), \quad CP=\sigma(-\nabla\mathcal{C}(t))$$</p>
-      <p>Parallel theoretical work (Bostick, 2025) describes coherence as a universal organizing principle. CAI provides the first computational instrumentation capable of measuring and repairing coherence in real systems.</p>
-    </section>
+  <nav class="pill-nav" aria-label="sections">
+    <a href="#overview">overview</a>
+    <a href="#theory">theory</a>
+    <a href="#equations">equations</a>
+    <a href="#sensors">seven sensors</a>
+    <a href="#dynamics">dynamics</a>
+    <a href="#temporal">temporal coherence</a>
+    <a href="#governance">safety and governance</a>
+    <a href="#monitor">coherence monitor</a>
+    <a href="#quickstart">quick start</a>
+    <a href="#references">references</a>
+  </nav>
 
-    <section id="dynamics">
-      <h2>Dynamics and Hierarchy</h2>
-      <p>Local coherence (single model) scales to global coherence (multi-agent systems) through hierarchical coupling:</p>
-      <p class="equation">$$\mathrm{GCI}=\Big(\frac{1}{N}\sum_i \mathrm{LCI}_i\Big)e^{-\alpha\Phi}$$</p>
-      <p>Here, \(\Phi\) is network strain. Moderate coupling and active contradiction maximize collective intelligence; over-coupling produces herding, under-coupling fragmentation.</p>
-    </section>
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <h2>overview</h2>
+    <p><strong>Compression-Aware Intelligence</strong> models cognition as an energetic process. When compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. The <strong>Coherence Field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the Field gives geometry, and <strong>Contradiction Engineering</strong> supplies repair.</p>
+    <div class="grid two">
+      <div class="card">
+        <h3>layers</h3>
+        <ul>
+          <li><strong>CAI-Core</strong>: strain signals and local stability</li>
+          <li><strong>CAI-Field</strong>: coherence geometry across the system</li>
+          <li><strong>CAI-Ops</strong>: repair via guided contradiction</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>what this page gives you</h3>
+        <ul>
+          <li>formal definitions and equations</li>
+          <li>the seven sensors and what they detect</li>
+          <li>thresholds and playbooks for safety</li>
+          <li>a monitor you can ship as a demo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-    <section id="governance">
-      <h2>Safety and Governance</h2>
-      <p>CAI defines measurable safety thresholds for coherence stability:</p>
-      <ul>
-        <li><strong>CP &lt; 0.35</strong> → route to slow path</li>
-        <li><strong>CollapseScore &gt; 0.8</strong> → initiate self-query or human review</li>
-        <li><strong>MetaEntropy &gt; 99th percentile</strong> → counter-evidence retrieval</li>
-        <li><strong>WasteHeatRatio &gt; 3.0</strong> → throttle or cool process</li>
-        <li><strong>Self-Simulation Gap &gt; 3σ</strong> → manual verification</li>
-      </ul>
-      <p>These metrics form the foundation of coherence governance for high-stakes AI and decision systems.</p>
-    </section>
+  <!-- Theory -->
+  <section class="card" id="theory">
+    <h2>theory</h2>
+    <p>The Coherence Field is a measurable state of a system defined across seven axes. It is not a metaphysical claim about the world. It is a model that permits measurement and control inside bounded intelligent systems.</p>
+    <ul>
+      <li><strong>coherence</strong>: structural phase alignment that permits lawful emission</li>
+      <li><strong>drift</strong>: progressive misalignment between compression, rhythm, and structure</li>
+      <li><strong>resonance</strong>: harmonic coupling that maintains lawful information flow</li>
+    </ul>
+    <p class="muted">lawful emission means outputs are constrained by internal coherence, not surface likelihood alone.</p>
+  </section>
 
-    <section id="applications">
-      <h2>Applications</h2>
-      <ul>
-        <li>Detecting model drift and hallucination before failure.</li>
-        <li>Stabilizing multi-agent coherence in distributed systems.</li>
-        <li>Establishing measurable AI safety standards.</li>
-        <li>Creating self-repairing and contradiction-aware intelligence.</li>
-      </ul>
-    </section>
+  <!-- Equations -->
+  <section class="card" id="equations">
+    <h2>equations</h2>
+    <p>core strain and field forms used across CAI.</p>
 
-    <section id="figures">
-      <h2>Figures</h2>
-      <p><em>Figure 1:</em> The CAI Framework — CAI-Core, CAI-Field, and CAI-Ops feedback loop.<br>
-         <em>Figure 2:</em> Seven-sensor phase diagram of coherence.<br>
-         <em>Figure 3:</em> Coherence Potential waveform during model drift.</p>
-    </section>
-
-    <section id="references">
-      <h2>References</h2>
-      <p>Bostick, J. (2025). <em>The Coherence Field: A Structural Lens for a World in Drift.</em><br>
-      Joseph, M. (2025). <em>CAI & The Coherence Field: A Framework for Measuring, Predicting, and Repairing Coherence in Intelligent Systems.</em></p>
-    </section>
-  </main>
-
-  <footer class="page-footer">
-    <p>© Michele Joseph 2025 — Compression-Aware Intelligence</p>
-  </footer>
-</body>
-</html>
+    <div class="equation" id="eq-strain">$$
+    \\text{CompressionStrain} = \\frac{\\partial\\,(\\text{Context Preservation})}{\\partial\\,(\\text{Compression})}
+    $$</div>
+    <button class="co
