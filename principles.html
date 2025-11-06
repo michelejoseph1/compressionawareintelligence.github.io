@@ -60,9 +60,9 @@
     <a href="index.html" data-nav>Home</a>
     <a href="coherencefield.html" data-nav>The Coherence Field</a>
     <a href="proof.html" data-nav>Proof</a>
-    <a href="principles.html" data-nav>Principles</a>
-    <a href="foundations.html" data-nav>Foundations</a>
-    <a href="applications.html" class="active" data-nav>Applications</a>
+    <a href="principles.html" class="active" data-nav>Principles</a>
+    <!-- foundations link removed -->
+    <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="consciousness.html" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
@@ -89,6 +89,7 @@
     <a href="#p6">audit by default</a>
     <a href="#p7">privacy by design</a>
     <a href="#p8">optimize for outcomes</a>
+    <a href="#foundations-snapshot">foundations snapshot</a>
   </nav>
 
   <section class="grid two">
@@ -147,7 +148,7 @@
       <div class="p-head">
         <span class="p-num">6.</span><h2>audit by default</h2><span class="tag">replay</span>
       </div>
-      <p>make replay cheap. logs should reconstruct the path, sources, scores, and gates for any output.</d>
+      <p>make replay cheap. logs should reconstruct the path, sources, scores, and gates for any output.</p>
       <p class="muted">quick test: can you rebuild yesterday’s answer bit for bit with stored artifacts.</p>
       <p class="muted">antipattern: ephemeral steps with no trace.</p>
     </article>
@@ -200,7 +201,7 @@
     <div class="cta">
       <button class="copy-btn" data-copy="#audit-yaml">copy as yaml</button>
       <a class="button" href="benchmarks.html">open benchmarks</a>
-      <a class="button" href="foundations.html">see equations</a>
+      <a class="button" href="#foundations-snapshot">see equations</a>
     </div>
 <pre id="audit-yaml"><code>cai_audit:
   compression_sites_listed: false
@@ -211,6 +212,54 @@
   replay_log_verified: false
   privacy_controls_enforced: false
   outcome_metrics_tracked: false</code></pre>
+  </section>
+
+  <!-- foundations snapshot (moved here since foundations.html was removed) -->
+  <section class="card" id="foundations-snapshot">
+    <h2>foundations snapshot</h2>
+    <p class="muted">compact definitions and equations used by the principles.</p>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>compression tension score (CTS)</h3>
+        <p>per site: CTS<sub>i</sub> = w<sub>I</sub>·I<sub>i</sub> + w<sub>T</sub>·T<sub>i</sub> + w<sub>P</sub>·P<sub>i</sub> + w<sub>U</sub>·U<sub>i</sub></p>
+        <ul>
+          <li>I: information loss (e.g., KL or rate drop), T: task degradation, P: provenance gap, U: uncertainty amplification</li>
+          <li>normalize each term to [0,1]; choose weights with sum = 1</li>
+          <li>path score: CTS(𝓟) = Σ α<sub>i</sub>·CTS<sub>i</sub> with step weights α</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>contradiction score</h3>
+        <p>for claims c₁, c₂ with NLI probabilities p<sub>E</sub>, p<sub>C</sub>, p<sub>N</sub>:</p>
+        <p>CS(c₁,c₂) = p<sub>C</sub> − p<sub>E</sub> ∈ [−1,1]</p>
+        <p>attach pointers to evidence spans for both claims.</p>
+      </div>
+
+      <div class="card">
+        <h3>provenance entropy</h3>
+        <p>H<sub>prov</sub> = −Σ p<sub>k</sub> log p<sub>k</sub>,  Conf<sub>prov</sub> = 1 − H<sub>prov</sub> / log K</p>
+        <p>high confidence when a small set of strong, verifiable sources dominate.</p>
+      </div>
+
+      <div class="card">
+        <h3>auditability</h3>
+        <p>Audit(𝓟) = (# of steps with replayable artifacts) / n</p>
+        <p>targets: ≥ 0.9 for public claims, ≥ 0.7 for internal.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>abstention rule</h3>
+      <p>emit an answer only if all are true:</p>
+      <ul>
+        <li>V(E, ŷ) = 1 (verifier entailment)</li>
+        <li>CTS(𝓟) ≤ τ<sub>cts</sub></li>
+        <li>Audit(𝓟) ≥ τ<sub>audit</sub></li>
+      </ul>
+      <p>otherwise produce a short, specific abstain message.</p>
+    </div>
   </section>
 
   <section class="card" aria-live="polite">
