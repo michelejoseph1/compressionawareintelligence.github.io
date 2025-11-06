@@ -3,30 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Compression-Aware Intelligence (CAI)</title>
-  <meta name="description" content="Compression-Aware Intelligence. Every system compresses. Real intelligence must be compression-aware." />
+  <title>Compression‑Aware Intelligence (CAI) · Reliability layer for AI systems</title>
+  <meta name="description" content="CAI is the reliability layer for AI systems. Every system compresses; CAI makes models and teams compression‑aware so you can see loss, map contradictions, and ship safer systems." />
+  <link rel="canonical" href="https://compressionawareintelligence.com/" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <meta property="og:title" content="Compression-Aware Intelligence (CAI)" />
-  <meta property="og:description" content="Every system compresses. Real intelligence must be compression-aware." />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Compression‑Aware Intelligence (CAI)" />
+  <meta property="og:description" content="Every system compresses. Real intelligence must be compression‑aware." />
   <meta property="og:image" content="assets/cai-card.png" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compression‑Aware Intelligence (CAI)">
+  <meta name="twitter:description" content="Reliability layer for AI systems: measure compression loss, surface contradictions, reduce hallucinations.">
+  <meta name="twitter:image" content="assets/cai-card.png">
+
+  <!-- Styles and scripts -->
   <link rel="stylesheet" href="styles.css" />
   <script defer src="script.js"></script>
+
+  <!-- Structured data: Organization + SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Compression‑Aware Intelligence",
+    "url": "https://compressionawareintelligence.com/",
+    "logo": "https://compressionawareintelligence.com/assets/cai-logo.png",
+    "sameAs": [
+      "https://github.com/michelejoseph1",
+      "https://www.contradictionengineering.com"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CAI Tooling",
+    "applicationCategory": "AI reliability, evaluation, governance",
+    "operatingSystem": "Cross‑platform",
+    "offers": {"@type": "Offer", "price": "0"},
+    "url": "https://compressionawareintelligence.com/implementations.html"
+  }
+  </script>
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
-  <nav class="nav">
-    <a href="index.html" data-nav>Home</a>
-    <a href="coherencefield.html" data-nav>The Coherence Field</a>
+<header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression‑Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" class="active" data-nav>Home</a>
+    <a href="coherencefield.html" data-nav>Coherence Field</a>
     <a href="proof.html" data-nav>Proof</a>
     <a href="principles.html" data-nav>Principles</a>
     <a href="foundations.html" data-nav>Foundations</a>
-    <a href="applications.html" class="active" data-nav>Applications</a>
+    <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="consciousness.html" data-nav>Consciousness</a>
     <a href="implementations.html" data-nav>Implementations</a>
@@ -40,59 +79,115 @@
   </nav>
 </header>
 
-<main class="wrap">
-  <section class="hero card">
-    <p class="pill">November 2025</p>
-    <h1>Compression-Aware Intelligence</h1>
-    <p class="lede">
-      Core claim: Every system compresses. If every system compresses, intelligence must be compression-aware to be real.
-    </p>
+<main class="wrap" id="content">
+  <!-- HERO -->
+  <section class="hero card" aria-labelledby="hero-title">
+    <p class="pill">Updated November 2025</p>
+    <h1 id="hero-title">Compression‑Aware Intelligence</h1>
+    <p class="lede">Every system compresses. If every system compresses, real intelligence must be compression‑aware.</p>
     <div class="cta-row">
-      <a class="btn" href="proof.html">Start with the proof</a>
+      <a class="btn" href="proof.html">Start with the one‑page proof</a>
+      <a class="btn ghost" href="implementations.html">Run the 60‑second demo</a>
       <a class="btn ghost" href="media.html">See recognition</a>
     </div>
+    <p class="muted">CAI is a reliability layer for AI systems. It lets you point to the compression, reason about the error, and choose safer tradeoffs.</p>
   </section>
 
+  <!-- VALUE FOR AI ENGINEERS -->
+  <section class="card" aria-labelledby="eng-title">
+    <h2 id="eng-title">For AI engineers</h2>
+    <div class="grid two">
+      <div>
+        <ul class="checklist">
+          <li><strong>MirrorNet</strong>: reflects compression choices to both user and model at inference time.</li>
+          <li><strong>Hallucinet</strong>: estimates risk tied to hidden compression before it bites you in prod.</li>
+          <li><strong>CAC tests</strong>: cost‑aware checks for evals and QA that surface failure modes early.</li>
+          <li><strong>Contradiction maps</strong>: find, score, and fix conflicts worsened by compression.</li>
+          <li><strong>Provenance hooks</strong>: attach sources to claims to enable audit and rollback.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Drop‑in outcomes</h3>
+        <ul class="bullets">
+          <li>Fewer hallucinations and clearer deltas between prompts.</li>
+          <li>Readable risk signals for product, legal, and safety teams.</li>
+          <li>Faster incident triage with traceable compression sites.</li>
+          <li>Better acceptance criteria for safety gates.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK START -->
+  <section class="card" aria-labelledby="quick-title">
+    <h2 id="quick-title">Quick start</h2>
+    <p class="muted">60 seconds to run a stability scan on your docs.</p>
+    <pre class="code"><code>git clone https://github.com/michelejoseph1/knowledge_landscape_stability_kit.git
+cd knowledge_landscape_stability_kit
+pip install -r requirements.txt
+python knowledge_landscape_scan.py --docs ./sample_docs --out ./scan_out
+open ./scan_out/stability_scan.html</code></pre>
+    <div class="cta-row">
+      <a class="btn" href="implementations.html">All implementations</a>
+      <a class="btn ghost" href="benchmarks.html">Benchmarks</a>
+    </div>
+  </section>
+
+  <!-- CONCEPT SNAPSHOT -->
+  <section class="card" aria-labelledby="concept-title">
+    <h2 id="concept-title">Core concepts at a glance</h2>
+    <ul class="cols">
+      <li><strong>CFI</strong> (Coherence Field Index): a local measure of narrative tension created by compression.</li>
+      <li><strong>CTS</strong> (Compression Strain Theory): explains how loss accumulates into failure modes.</li>
+      <li><strong>Compression sites</strong>: places where formats, time, or abstraction force loss.</li>
+      <li><strong>Loss scoring</strong>: quantify how much and what kind of meaning is being dropped.</li>
+    </ul>
+    <p class="muted">If you can see the compression, you can control the failure mode.</p>
+  </section>
+
+  <!-- PROOF + WHY IT MATTERS -->
   <section class="grid two">
     <div class="card">
-      <h2>What is CAI</h2>
-      <p>Compression-Aware Intelligence is a framework for recognizing, measuring, and leveraging the distortions that arise from compressing information, whether in human cognition, AI models, or collective narratives, with the goal of improving reliability, accountability, and authenticity in intelligence systems. </p>
-      <ul>
-        <li>Locate compression sites</li>
-        <li>Score the loss</li>
-        <li>Map contradictions</li>
-        <li>Attach provenance</li>
-        <li>Enable audit</li>
+      <h2>Why it matters</h2>
+      <ul class="bullets">
+        <li>Turn hidden compression into explicit, auditable choices.</li>
+        <li>Make contradictions visible before they become incidents.</li>
+        <li>Give stakeholders a shared language for risk.</li>
       </ul>
     </div>
     <div class="card">
-      <h2>Why it matters</h2>
-      <ul>
-        <li>Fewer hallucinations</li>
-        <li>Clearer failure modes</li>
-        <li>Safer tradeoffs</li>
-        <li>Better accountability</li>
-      </ul>
-      <p class="muted">If you can point to the compression, you can reason about the error.</p>
+      <h2>Proof sketch</h2>
+      <p>Assume every system compresses. Unseen compression implies unbounded error under distributional shift. Therefore any reliable intelligence must expose, measure, and reason about its compression. Full derivation in <a href="proof.html">Proof</a>. Empirical demos in <a href="benchmarks.html">Benchmarks</a>.</p>
     </div>
   </section>
 
-  <section class="card">
-    <h2>At a glance</h2>
-    <ul class="cols">
-      <li>MirrorNet: reflects compression choices to the user and the model.</li>
-      <li>Hallucinet: detects risk tied to hidden compression.</li>
-      <li>CAC tests: cost-aware checks for evaluations and QA.</li>
-      <li>Contradiction maps: find, score, and fix conflicts made worse by compression.</li>
-    </ul>
+  <!-- CALL TO ACTION -->
+  <section class="card cta-wide" aria-labelledby="cta-title">
+    <h2 id="cta-title">Add CAI to your stack</h2>
+    <ol class="steps">
+      <li>Run the stability kit on one product surface.</li>
+      <li>Wire MirrorNet flags into your UI and logs.</li>
+      <li>Adopt CAC tests in CI for high‑risk prompts.</li>
+    </ol>
+    <div class="cta-row">
+      <a class="btn" href="implementations.html">Get adapters and SDKs</a>
+      <a class="btn ghost" href="contact.html">Talk with us</a>
+    </div>
   </section>
 </main>
 
-<footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. 
-  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-</small>
-
+<footer class="site-footer" role="contentinfo">
+  <small>© <span id="year"></span> Compression‑Aware Intelligence.
+    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
 </footer>
+
+<script>
+  // keep if you don’t have script.js
+  (function () {
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
 </body>
 </html>
