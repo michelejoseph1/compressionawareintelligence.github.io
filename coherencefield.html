@@ -4,97 +4,72 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>coherence monitor | CAI</title>
-  <meta name="description" content="A practical metrics bundle that estimates when a model is stable, drifting, or collapsing. Plug into any inference loop and gate risky outputs with thresholds you control." />
-
-  <!-- Favicons -->
+  <meta name="description" content="A practical, engineer-first monitor that estimates when a model is stable, drifting, or collapsing. Drop-in metrics, a 0–1 score, and guardrail thresholds." />
   <link rel="icon" href="assets/favicon.png" />
-
-  <!-- Base styles (use your existing site stylesheet if you have one) -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="coherence monitor | compression-aware intelligence" />
-  <meta property="og:description" content="A practical set of signals and thresholds to detect stability, drift, and collapse in AI systems." />
+  <meta property="og:description" content="Drop-in metrics for stability under compression and perturbation. Ship guardrails in a day." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
 
-  <!-- Structured data -->
+  <!-- structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
-    "@type":"TechArticle",
-    "headline":"Coherence Monitor",
-    "about":"Model stability and drift detection",
-    "author":{"@type":"Person","name":"Michele Joseph"},
+    "@type":"WebPage",
+    "name":"Coherence Monitor",
+    "description":"Practical metrics and a single score to detect stability, drift, and collapse in AI systems.",
     "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
     "inLanguage":"en"
   }
   </script>
 
   <style>
-    /* lightweight helpers that play nice with your styles.css */
-    :root { --ink:#111; --bg:#fff; --muted:rgba(0,0,0,.65); --line:rgba(0,0,0,.08); }
-    body { background:var(--bg); color:var(--ink); }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 1.25rem; }
-    .lede { font-size: 1.075rem; opacity: .95; }
-    .site-header, .site-footer { border-top: 1px solid transparent; border-bottom: 1px solid var(--line); }
-    .site-header .brand { display:flex; gap:.5rem; align-items:center; text-decoration:none; color:inherit; font-weight:600; }
-    .nav a { text-decoration:none; color:inherit; opacity:.9; padding:.35rem .5rem; border-radius:.35rem; }
-    .nav a[data-current] { outline:1px solid var(--ink); }
-    .pill-nav { display:flex; flex-wrap:wrap; gap:.5rem; margin:.75rem 0 1.25rem; }
-    .pill-nav a { border:1px solid var(--ink); padding:.35rem .65rem; border-radius:999px; text-decoration:none; }
-    .card { border:1px solid var(--line); border-radius:.6rem; padding:1rem; margin:1rem 0; }
-    .grid { display:grid; gap:1rem; }
-    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    @media (max-width: 920px){ .grid.two, .grid.three { grid-template-columns:1fr; } }
-    .table { width:100%; border-collapse:collapse; font-size:.95rem; }
-    .table th, .table td { border-bottom:1px solid var(--line); padding:.55rem .45rem; text-align:left; vertical-align:top; }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:rgba(0,0,0,.04); padding:.12rem .35rem; border-radius:.25rem; }
-    pre code { display:block; padding:.75rem; border-radius:.5rem; background:rgba(0,0,0,.04); overflow:auto; }
-    .note { background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem; }
-    .muted { color:var(--muted); }
-    .small { font-size:.92rem; }
-    .cta { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.6rem; }
-    .button, .btn { display:inline-block; border:1px solid var(--ink); padding:.45rem .7rem; border-radius:.45rem; text-decoration:none; color:inherit; }
-    .copy-btn { font:inherit; border:1px solid currentColor; background:transparent; padding:.3rem .55rem; border-radius:.4rem; cursor:pointer; }
-    .ok { background:#eaffea; border-color:#9bd39b; }
-    .warn { background:#fff6e5; border-color:#ffd07a; }
-    .stop { background:#ffecec; border-color:#ffa3a3; }
-  </style>
+  /* namespace all page-local styles under #cm to avoid touching the global nav */
+  #cm .pill{display:inline-block; padding:.25rem .55rem; border:1px solid var(--ink,#111); border-radius:999px; font-size:.85rem}
+  #cm .grid{display:grid; gap:1rem}
+  #cm .two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #cm .three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #cm .card{border:1px solid rgba(0,0,0,.08); border-radius:.65rem; padding:1rem}
+  #cm .lede{font-size:1.1rem; opacity:.95}
+  #cm .muted{opacity:.8}
+  #cm .table{width:100%; border-collapse:collapse}
+  #cm .table th,#cm .table td{border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left; vertical-align:top}
+  #cm pre{background:rgba(0,0,0,.04); padding:.8rem; border-radius:.5rem; overflow:auto}
+  #cm code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  #cm .cta{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.6rem}
+  #cm .button{display:inline-block; padding:.45rem .75rem; border-radius:.5rem; border:1px solid var(--ink,#111); text-decoration:none}
+  #cm .copy-btn{font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
+  #cm .ok{color:#116611}
+  #cm .warn{color:#8a6a00}
+  #cm .err{color:#8b0000}
+  @media (max-width: 920px){ #cm .two,#cm .three {grid-template-columns:1fr} }
+</style>
 </head>
 
 <body>
-<header class="site-header">
-  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
-    <a class="brand" href="index.html"><span>CAI</span></a>
-    <nav class="nav" aria-label="primary">
-      <a href="index.html">home</a>
-      <a href="coherencefield.html" data-current>coherence monitor</a>
-      <a href="principles.html">principles</a>
-      <a href="applications.html">applications</a>
-      <a href="implementations.html">implementations</a>
-      <a href="about.html">about</a>
-    </nav>
-  </div>
+<header class="site-header wrap">
+  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
+  <nav class="nav">
+    <a href="index.html" data-nav>Home</a>
+    <a href="coherencefield.html" data-nav aria-current="page">The Coherence Field</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
 </header>
 
-<main class="wrap" id="main">
+<main id="cm" class="wrap">
   <h1>coherence monitor</h1>
   <p class="lede">a practical set of signals that estimate when a model is stable, drifting, or collapsing. plug it into any inference loop and gate risky outputs with thresholds you control.</p>
 
-  <nav class="pill-nav" aria-label="sections">
-    <a href="#overview">overview</a>
-    <a href="#signals">signals</a>
-    <a href="#score">coherence score</a>
-    <a href="#thresholds">default thresholds</a>
-    <a href="#quickstart">quick start</a>
-    <a href="#examples">examples</a>
-    <a href="#validation">validation</a>
-    <a href="#faq">faq</a>
-  </nav>
-
-  <!-- Overview -->
+  <!-- overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
     <p><strong>what it is</strong>: a small metrics bundle and thresholds that estimate stability under compression and perturbation.</p>
@@ -111,180 +86,168 @@
       <div class="card">
         <h3>what you get</h3>
         <ul>
-          <li>a single <strong>coherence score</strong> from 0 to 1</li>
-          <li>red line thresholds and default actions</li>
+          <li>a single <strong>coherence score</strong> (0–1)</li>
+          <li>red-line thresholds and default actions</li>
           <li>a tiny monitor you can ship in a day</li>
         </ul>
+        <div class="cta">
+          <a class="button" href="implementations.html">integration guides</a>
+          <a class="button" href="applications.html">apply in practice</a>
+        </div>
       </div>
     </div>
-    <p class="note small">scope: this monitors bounded AI systems. it is not a claim about the world. this is an engineering control layer.</p>
+    <p class="muted small">scope: this monitors bounded AI systems. it is not a claim about the world. it is an engineering control layer.</p>
   </section>
 
-  <!-- Signals -->
-  <section class="card" id="signals">
-    <h2>signals</h2>
-    <table class="table" role="table">
-      <thead>
-        <tr><th>name</th><th>how to compute</th><th>intuition</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>consistency</strong></td>
-          <td>run k paraphrases of the prompt, embed outputs, compute mean pairwise cosine. scale to 0..1.</td>
-          <td>stable models keep semantics under equivalent prompts.</td>
-        </tr>
-        <tr>
-          <td><strong>robustness</strong></td>
-          <td>apply tiny edits (char swap, stopword drop, truncation). measure output deltas in embedding space. invert and scale.</td>
-          <td>micro perturbations should not flip meaning.</td>
-        </tr>
-        <tr>
-          <td><strong>agreement</strong></td>
-          <td>sample n responses via low temperature or n agents. compute majority overlap or average pairwise cosine.</td>
-          <td>healthy ensembles do not scatter on simple items.</td>
-        </tr>
-        <tr>
-          <td><strong>efficiency</strong></td>
-          <td>tokens per second and latency vs answer quality proxy (e.g., exact match, score function, or length bound). normalize.</td>
-          <td>waste heat rises when the model thrashes or loops.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- Coherence Score -->
-  <section class="card" id="score">
-    <h2>coherence score</h2>
-    <p>combine signals with weights that you can tune per domain.</p>
-    <pre><code>// default weights
-w = { consistency: 0.35, robustness: 0.30, agreement: 0.25, efficiency: 0.10 }
-
-// drift penalty: if robustness falls or latency spikes, apply a small penalty
-penalty = Math.max(0, 0.15 - 0.15 * robustness) + Math.max(0, (latency_z &gt; 2) ? 0.05 : 0)
-
-// final score
-coherence = Math.max(0, Math.min(1,
-  w.consistency*consistency +
-  w.robustness*robustness +
-  w.agreement*agreement +
-  w.efficiency*efficiency - penalty
-))</code></pre>
-    <div class="cta">
-      <button class="copy-btn" data-copy="#score code">copy</button>
-    </div>
-  </section>
-
-  <!-- Thresholds -->
-  <section class="card" id="thresholds">
-    <h2>default thresholds</h2>
-    <table class="table">
-      <thead>
-        <tr><th>state</th><th>rule</th><th>action</th></tr>
-      </thead>
-      <tbody>
-        <tr class="ok">
-          <td><strong>ok</strong></td>
-          <td>coherence ≥ 0.65 and no single signal &lt; 0.40</td>
-          <td>emit on fast path</td>
-        </tr>
-        <tr class="warn">
-          <td><strong>warn</strong></td>
-          <td>coherence in [0.45, 0.65) or any signal &lt; 0.40</td>
-          <td>self query or fetch evidence, then re test</td>
-        </tr>
-        <tr class="stop">
-          <td><strong>stop</strong></td>
-          <td>coherence &lt; 0.45 or latency z score &gt; 2.5</td>
-          <td>route to slow path or human review</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="small muted">calibrate with in domain validation. publish your 5th, 50th, and 95th percentiles.</p>
-  </section>
-
-  <!-- Quick start -->
+  <!-- quick start -->
   <section class="card" id="quickstart">
     <h2>quick start</h2>
     <ol>
-      <li>generate k paraphrases and n samples per input</li>
-      <li>compute signals and the coherence score</li>
-      <li>gate risky outputs using the rules above</li>
+      <li>install and import</li>
+      <li>wrap your inference call</li>
+      <li>set thresholds and actions</li>
     </ol>
-    <div class="cta">
-      <a class="btn" href="implementations.html">integration guides</a>
-      <a class="btn" href="applications.html">use cases</a>
-      <a class="btn" href="contact.html">start a pilot</a>
-    </div>
+<pre id="qs" aria-label="python quick start"><code># 1) install
+# pip install cai-coherence-monitor  # placeholder, or copy the local module
+
+# 2) import and wrap
+from coherence_monitor import Monitor, default_thresholds
+mon = Monitor(model, thresholds=default_thresholds())
+
+# 3) call in your loop
+result = mon.run(prompt)
+print(result.score, result.alerts)
+
+# 4) act on alerts
+if "low_rhythm_stability" in result.alerts:
+    route_to_slow_path()
+</code></pre>
+    <button class="copy-btn" data-copy="#qs">copy</button>
   </section>
 
-  <!-- Examples -->
-  <section class="card" id="examples">
-    <h2>examples</h2>
-    <div class="grid two">
-      <div class="card">
-        <h3>python</h3>
-<pre><code>from coherence_monitor import Monitor
+  <!-- metrics -->
+  <section class="card" id="metrics">
+    <h2>metrics</h2>
+    <table class="table">
+      <thead>
+        <tr><th>name</th><th>what it reads</th><th>how</th><th>why it matters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>prompt consistency</strong></td>
+          <td>stability across paraphrases</td>
+          <td>n paraphrases → embed → pairwise similarity</td>
+          <td>low values signal brittle reasoning under small changes</td>
+        </tr>
+        <tr>
+          <td><strong>rhythm stability</strong></td>
+          <td>token cadence under tiny perturbations</td>
+          <td>diff small edits → track per-token logprob variance</td>
+          <td>spikes often precede off-target drifts</td>
+        </tr>
+        <tr>
+          <td><strong>ensemble agreement</strong></td>
+          <td>convergence across agents or seeds</td>
+          <td>k runs → n-gram or embedding majority</td>
+          <td>disagreement flags under-specified instructions</td>
+        </tr>
+        <tr>
+          <td><strong>waste heat ratio</strong></td>
+          <td>effort vs gain</td>
+          <td>tokens per second divided by novelty gain</td>
+          <td>high ratios suggest spinning without progress</td>
+        </tr>
+      </tbody>
+    </table>
 
-monitor = Monitor(model=client, k=4, n=3)
-score, signals = monitor(prompt="Summarize this article...", refs=docs)
-if score &gt;= 0.65 and min(signals.values()) &gt;= 0.40:
-    emit_fast(output=signals["best"])
-elif score &gt;= 0.45:
-    output = self_query(prompt, signals)
-    review(output)
-else:
-    route_to_human(prompt, signals)</code></pre>
-        <button class="copy-btn" data-copy="#examples pre code">copy</button>
-      </div>
-      <div class="card">
-        <h3>node</h3>
-<pre><code>import { Monitor } from "@cai/monitor"
-
-const monitor = new Monitor({ k: 4, n: 3, provider })
-const { score, signals, best } = await monitor.check("find issues in this PR")
-
-if (score &gt;= 0.65 && Object.values(signals).every(v =&gt; v &gt;= 0.40)) {
-  return best
-}
-if (score &gt;= 0.45) {
-  const refined = await monitor.selfQuery("find issues in this PR", signals)
-  return refined
-}
-return await monitor.routeToHuman({ prompt: "find issues in this PR", signals })</code></pre>
-        <button class="copy-btn" data-copy="#examples .card:nth-of-type(2) pre code">copy</button>
-      </div>
-    </div>
+<pre id="schema" aria-label="json schema"><code>{
+  "score": 0.78,
+  "components": {
+    "consistency": 0.88,
+    "rhythm": 0.74,
+    "agreement": 0.81,
+    "waste_heat": 0.65
+  },
+  "alerts": ["low_rhythm_stability"],
+  "signals": {
+    "pairwise_sim_mean": 0.86,
+    "token_var_p95": 0.22,
+    "agreement_rate": 0.79,
+    "whr": 2.1
+  },
+  "context": {"model": "your-backend", "latency_ms": 420},
+  "version": "0.2.0"
+}</code></pre>
+    <button class="copy-btn" data-copy="#schema">copy</button>
   </section>
 
-  <!-- Validation -->
-  <section class="card" id="validation">
-    <h2>validation</h2>
-    <ul>
-      <li>pick a task set. label stable vs unstable outcomes</li>
-      <li>sweep k, n, and weights. freeze once AUC and false stop rate stabilize</li>
-      <li>report percentiles for each signal by domain</li>
-      <li>log signals to JSON for audits. replay on regressions</li>
-    </ul>
-    <p class="small muted">tip: most teams land near k=4 paraphrases and n=3 samples. start there.</p>
+  <!-- scoring and thresholds -->
+  <section class="card" id="scoring">
+    <h2>score and thresholds</h2>
+    <p>the monitor fuses component metrics into a single score using a simple weighted average. start with the defaults. tune weights on your validation data.</p>
+    <table class="table">
+      <thead><tr><th>band</th><th>score</th><th>what to do</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ok">good</span></td><td>0.75 to 1.00</td><td>allow fast path</td></tr>
+        <tr><td><span class="warn">watch</span></td><td>0.50 to 0.74</td><td>add self check or slower decode</td></tr>
+        <tr><td><span class="err">hold</span></td><td>below 0.50</td><td>route to human or fetch more constraints</td></tr>
+      </tbody>
+    </table>
+
+<pre id="weights" aria-label="python weights"><code>from coherence_monitor import Weights
+weights = Weights(consistency=.35, rhythm=.25, agreement=.25, waste_heat=.15)
+mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
+</code></pre>
+    <button class="copy-btn" data-copy="#weights">copy</button>
   </section>
 
-  <!-- FAQ -->
+  <!-- example integration -->
+  <section class="card" id="example">
+    <h2>example integration</h2>
+<pre id="example-code"><code>def generate_safe(prompt: str) -> str:
+    r = mon.run(prompt)
+    if r.score < 0.5 or "collapse_risk" in r.alerts:
+        return slow_path_with_grounding(prompt)
+    return fast_path(prompt)
+</code></pre>
+    <button class="copy-btn" data-copy="#example-code">copy</button>
+  </section>
+
+  <!-- dashboards -->
+  <section class="card" id="dashboards">
+    <h2>dashboards</h2>
+    <p>emit results as json lines. ship to your logger and plot. this is enough for audits.</p>
+<pre id="emit"><code>with open("coherence_events.jsonl", "a") as f:
+    f.write(r.to_json() + "\n")
+</code></pre>
+    <button class="copy-btn" data-copy="#emit">copy</button>
+  </section>
+
+  <!-- faq -->
   <section class="card" id="faq">
     <h2>faq</h2>
-    <p><strong>do i need training access</strong><br>no. everything above works at inference.</p>
-    <p><strong>what if outputs are non text</strong><br>embed captions or features. compare in the same way.</p>
-    <p><strong>how heavy is this</strong><br>overhead is k×n forward passes. run on a canary path or batch.</p>
+    <p><strong>does this require training access</strong><br> no. it works at inference. logits and timing are enough.</p>
+    <p><strong>is the score calibrated</strong><br> start with defaults. calibrate bands using your validation percentiles.</p>
+    <p><strong>will this slow my system</strong><br> paraphrases and small ensembles add cost. use the watch band only on high risk flows.</p>
+  </section>
+
+  <!-- refs -->
+  <section class="card" id="references">
+    <h2>references</h2>
+    <ul>
+      <li>joseph, m. 2025. compression-aware intelligence. coherence monitor.</li>
+      <li>shannon, c. 1948. a mathematical theory of communication.</li>
+      <li>tishby, n. 1999. information bottleneck.</li>
+    </ul>
   </section>
 
   <section class="card" aria-live="polite">
-    <p class="small muted">last updated <time id="last-updated"></time> • © <span id="year"></span> Compression-Aware Intelligence. terminology by Michele Joseph.</p>
+    <p><small>last updated: <time id="last-updated"></time></small></p>
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <small>all concepts and terminology by Michele Joseph.</small>
-  </div>
+<footer class="site-footer wrap">
+  <small>© <span id="year"></span> Compression-Aware Intelligence. All concepts and terminology by Michele Joseph.</small>
 </footer>
 
 <script>
@@ -295,7 +258,7 @@ return await monitor.routeToHuman({ prompt: "find issues in this PR", signals })
   // copy helpers
   document.querySelectorAll('.copy-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const target = document.querySelector(btn.getAttribute('data-copy'));
+      const target = document.querySelector(btn.dataset.copy);
       if (!target) return;
       const text = target.innerText;
       navigator.clipboard.writeText(text).then(()=>{
