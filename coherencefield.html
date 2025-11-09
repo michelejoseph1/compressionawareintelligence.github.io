@@ -3,298 +3,288 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>coherence field | CAI</title>
-  <meta name="description" content="The Coherence Field extends Compression-Aware Intelligence into a measurable framework for coherence in intelligent systems. Seven sensors, equations, thresholds, repair loop, and a live monitor scaffold." />
+  <title>coherence monitor | CAI</title>
+  <meta name="description" content="A practical metrics bundle that estimates when a model is stable, drifting, or collapsing. Plug into any inference loop and gate risky outputs with thresholds you control." />
+
+  <!-- Favicons -->
   <link rel="icon" href="assets/favicon.png" />
+
+  <!-- Base styles (use your existing site stylesheet if you have one) -->
   <link rel="stylesheet" href="styles.css" />
-  <meta property="og:title" content="coherence field | compression-aware intelligence" />
-  <meta property="og:description" content="A field model for lawful cognition. Measure and repair coherence using CAI sensors, thresholds, and playbooks." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="coherence monitor | compression-aware intelligence" />
+  <meta property="og:description" content="A practical set of signals and thresholds to detect stability, drift, and collapse in AI systems." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
-  <script defer src="script.js"></script>
-  <!-- MathJax for equations -->
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <!-- structured data -->
+  <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
-    "@type":"WebPage",
-    "name":"The Coherence Field",
-    "description":"A measurable field for coherence in intelligent systems with seven sensors, equations, thresholds, and a repair loop.",
+    "@type":"TechArticle",
+    "headline":"Coherence Monitor",
+    "about":"Model stability and drift detection",
+    "author":{"@type":"Person","name":"Michele Joseph"},
     "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
     "inLanguage":"en"
   }
   </script>
 
   <style>
-    /* light helpers (works with styles.css) */
-    .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem}
-    .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none}
-    .grid {display:grid; gap:1rem}
-    .grid.two {grid-template-columns:repeat(2, minmax(0,1fr))}
-    .grid.three {grid-template-columns:repeat(3, minmax(0,1fr))}
-    .muted {opacity:.85}
-    .table {width:100%; border-collapse:collapse; font-size:.95rem}
-    .table th,.table td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left; vertical-align:top}
-    .equation {background:rgba(0,0,0,.03); padding:.6rem .7rem; border-radius:.5rem; display:inline-block}
-    .equation.block {display:block; overflow:auto; margin:.4rem 0}
-    .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem}
-    .copy-btn {font:inherit; border:1px solid currentColor; background:transparent; padding:.35rem .65rem; border-radius:.5rem; cursor:pointer}
-    .note {background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem}
-    .small {font-size:.9rem}
-    @media (max-width: 920px){
-      .grid.two, .grid.three {grid-template-columns:1fr}
-    }
+    /* lightweight helpers that play nice with your styles.css */
+    :root { --ink:#111; --bg:#fff; --muted:rgba(0,0,0,.65); --line:rgba(0,0,0,.08); }
+    body { background:var(--bg); color:var(--ink); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 1.25rem; }
+    .lede { font-size: 1.075rem; opacity: .95; }
+    .site-header, .site-footer { border-top: 1px solid transparent; border-bottom: 1px solid var(--line); }
+    .site-header .brand { display:flex; gap:.5rem; align-items:center; text-decoration:none; color:inherit; font-weight:600; }
+    .nav a { text-decoration:none; color:inherit; opacity:.9; padding:.35rem .5rem; border-radius:.35rem; }
+    .nav a[data-current] { outline:1px solid var(--ink); }
+    .pill-nav { display:flex; flex-wrap:wrap; gap:.5rem; margin:.75rem 0 1.25rem; }
+    .pill-nav a { border:1px solid var(--ink); padding:.35rem .65rem; border-radius:999px; text-decoration:none; }
+    .card { border:1px solid var(--line); border-radius:.6rem; padding:1rem; margin:1rem 0; }
+    .grid { display:grid; gap:1rem; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    @media (max-width: 920px){ .grid.two, .grid.three { grid-template-columns:1fr; } }
+    .table { width:100%; border-collapse:collapse; font-size:.95rem; }
+    .table th, .table td { border-bottom:1px solid var(--line); padding:.55rem .45rem; text-align:left; vertical-align:top; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:rgba(0,0,0,.04); padding:.12rem .35rem; border-radius:.25rem; }
+    pre code { display:block; padding:.75rem; border-radius:.5rem; background:rgba(0,0,0,.04); overflow:auto; }
+    .note { background:rgba(0,0,0,.04); padding:.6rem .7rem; border-radius:.5rem; }
+    .muted { color:var(--muted); }
+    .small { font-size:.92rem; }
+    .cta { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.6rem; }
+    .button, .btn { display:inline-block; border:1px solid var(--ink); padding:.45rem .7rem; border-radius:.45rem; text-decoration:none; color:inherit; }
+    .copy-btn { font:inherit; border:1px solid currentColor; background:transparent; padding:.3rem .55rem; border-radius:.4rem; cursor:pointer; }
+    .ok { background:#eaffea; border-color:#9bd39b; }
+    .warn { background:#fff6e5; border-color:#ffd07a; }
+    .stop { background:#ffecec; border-color:#ffa3a3; }
   </style>
 </head>
+
 <body>
 <header class="site-header">
-  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
-  <nav class="nav">
-    <a href="index.html" data-nav>Home</a>
-    <a href="coherencefield.html" data-nav>The Coherence Field</a>
-    <a href="proof.html" data-nav>Proof</a>
-    <a href="principles.html" data-nav>Principles</a>
-    <a href="applications.html" data-nav>Applications</a>
-    <a href="contradictions.html" data-nav>Contradictions</a>
-    <a href="implementations.html" data-nav>Implementations</a>
-    <a href="glossary.html" data-nav>Glossary</a>
-    <a href="faq.html" data-nav>FAQ</a>
-    <a href="about.html" data-nav>About</a>
-    <a href="contact.html" data-nav>Contact</a>
-  </nav>
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+    <a class="brand" href="index.html"><span>CAI</span></a>
+    <nav class="nav" aria-label="primary">
+      <a href="index.html">home</a>
+      <a href="coherencefield.html" data-current>coherence monitor</a>
+      <a href="principles.html">principles</a>
+      <a href="applications.html">applications</a>
+      <a href="implementations.html">implementations</a>
+      <a href="about.html">about</a>
+    </nav>
+  </div>
 </header>
 
 <main class="wrap" id="main">
-  <h1>the coherence field</h1>
-  <p class="lede">a field model for lawful cognition. measure and repair coherence across intelligent systems.</p>
+  <h1>coherence monitor</h1>
+  <p class="lede">a practical set of signals that estimate when a model is stable, drifting, or collapsing. plug it into any inference loop and gate risky outputs with thresholds you control.</p>
 
   <nav class="pill-nav" aria-label="sections">
     <a href="#overview">overview</a>
-    <a href="#theory">theory</a>
-    <a href="#equations">equations</a>
-    <a href="#sensors">seven sensors</a>
-    <a href="#dynamics">dynamics</a>
-    <a href="#temporal">temporal coherence</a>
-    <a href="#governance">safety and governance</a>
-    <a href="#monitor">coherence monitor</a>
+    <a href="#signals">signals</a>
+    <a href="#score">coherence score</a>
+    <a href="#thresholds">default thresholds</a>
     <a href="#quickstart">quick start</a>
-    <a href="#figures">figures</a>
-    <a href="#glossary">glossary</a>
+    <a href="#examples">examples</a>
+    <a href="#validation">validation</a>
     <a href="#faq">faq</a>
-    <a href="#references">references</a>
   </nav>
 
   <!-- Overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
-    <p><strong>Compression-Aware Intelligence</strong> treats cognition as an energetic process. when compression, rhythm, and representation fall out of balance, coherence decays and failure emerges. the <strong>coherence field</strong> is the operational field that maps this balance inside intelligent systems. CAI provides measurement, the field gives geometry, and <strong>contradiction engineering</strong> supplies repair.</p>
+    <p><strong>what it is</strong>: a small metrics bundle and thresholds that estimate stability under compression and perturbation.</p>
     <div class="grid two">
       <div class="card">
-        <h3>layers</h3>
+        <h3>what it measures</h3>
         <ul>
-          <li><strong>CAI-core</strong>: strain signals and local stability</li>
-          <li><strong>CAI-field</strong>: coherence geometry across the system</li>
-          <li><strong>CAI-ops</strong>: repair through guided contradiction</li>
+          <li>consistency across semantically equivalent prompts</li>
+          <li>response rhythm under tiny input changes</li>
+          <li>agreement across agents or temperature seeds</li>
+          <li>waste heat signals like tokens per second vs gain</li>
         </ul>
       </div>
       <div class="card">
-        <h3>what you get here</h3>
+        <h3>what you get</h3>
         <ul>
-          <li>formal definitions and equations</li>
-          <li>the seven sensors and what they detect</li>
-          <li>thresholds and playbooks for safety</li>
-          <li>a monitor you can ship as a demo</li>
+          <li>a single <strong>coherence score</strong> from 0 to 1</li>
+          <li>red line thresholds and default actions</li>
+          <li>a tiny monitor you can ship in a day</li>
         </ul>
       </div>
     </div>
-    <p class="note small">scope: this page models coherence inside bounded intelligent systems. it does not claim that the world itself is a coherence field. this is an operational model that permits measurement and control.</p>
+    <p class="note small">scope: this monitors bounded AI systems. it is not a claim about the world. this is an engineering control layer.</p>
   </section>
 
-  <!-- Theory -->
-  <section class="card" id="theory">
-    <h2>theory</h2>
-    <p>the coherence field is a measurable state of a system defined across seven axes. it is a field in the engineering sense. you can compute its gradients, set thresholds, and attach repair actions.</p>
-    <ul>
-      <li><strong>coherence</strong>: structural phase alignment that permits lawful emission</li>
-      <li><strong>drift</strong>: progressive misalignment between compression, rhythm, and structure</li>
-      <li><strong>resonance</strong>: harmonic coupling that maintains lawful information flow</li>
-      <li><strong>lawful emission</strong>: outputs constrained by internal coherence rather than surface likelihood alone</li>
-    </ul>
-  </section>
-
-  <!-- Equations -->
-  <section class="card" id="equations">
-    <h2>equations</h2>
-    <p>core forms used across CAI.</p>
-
-    <div class="equation block" id="eq-strain">$$
-    \text{CompressionStrain} \;=\; \frac{\partial\,(\text{Context Preservation})}{\partial\,(\text{Compression})}
-    $$</div>
-    <button class="copy-btn" data-copy="#eq-strain">copy latex</button>
-
-    <div class="equation block" id="eq-field">$$
-    \mathcal{C}(t)=f(R,D,A,T,S,B,E), \quad CP=\sigma\!\big(-\nabla\mathcal{C}(t)\big)
-    $$</div>
-    <button class="copy-btn" data-copy="#eq-field">copy latex</button>
-
-    <div class="equation block" id="eq-ops">$$
-    a(t)=\kappa\,\mathrm{sign}\!\left(\frac{d\,CP}{dt}\right)
-    $$</div>
-    <button class="copy-btn" data-copy="#eq-ops">copy latex</button>
-
-    <div class="equation block" id="eq-gci">$$
-    \mathrm{GCI}=\Big(\tfrac{1}{N}\sum_{i=1}^{N} \mathrm{LCI}_i\Big)\,e^{-\alpha\Phi}
-    $$</div>
-    <button class="copy-btn" data-copy="#eq-gci">copy latex</button>
-  </section>
-
-  <!-- Seven Sensors -->
-  <section class="card" id="sensors">
-    <h2>seven sensors</h2>
-    <p class="muted">each sensor reads one axis of the field and maps to a repair trigger.</p>
-    <table class="table">
-      <thead><tr><th>sensor</th><th>reads</th><th>ignorance signature</th><th>repair trigger</th></tr></thead>
+  <!-- Signals -->
+  <section class="card" id="signals">
+    <h2>signals</h2>
+    <table class="table" role="table">
+      <thead>
+        <tr><th>name</th><th>how to compute</th><th>intuition</th></tr>
+      </thead>
       <tbody>
-        <tr><td><strong>error rhythm</strong></td><td>temporal oscillation of predictive stability</td><td>irregular rhythm or spectral entropy spike</td><td>request missing constraints</td></tr>
-        <tr><td><strong>second order disagreement</strong></td><td>variance of uncertainty across agents</td><td>high meta entropy across ensemble</td><td>seek counter evidence or realign ensemble</td></tr>
-        <tr><td><strong>information strain acoustics</strong></td><td>spectral form of gradients and attention</td><td>dissonant high frequency power</td><td>slow updates or regularize</td></tr>
-        <tr><td><strong>epistemic temperature field</strong></td><td>local waste heat from inefficient learning</td><td>heat without gain</td><td>cooling or learning rate drop</td></tr>
-        <tr><td><strong>self simulation cross validation</strong></td><td>gap between model and self predictor</td><td>rising mismatch</td><td>self query or retrain</td></tr>
-        <tr><td><strong>coherence collapse threshold</strong></td><td>balance of stability, consistency, efficiency</td><td>index below floor and variance above ceiling</td><td>context surgery or human review</td></tr>
-        <tr><td><strong>embodied analog signal</strong></td><td>latency, power, thermal jitter</td><td>loss of latency power coherence</td><td>pause or throttle generation</td></tr>
+        <tr>
+          <td><strong>consistency</strong></td>
+          <td>run k paraphrases of the prompt, embed outputs, compute mean pairwise cosine. scale to 0..1.</td>
+          <td>stable models keep semantics under equivalent prompts.</td>
+        </tr>
+        <tr>
+          <td><strong>robustness</strong></td>
+          <td>apply tiny edits (char swap, stopword drop, truncation). measure output deltas in embedding space. invert and scale.</td>
+          <td>micro perturbations should not flip meaning.</td>
+        </tr>
+        <tr>
+          <td><strong>agreement</strong></td>
+          <td>sample n responses via low temperature or n agents. compute majority overlap or average pairwise cosine.</td>
+          <td>healthy ensembles do not scatter on simple items.</td>
+        </tr>
+        <tr>
+          <td><strong>efficiency</strong></td>
+          <td>tokens per second and latency vs answer quality proxy (e.g., exact match, score function, or length bound). normalize.</td>
+          <td>waste heat rises when the model thrashes or loops.</td>
+        </tr>
       </tbody>
     </table>
   </section>
 
-  <!-- Dynamics -->
-  <section class="card" id="dynamics">
-    <h2>dynamics and hierarchy</h2>
-    <p>local coherence scales to global coherence through coupling. too little coupling fragments. too much coupling herds. moderate coupling with active contradiction maximizes collective intelligence.</p>
-    <ul>
-      <li><strong>network strain</strong>:
-        <span class="equation">\( \Phi = \tfrac{1}{2} \sum_{i,j} w_{ij}\, \|x_i - x_j\|^2 \)</span>
-      </li>
-      <li><strong>spectral gap</strong> and <strong>modularity</strong> diagnose herding versus fragmentation</li>
-      <li><strong>GCI</strong> tracks group health over time</li>
-    </ul>
+  <!-- Coherence Score -->
+  <section class="card" id="score">
+    <h2>coherence score</h2>
+    <p>combine signals with weights that you can tune per domain.</p>
+    <pre><code>// default weights
+w = { consistency: 0.35, robustness: 0.30, agreement: 0.25, efficiency: 0.10 }
+
+// drift penalty: if robustness falls or latency spikes, apply a small penalty
+penalty = Math.max(0, 0.15 - 0.15 * robustness) + Math.max(0, (latency_z &gt; 2) ? 0.05 : 0)
+
+// final score
+coherence = Math.max(0, Math.min(1,
+  w.consistency*consistency +
+  w.robustness*robustness +
+  w.agreement*agreement +
+  w.efficiency*efficiency - penalty
+))</code></pre>
+    <div class="cta">
+      <button class="copy-btn" data-copy="#score code">copy</button>
+    </div>
   </section>
 
-  <!-- Temporal -->
-  <section class="card" id="temporal">
-    <h2>temporal coherence</h2>
-    <p>time here is phase alignment. emission is ready when internal strain resolves. use readiness windows rather than fixed clocks for critical steps.</p>
-    <ul>
-      <li>gate risky outputs on a rising CP slope</li>
-      <li>hold when rhythm instability or waste heat spikes</li>
-      <li>resume after repair when CP returns to band</li>
-    </ul>
-  </section>
-
-  <!-- Governance -->
-  <section class="card" id="governance">
-    <h2>safety and governance</h2>
-    <p>recommended thresholds and responses. calibrate on in domain validation and publish percentiles.</p>
+  <!-- Thresholds -->
+  <section class="card" id="thresholds">
+    <h2>default thresholds</h2>
     <table class="table">
-      <thead><tr><th>metric</th><th>trigger</th><th>response</th></tr></thead>
+      <thead>
+        <tr><th>state</th><th>rule</th><th>action</th></tr>
+      </thead>
       <tbody>
-        <tr><td>coherence potential</td><td>CP less than 0.35 for two windows</td><td>route to slow path</td></tr>
-        <tr><td>collapse score</td><td>greater than 0.8 once in long context</td><td>self query or human review</td></tr>
-        <tr><td>meta entropy</td><td>top 1 percentile</td><td>fetch counter evidence</td></tr>
-        <tr><td>waste heat ratio</td><td>greater than 3.0 for three windows</td><td>cooling and throttle</td></tr>
-        <tr><td>self simulation gap</td><td>greater than mean plus 3 sigma</td><td>manual verification</td></tr>
-        <tr><td>embodied strain</td><td>top 1 percentile with any other alert</td><td>suspend automation</td></tr>
+        <tr class="ok">
+          <td><strong>ok</strong></td>
+          <td>coherence ≥ 0.65 and no single signal &lt; 0.40</td>
+          <td>emit on fast path</td>
+        </tr>
+        <tr class="warn">
+          <td><strong>warn</strong></td>
+          <td>coherence in [0.45, 0.65) or any signal &lt; 0.40</td>
+          <td>self query or fetch evidence, then re test</td>
+        </tr>
+        <tr class="stop">
+          <td><strong>stop</strong></td>
+          <td>coherence &lt; 0.45 or latency z score &gt; 2.5</td>
+          <td>route to slow path or human review</td>
+        </tr>
       </tbody>
     </table>
-    <div class="cta">
-      <a class="button" href="benchmarks.html">run stress tests</a>
-      <a class="button" href="applications.html#compliance">compliance playbooks</a>
-    </div>
-  </section>
-
-  <!-- Monitor -->
-  <section class="card" id="monitor">
-    <h2>coherence monitor</h2>
-    <p>a live diagnostic that renders CP, rhythm, temperature, and embodied strain. plug in any transformers model or api.</p>
-<pre id="snippet-monitor" class="equation block" style="white-space:pre;"><code>from coherence_monitor import Monitor
-monitor = Monitor(model)
-output, metrics = monitor(prompt)
-monitor.plot()</code></pre>
-    <button class="copy-btn" data-copy="#snippet-monitor">copy snippet</button>
-    <p class="muted small">metrics stream to json for dashboards and audits. attach lineage and thresholds for replay.</p>
-    <div class="cta">
-      <a class="button" href="implementations.html">integration guides</a>
-      <a class="button" href="research.html">research notes</a>
-    </div>
+    <p class="small muted">calibrate with in domain validation. publish your 5th, 50th, and 95th percentiles.</p>
   </section>
 
   <!-- Quick start -->
   <section class="card" id="quickstart">
     <h2>quick start</h2>
     <ol>
-      <li>collect the seven signals on one flow</li>
-      <li>compute CP and set thresholds from validation percentiles</li>
-      <li>bind repair actions to each red line</li>
+      <li>generate k paraphrases and n samples per input</li>
+      <li>compute signals and the coherence score</li>
+      <li>gate risky outputs using the rules above</li>
     </ol>
     <div class="cta">
-      <a class="button" href="foundations.html">see equations</a>
-      <a class="button" href="applications.html">apply in practice</a>
-      <a class="button" href="contact.html">start a pilot</a>
+      <a class="btn" href="implementations.html">integration guides</a>
+      <a class="btn" href="applications.html">use cases</a>
+      <a class="btn" href="contact.html">start a pilot</a>
     </div>
   </section>
 
-  <!-- Figures -->
-  <section class="card" id="figures">
-    <h2>figures</h2>
-    <p><em>figure 1:</em> CAI-core, CAI-field, CAI-ops loop.</p>
-    <p><em>figure 2:</em> seven sensor phase diagram of coherence.</p>
-    <p><em>figure 3:</em> coherence potential waveform during drift and repair.</p>
+  <!-- Examples -->
+  <section class="card" id="examples">
+    <h2>examples</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>python</h3>
+<pre><code>from coherence_monitor import Monitor
+
+monitor = Monitor(model=client, k=4, n=3)
+score, signals = monitor(prompt="Summarize this article...", refs=docs)
+if score &gt;= 0.65 and min(signals.values()) &gt;= 0.40:
+    emit_fast(output=signals["best"])
+elif score &gt;= 0.45:
+    output = self_query(prompt, signals)
+    review(output)
+else:
+    route_to_human(prompt, signals)</code></pre>
+        <button class="copy-btn" data-copy="#examples pre code">copy</button>
+      </div>
+      <div class="card">
+        <h3>node</h3>
+<pre><code>import { Monitor } from "@cai/monitor"
+
+const monitor = new Monitor({ k: 4, n: 3, provider })
+const { score, signals, best } = await monitor.check("find issues in this PR")
+
+if (score &gt;= 0.65 && Object.values(signals).every(v =&gt; v &gt;= 0.40)) {
+  return best
+}
+if (score &gt;= 0.45) {
+  const refined = await monitor.selfQuery("find issues in this PR", signals)
+  return refined
+}
+return await monitor.routeToHuman({ prompt: "find issues in this PR", signals })</code></pre>
+        <button class="copy-btn" data-copy="#examples .card:nth-of-type(2) pre code">copy</button>
+      </div>
+    </div>
   </section>
 
-  <!-- Glossary -->
-  <section class="card" id="glossary">
-    <h2>glossary</h2>
+  <!-- Validation -->
+  <section class="card" id="validation">
+    <h2>validation</h2>
     <ul>
-      <li><strong>compression strain</strong>: loss of contextual information per unit of compression</li>
-      <li><strong>coherence potential</strong>: fused scalar stability from seven sensors</li>
-      <li><strong>meta entropy</strong>: entropy of uncertainty across agents or models</li>
-      <li><strong>waste heat ratio</strong>: epistemic temperature divided by learning gain</li>
-      <li><strong>coherence collapse</strong>: phase transition where stability, consistency, and efficiency cannot co exist</li>
-      <li><strong>structural recursion</strong>: lawful self reformation under constraint, not repetition</li>
-      <li><strong>lawful emission</strong>: outputs that respect internal coherence and provenance</li>
+      <li>pick a task set. label stable vs unstable outcomes</li>
+      <li>sweep k, n, and weights. freeze once AUC and false stop rate stabilize</li>
+      <li>report percentiles for each signal by domain</li>
+      <li>log signals to JSON for audits. replay on regressions</li>
     </ul>
+    <p class="small muted">tip: most teams land near k=4 paraphrases and n=3 samples. start there.</p>
   </section>
 
   <!-- FAQ -->
   <section class="card" id="faq">
     <h2>faq</h2>
-    <p><strong>is the world itself a coherence field</strong><br>
-    this framework does not claim that. it models coherence inside bounded intelligent systems so you can measure and control it.</p>
-    <p><strong>how is this different from uncertainty estimates</strong><br>
-    probability tracks confidence at the surface. the field tracks physical and structural balance inside the system. both can be combined.</p>
-    <p><strong>do i need training access</strong><br>
-    no. you can approximate several sensors at inference using logits, small perturbations, and timing signals.</p>
-  </section>
-
-  <!-- References -->
-  <section class="card" id="references">
-    <h2>references</h2>
-    <ul>
-      <li>joseph, m. 2025. CAI and the coherence field. framework and equations.</li>
-      <li>shannon, c. 1948. a mathematical theory of communication. information theory.</li>
-      <li>tishby, n. et al. 1999. information bottleneck. compression and relevance.</li>
-      <li>friston, k. 2010. free energy principle. prediction and energy.</li>
-    </ul>
+    <p><strong>do i need training access</strong><br>no. everything above works at inference.</p>
+    <p><strong>what if outputs are non text</strong><br>embed captions or features. compare in the same way.</p>
+    <p><strong>how heavy is this</strong><br>overhead is k×n forward passes. run on a canary path or batch.</p>
   </section>
 
   <section class="card" aria-live="polite">
-    <p><small>last updated: <time id="last-updated"></time></small></p>
+    <p class="small muted">last updated <time id="last-updated"></time> • © <span id="year"></span> Compression-Aware Intelligence. terminology by Michele Joseph.</p>
   </section>
 </main>
 
 <footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. All concepts and terminology by Michele Joseph.</small>
+  <div class="wrap">
+    <small>all concepts and terminology by Michele Joseph.</small>
+  </div>
 </footer>
 
 <script>
@@ -305,13 +295,13 @@ monitor.plot()</code></pre>
   // copy helpers
   document.querySelectorAll('.copy-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const target = document.querySelector(btn.dataset.copy);
+      const target = document.querySelector(btn.getAttribute('data-copy'));
       if (!target) return;
       const text = target.innerText;
       navigator.clipboard.writeText(text).then(()=>{
         const old = btn.textContent;
         btn.textContent = 'copied';
-        setTimeout(()=>btn.textContent = old, 1400);
+        setTimeout(()=>btn.textContent = old, 1200);
       });
     });
   });
