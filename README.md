@@ -1,5 +1,7 @@
 # Compression Aware Intelligence (CAI)
 
+Compression-Aware Intelligence is the framework that treats hallucinations and contradictions not as errors to eliminate, but as measurable signals of representation strain inside any cognitive system, and uses those signals to guide stability, coherence, and self-correction. 
+
 Every system compresses so real intelligence must be compression-aware. 
 
 compression loss → contradiction → compression strain → instability
