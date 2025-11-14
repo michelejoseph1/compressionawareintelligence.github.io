@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>coherence monitor | CAI</title>
-  <meta name="description" content="A practical, engineer-first monitor that estimates when a model is stable, drifting, or collapsing. Drop-in metrics, a 0–1 score, and guardrail thresholds." />
+  <title>coherence field monitor | CAI</title>
+  <meta name="description" content="A practical coherence field monitor that estimates when a model is stable, drifting, or collapsing under compression. Single 0-1 score, bands, and guardrail thresholds." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <meta property="og:title" content="coherence monitor | compression-aware intelligence" />
-  <meta property="og:description" content="Drop-in metrics for stability under compression and perturbation. Ship guardrails in a day." />
+  <meta property="og:title" content="coherence field monitor | compression-aware intelligence" />
+  <meta property="og:description" content="Drop-in coherence field metrics for stability under compression and perturbation. Ship guardrails in a day." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
 
@@ -17,8 +17,8 @@
   {
     "@context":"https://schema.org",
     "@type":"WebPage",
-    "name":"Coherence Monitor",
-    "description":"Practical metrics and a single score to detect stability, drift, and collapse in AI systems.",
+    "name":"Coherence Field Monitor",
+    "description":"Practical coherence field metrics and a single score to detect stability, drift, and collapse in AI systems.",
     "publisher":{"@type":"Organization","name":"Compression-Aware Intelligence"},
     "inLanguage":"en"
   }
@@ -33,6 +33,7 @@
   #cm .card{border:1px solid rgba(0,0,0,.08); border-radius:.65rem; padding:1rem}
   #cm .lede{font-size:1.1rem; opacity:.95}
   #cm .muted{opacity:.8}
+  #cm .small{font-size:.85rem}
   #cm .table{width:100%; border-collapse:collapse}
   #cm .table th,#cm .table td{border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left; vertical-align:top}
   #cm pre{background:rgba(0,0,0,.04); padding:.8rem; border-radius:.5rem; overflow:auto}
@@ -44,7 +45,7 @@
   #cm .warn{color:#8a6a00}
   #cm .err{color:#8b0000}
   @media (max-width: 920px){ #cm .two,#cm .three {grid-template-columns:1fr} }
-</style>
+  </style>
 </head>
 
 <body>
@@ -52,7 +53,7 @@
   <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
   <nav class="nav">
     <a href="index.html" data-nav>Home</a>
-    <a href="coherencefield.html" data-nav aria-current="page">Coherence Monitor</a>
+    <a href="coherencefield.html" data-nav aria-current="page">Coherence Field Monitor</a>
     <a href="proof.html" data-nav>Proof</a>
     <a href="principles.html" data-nav>Principles</a>
     <a href="applications.html" data-nav>Applications</a>
@@ -66,28 +67,38 @@
 </header>
 
 <main id="cm" class="wrap">
-  <h1>coherence monitor</h1>
-  <p class="lede">a practical set of signals that estimate when a model is stable, drifting, or collapsing. plug it into any inference loop and gate risky outputs with thresholds you control.</p>
+  <h1>coherence field monitor</h1>
+  <p class="lede">
+    a practical set of signals that estimate when a model is stable, drifting, or collapsing. plug it into any inference loop and gate risky outputs with thresholds you control. built as the operational readout of the coherence field from compression aware intelligence (cai).
+  </p>
+  <p class="muted small">
+    version 0.2.0 · coherence field monitor for compression aware intelligence
+  </p>
 
   <!-- overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
-    <p><strong>what it is</strong>: a small metrics bundle and thresholds that estimate stability under compression and perturbation.</p>
+    <p><strong>what it is</strong>: a small metrics bundle, thresholds, and alerts that estimate stability under compression and perturbation.</p>
+
+    <p class="muted">
+      under cai, each bounded system sits in a <strong>coherence field</strong>: how tightly its outputs hold together when compressed, paraphrased, or given small shocks. this monitor is a practical readout of that field. it does not measure truth. it measures how stable the system is being.
+    </p>
+
     <div class="grid two">
       <div class="card">
-        <h3>what it measures</h3>
+        <h3>what it reads</h3>
         <ul>
-          <li>consistency across semantically equivalent prompts</li>
-          <li>response rhythm under tiny input changes</li>
+          <li>consistency across semantically equivalent prompts under compression</li>
+          <li>token rhythm under tiny compressed input changes</li>
           <li>agreement across agents or temperature seeds</li>
-          <li>waste heat signals like tokens per second vs gain</li>
+          <li>waste heat signals like tokens per second vs compression gain</li>
         </ul>
       </div>
       <div class="card">
         <h3>what you get</h3>
         <ul>
-          <li>a single <strong>coherence score</strong> (0–1)</li>
-          <li>red-line thresholds and default actions</li>
+          <li>a single <strong>coherence field score</strong> (0-1)</li>
+          <li>bands, red line thresholds, and default actions</li>
           <li>a tiny monitor you can ship in a day</li>
         </ul>
         <div class="cta">
@@ -96,7 +107,10 @@
         </div>
       </div>
     </div>
-    <p class="muted small">scope: this monitors bounded AI systems. it is not a claim about the world. it is an engineering control layer.</p>
+
+    <p class="muted small">
+      scope: this monitors bounded ai systems under their current training and deployment constraints. it does not estimate real world risk, intent, or truthfulness by itself. it is an engineering control layer you pair with task level evals and domain checks.
+    </p>
   </section>
 
   <!-- quick start -->
@@ -108,7 +122,7 @@
       <li>set thresholds and actions</li>
     </ol>
 <pre id="qs" aria-label="python quick start"><code># 1) install
-# pip install cai-coherence-monitor  # placeholder, or copy the local module
+# pip install cai-coherence-monitor  # placeholder name, or copy the local module into your repo
 
 # 2) import and wrap
 from coherence_monitor import Monitor, default_thresholds
@@ -128,6 +142,10 @@ if "low_rhythm_stability" in result.alerts:
   <!-- metrics -->
   <section class="card" id="metrics">
     <h2>metrics</h2>
+    <p>
+      each metric is a surface readout of compression strain in the system: how much the coherence field bends before it snaps.
+    </p>
+
     <table class="table">
       <thead>
         <tr><th>name</th><th>what it reads</th><th>how</th><th>why it matters</th></tr>
@@ -135,27 +153,27 @@ if "low_rhythm_stability" in result.alerts:
       <tbody>
         <tr>
           <td><strong>prompt consistency</strong></td>
-          <td>stability across paraphrases</td>
+          <td>stability across compressed paraphrases</td>
           <td>n paraphrases → embed → pairwise similarity</td>
-          <td>low values signal brittle reasoning under small changes</td>
+          <td>low values signal brittle reasoning under small compression changes</td>
         </tr>
         <tr>
           <td><strong>rhythm stability</strong></td>
-          <td>token cadence under tiny perturbations</td>
-          <td>diff small edits → track per-token logprob variance</td>
-          <td>spikes often precede off-target drifts</td>
+          <td>token cadence under tiny compressed perturbations</td>
+          <td>diff small edits → track per token logprob variance</td>
+          <td>spikes often precede off target drifts and local field buckling</td>
         </tr>
         <tr>
           <td><strong>ensemble agreement</strong></td>
-          <td>convergence across agents or seeds</td>
-          <td>k runs → n-gram or embedding majority</td>
-          <td>disagreement flags under-specified instructions</td>
+          <td>convergence across agents, seeds, or paths</td>
+          <td>k runs → n gram or embedding majority</td>
+          <td>disagreement flags under specified instructions or competing local minima</td>
         </tr>
         <tr>
           <td><strong>waste heat ratio</strong></td>
-          <td>effort vs gain</td>
-          <td>tokens per second divided by novelty gain</td>
-          <td>high ratios suggest spinning without progress</td>
+          <td>effort vs compression gain</td>
+          <td>tokens per second divided by novelty or compression gain</td>
+          <td>high ratios suggest the system is burning compute without resolving compression strain</td>
         </tr>
       </tbody>
     </table>
@@ -168,7 +186,7 @@ if "low_rhythm_stability" in result.alerts:
     "agreement": 0.81,
     "waste_heat": 0.65
   },
-  "alerts": ["low_rhythm_stability"],
+  "alerts": ["low_rhythm_stability", "collapse_risk"],
   "signals": {
     "pairwise_sim_mean": 0.86,
     "token_var_p95": 0.22,
@@ -184,7 +202,10 @@ if "low_rhythm_stability" in result.alerts:
   <!-- scoring and thresholds -->
   <section class="card" id="scoring">
     <h2>score and thresholds</h2>
-    <p>the monitor fuses component metrics into a single score using a simple weighted average. start with the defaults. tune weights on your validation data.</p>
+    <p>
+      the monitor fuses component metrics into a single coherence field score using a simple weighted average. start with the defaults. tune weights on your validation data.
+    </p>
+
     <table class="table">
       <thead><tr><th>band</th><th>score</th><th>what to do</th></tr></thead>
       <tbody>
@@ -199,6 +220,14 @@ weights = Weights(consistency=.35, rhythm=.25, agreement=.25, waste_heat=.15)
 mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
 </code></pre>
     <button class="copy-btn" data-copy="#weights">copy</button>
+
+    <p class="muted">
+      the coherence score is an internal stability signal, not a truth or safety score. 1.0 means the system is behaving like itself under compression. 0.0 means the coherence field is collapsing here. pair the score with task level evals, safety layers, and domain constraints.
+    </p>
+
+    <p class="muted small">
+      composite alerts like <code>"collapse_risk"</code> fire when multiple components drop at once, for example low consistency plus high waste heat, or rhythm spikes plus ensemble disagreement.
+    </p>
   </section>
 
   <!-- example integration -->
@@ -206,7 +235,7 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
     <h2>example integration</h2>
 <pre id="example-code"><code>def generate_safe(prompt: str) -> str:
     r = mon.run(prompt)
-    if r.score < 0.5 or "collapse_risk" in r.alerts:
+    if r.score &lt; 0.5 or "collapse_risk" in r.alerts:
         return slow_path_with_grounding(prompt)
     return fast_path(prompt)
 </code></pre>
@@ -216,8 +245,11 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
   <!-- dashboards -->
   <section class="card" id="dashboards">
     <h2>dashboards</h2>
-    <p>emit results as json lines. ship to your logger and plot. this is enough for audits.</p>
-<pre id="emit"><code>with open("coherence_events.jsonl", "a") as f:
+    <p>
+      emit results as json lines. ship to your logger and plot. this is enough for audits and for catching slow coherence drift over time.
+    </p>
+<pre id="emit"><code>r = mon.run(prompt)
+with open("coherence_events.jsonl", "a") as f:
     f.write(r.to_json() + "\n")
 </code></pre>
     <button class="copy-btn" data-copy="#emit">copy</button>
@@ -226,18 +258,30 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
   <!-- faq -->
   <section class="card" id="faq">
     <h2>faq</h2>
-    <p><strong>does this require training access</strong><br> no. it works at inference. logits and timing are enough.</p>
-    <p><strong>is the score calibrated</strong><br> start with defaults. calibrate bands using your validation percentiles.</p>
-    <p><strong>will this slow my system</strong><br> paraphrases and small ensembles add cost. use the watch band only on high risk flows.</p>
+
+    <p><strong>does this require training access</strong><br>
+    no. it works at inference. logits, text, and timing are enough.</p>
+
+    <p><strong>is the score calibrated</strong><br>
+    start with the defaults. then calibrate bands using your validation percentiles, per domain and per flow.</p>
+
+    <p><strong>will this slow my system</strong><br>
+    paraphrases and small ensembles add cost. you can run the full watch band only on high risk flows and keep a cheaper subset on everything else.</p>
+
+    <p><strong>does a high coherence score mean the answer is correct</strong><br>
+    no. the score reads stability under compression and perturbation. you still need task level evals, safety rules, and domain checks for correctness and risk.</p>
+
+    <p><strong>how is this different from generic evals</strong><br>
+    generic evals score outputs against labels. the coherence field monitor scores how the system behaves when you compress, paraphrase, and perturb it. it is a control layer that can sit next to any eval suite.</p>
   </section>
 
   <!-- refs -->
   <section class="card" id="references">
     <h2>references</h2>
     <ul>
-      <li>joseph, m. 2025. compression-aware intelligence. coherence monitor.</li>
-      <li>shannon, c. 1948. a mathematical theory of communication.</li>
-      <li>tishby, n. 1999. information bottleneck.</li>
+      <li>joseph, m. (2025). compression-aware intelligence: coherence field monitor (v0.2.0).</li>
+      <li>shannon, c. (1948). a mathematical theory of communication.</li>
+      <li>tishby, n. (1999). the information bottleneck method.</li>
     </ul>
   </section>
 
@@ -252,19 +296,21 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
 
 <script>
   // dates
-  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
-  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated');
+  if (lu) lu.textContent = new Date().toISOString().slice(0, 10);
 
   // copy helpers
-  document.querySelectorAll('.copy-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       const target = document.querySelector(btn.dataset.copy);
       if (!target) return;
       const text = target.innerText;
-      navigator.clipboard.writeText(text).then(()=>{
+      navigator.clipboard.writeText(text).then(() => {
         const old = btn.textContent;
         btn.textContent = 'copied';
-        setTimeout(()=>btn.textContent = old, 1200);
+        setTimeout(() => btn.textContent = old, 1200);
       });
     });
   });
