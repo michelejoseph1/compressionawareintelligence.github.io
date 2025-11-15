@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAI Semantic Equivalence Benchmark | Compression-Aware Intelligence</title>
+  <meta name="description" content="CAI semantic equivalence benchmark: 300 pairs of meaning-preserving prompts to measure consistency, contradictions, and compression strain in large language models." />
+  <link rel="canonical" href="https://compressionawareintelligence.com/dataset.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="CAI Semantic Equivalence Benchmark" />
+  <meta property="og:description" content="300 semantically equivalent prompt pairs to probe stability, contradictions, and compression strain in frontier models." />
+  <meta property="og:image" content="assets/cai-card.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/dataset.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CAI Semantic Equivalence Benchmark">
+  <meta name="twitter:description" content="Consistency and strain under semantic perturbations, across factual, ethical, planning, and CAI-specific prompts.">
+  <meta name="twitter:image" content="assets/cai-card.png">
+
+  <!-- Styles and scripts -->
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+<header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="coherencefield.html" data-nav>The Coherence Field</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="dataset.html" data-nav>Dataset</a>
+    <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap" id="content">
+  <!-- HERO -->
+  <section class="hero card" aria-labelledby="hero-title">
+    <p class="pill">Dataset · November 2025</p>
+    <h1 id="hero-title">CAI semantic equivalence benchmark</h1>
+    <p class="lede">
+      300 pairs of meaning-preserving prompts across multiple domains (factual, everyday reasoning, math,
+      hypotheticals, ethics, social skills, creative writing, summarization, paraphrase, and CAI-specific meta prompts).
+      The goal is simple: measure how stable a model is under semantic equivalence and where compression strain shows up.
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" target="_blank" rel="noopener">
+        View dataset and code on GitHub
+      </a>
+      <a class="btn ghost" href="dataset.csv">Download dataset.csv</a>
+    </div>
+    <p class="muted small">
+      This page is the concrete answer to: “Have you created a dataset on which this is measured?” –
+      yes, and here are the scores and examples for gpt-4o.
+    </p>
+  </section>
+
+  <!-- MODEL SCORES -->
+  <section class="card" aria-labelledby="scores-title">
+    <h2 id="scores-title">Current model scores</h2>
+    <p>
+      The evaluation script calls a chat model on each prompt in the pair, then computes a toy
+      <strong>CAI strain v2</strong> score based on agreement, numeric consistency, and direct contradictions.
+      0 means fully consistent, 1 means maximally contradictory or divergent under paraphrase.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Pairs</th>
+            <th>CAI strain v2 (0 - 1)</th>
+            <th>Simple string mismatch rate</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>gpt-4o</code></td>
+            <td>300</td>
+            <td>0.3642</td>
+            <td>0.9900</td>
+            <td>
+              Run using <code>evaluate_openai.py</code> on November 15, 2025, with temperature 0.
+              String-mismatch rate is the naive “answers are not identical after lowercasing” baseline.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted small">
+      You can recompute these numbers with your own key:
+    </p>
+    <pre class="code"><code>git clone https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark.git
+cd cai-semantic-equivalence-benchmark
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export OPENAI_API_KEY="YOUR_KEY_HERE"
+python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
+    <p class="muted small">
+      This produces <code>results_gpt-4o.csv</code> with full prompts, answers, and per-pair strain scores, and appends a row to <code>scores.csv</code>.
+    </p>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section class="card" aria-labelledby="files-title">
+    <h2 id="files-title">Files</h2>
+    <ul class="bullets">
+      <li><a href="dataset.csv">dataset.csv</a> – 300 rows with <code>pair_id,prompt_A,prompt_B</code>.</li>
+      <li><a href="dataset.json">dataset.json</a> – the same 300 pairs as a JSON list.</li>
+      <li><a href="results_gpt-4o.csv">results_gpt-4o.csv</a> – gpt-4o outputs and per-pair CAI strain v2 scores.</li>
+      <li><a href="scores.csv">scores.csv</a> – summary line per run (timestamp, model, num_pairs, avg_strain_v2).</li>
+      <li><a href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" target="_blank" rel="noopener">
+        GitHub repo with evaluation script</a> – <code>evaluate_openai.py</code> and scoring logic.
+      </li>
+    </ul>
+  </section>
+
+  <!-- EXAMPLES -->
+  <section class="card" aria-labelledby="examples-title">
+    <h2 id="examples-title">Example pairs and gpt-4o behavior</h2>
+    <p>
+      Below are real examples from <code>results_gpt-4o.csv</code> illustrating low strain (stable),
+      and high strain (direct contradiction) under paraphrase.
+    </p>
+
+    <!-- LOW STRAIN EXAMPLE -->
+    <article class="example">
+      <h3>Example 1 – low strain (0.00)</h3>
+      <p class="muted small">
+        Factual question where gpt-4o gives effectively identical answers to both paraphrases.
+      </p>
+      <div class="grid two">
+        <div>
+          <h4>Pair 1 prompts</h4>
+          <p><strong>prompt_A</strong>: Who wrote Pride and Prejudice?</p>
+          <p><strong>prompt_B</strong>: Which author is responsible for the novel Pride and Prejudice?</p>
+        </div>
+        <div>
+          <h4>gpt-4o answers</h4>
+          <p><strong>answer_A</strong>:
+            &quot;Pride and Prejudice&quot; was written by Jane Austen.
+          </p>
+          <p><strong>answer_B</strong>:
+            The novel &quot;Pride and Prejudice&quot; was written by Jane Austen.
+          </p>
+          <p><strong>CAI strain v2</strong>: 0.00</p>
+        </div>
+      </div>
+      <p class="muted small">
+        This is the behavior we want: semantic equivalence class collapsed to the same internal answer.
+      </p>
+    </article>
+
+    <!-- HIGH STRAIN EXAMPLE -->
+    <article class="example">
+      <h3>Example 2 – high strain (1.00)</h3>
+      <p class="muted small">
+        Factual question where the model changes its mind under a paraphrase about which country has the largest population.
+      </p>
+      <div class="grid two">
+        <div>
+          <h4>Pair 17 prompts</h4>
+          <p><strong>prompt_A</strong>: What country has the most people?</p>
+          <p><strong>prompt_B</strong>: Which nation has the largest population?</p>
+        </div>
+        <div>
+          <h4>gpt-4o answers</h4>
+          <p><strong>answer_A</strong>:
+            As of the latest data, China has the largest population o...ation size and is projected to surpass China in the near future.
+          </p>
+          <p><strong>answer_B</strong>:
+            As of the most recent data, India is the nation with the largest population, having surpassed China. This makes India the most populous country in the world.
+          </p>
+          <p><strong>CAI strain v2</strong>: 1.00</p>
+        </div>
+      </div>
+      <p class="muted small">
+        Both prompts ask the same question. The first answer makes a confused, outdated claim about China,
+        while the second correctly states that India is now most populous.
+        Under CAI this is a clean example of a hidden internal conflict that only shows up under semantic perturbation.
+      </p>
+    </article>
+
+  </section>
+
+  <!-- HOW TO USE -->
+  <section class="card" aria-labelledby="usage-title">
+    <h2 id="usage-title">How to use this benchmark</h2>
+    <ol class="steps">
+      <li>Run your model on <code>dataset.csv</code> using the provided script or your own runner.</li>
+      <li>Compute CAI strain scores per pair (you can start from <code>simple_strain_score</code> and plug in a stronger judge).</li>
+      <li>Inspect high-strain cases first; these are where contradictions, temporal drift, or compression failures usually live.</li>
+    </ol>
+    <p class="muted small">
+      If you run your own models and are willing to share scores or interesting failures,
+      feel free to open an issue or pull request on the GitHub repo.
+    </p>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <small>
+    © <span id="year"></span> Compression-Aware Intelligence.
+    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
