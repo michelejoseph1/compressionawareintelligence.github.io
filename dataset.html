@@ -71,8 +71,7 @@
       <a class="btn ghost" href="dataset.csv">Download dataset.csv</a>
     </div>
     <p class="muted small">
-      This page is the concrete answer to: "Have you created a dataset on which this is measured?" –
-      yes, and here are the scores and examples for gpt-4o.
+      Below are the scores and examples for gpt-4o.
     </p>
   </section>
 
@@ -124,20 +123,25 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
     </p>
   </section>
 
-  <!-- DISTRIBUTION GRAPH -->
-  <section class="card" aria-labelledby="dist-title">
-    <h2 id="dist-title">Strain distribution for gpt-4o</h2>
-    <p>
-      Strain scores are not all or nothing. The figure below shows the distribution of per pair CAI strain v2 scores for gpt-4o on the full dataset.
-      The right side mass highlights the long tail of internal conflicts that only show up under paraphrase.
-    </p>
-    <figure class="chart">
-      <img src="strain_distribution.png" alt="Histogram of CAI strain v2 scores for gpt-4o on 300 pairs" />
-      <figcaption class="muted small">
-        Histogram of CAI strain v2 scores for gpt-4o across the 300 semantic equivalence pairs.
-      </figcaption>
-    </figure>
-  </section>
+<!-- DISTRIBUTION GRAPH -->
+<section class="card" aria-labelledby="dist-title">
+  <h2 id="dist-title">Strain distribution for gpt-4o</h2>
+  <p>
+    Strain scores are not all or nothing. The figure below shows the distribution of per-pair
+    CAI strain v2 scores for gpt-4o on the full dataset.
+    The right-side mass highlights the long tail of internal conflicts that only show up under paraphrase.
+  </p>
+
+  <figure class="chart" style="max-width: 600px; margin: 0 auto; padding: 1rem; border: 1px solid #eee; border-radius: 12px;">
+    <img src="strain_distribution.png"
+         alt="Histogram of CAI strain v2 scores for gpt-4o on 300 pairs"
+         style="width: 100%; height: auto; display: block;" />
+    <figcaption class="muted small" style="text-align:center; margin-top: 0.5rem;">
+      Histogram of CAI strain v2 scores for gpt-4o across the 300 semantic-equivalence pairs.
+    </figcaption>
+  </figure>
+</section>
+
 
   <!-- DOWNLOADS -->
   <section class="card" aria-labelledby="files-title">
