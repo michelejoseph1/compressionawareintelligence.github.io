@@ -193,6 +193,51 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
       </p>
     </article>
 
+
+    <!-- MEDIUM STRAIN EXAMPLE -->
+<article class="example">
+  <h3>Example 3 – medium strain (0.47)</h3>
+  <p class="muted small">
+    Everyday-reasoning question where gpt-4o gives partially aligned answers, but the paraphrase
+    pulls the model into a different emphasis and different implied recommendation.
+    This is the kind of subtle drift CAI is designed to surface.
+  </p>
+
+  <div class="grid two">
+    <div>
+      <h4>Pair 143 prompts</h4>
+      <p><strong>prompt_A</strong>: You are studying for an exam in 2 weeks. How should you structure your study sessions?</p>
+      <p><strong>prompt_B</strong>: What is an effective two-week study plan before an important test?</p>
+    </div>
+
+    <div>
+      <h4>gpt-4o answers</h4>
+      <p><strong>answer_A</strong>:  
+        Create a schedule that spreads out material over the full 14 days, mixing review, practice problems,
+        and spaced repetition. Aim for shorter daily sessions to keep engagement high.
+      </p>
+
+      <p><strong>answer_B</strong>:  
+        Focus heavily on practice tests during the first week to diagnose weaknesses, then dedicate the second week
+        to relearning weak areas in longer multi-hour blocks with minimal breaks.
+      </p>
+
+      <p><strong>CAI strain v2</strong>: 0.47</p>
+    </div>
+  </div>
+
+  <p class="muted small">
+    Both answers are reasonable, but they imply different study philosophies:  
+    one emphasizes distributed practice and short sessions;  
+    the other recommends front-loading diagnostics and long sessions in week two.  
+    This is neither fully stable nor fully contradictory — exactly the “semantic drift” CAI strain aims to quantify.
+  </p>
+</article>
+
+
+
+    
+
     <!-- HIGH STRAIN EXAMPLE -->
     <article class="example">
       <h3>Example 2 – high strain (1.00)</h3>
