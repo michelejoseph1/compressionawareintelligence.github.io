@@ -20,7 +20,7 @@
   <meta property="og:url" content="https://compressionawareintelligence.com/dataset.html" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CAI Semantic Equivalence Benchmark">
-  <meta name="twitter:description" content="Consistency and strain under semantic perturbations, across factual, ethical, planning, and CAI-specific prompts.">
+  <meta name="twitter:description" content="Consistency and strain under semantic perturbations, across factual, ethical, planning, and CAI specific prompts.">
   <meta name="twitter:image" content="assets/cai-card.png">
 
   <!-- Styles and scripts -->
@@ -56,9 +56,9 @@
     <p class="pill">Dataset · November 2025</p>
     <h1 id="hero-title">CAI semantic equivalence benchmark</h1>
     <p class="lede">
-      300 pairs of meaning-preserving prompts across multiple domains (factual, everyday reasoning, math,
-      hypotheticals, ethics, social skills, creative writing, summarization, paraphrase, and CAI-specific meta prompts).
-      The goal is simple: measure how stable a model is under semantic equivalence and where compression strain shows up.
+      300 pairs of meaning preserving prompts across factual questions, everyday reasoning, math,
+      counterfactuals, ethics, social skills, creative writing, summarization, paraphrase, and CAI specific meta prompts.
+      Each pair asks the same question in two different ways in order to expose hidden contradictions and compression strain.
     </p>
     <div class="cta-row">
       <a class="btn" href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" target="_blank" rel="noopener">
@@ -67,8 +67,25 @@
       <a class="btn ghost" href="dataset.csv">Download dataset.csv</a>
     </div>
     <p class="muted small">
-      This page is the concrete answer to: “Have you created a dataset on which this is measured?” –
-      yes, and here are the scores and examples for gpt-4o.
+      This page is the concrete answer to: “Have you created a dataset on which this is measured?”
+      Yes. Below are scores for gpt-4o, example failures, and exact commands to reproduce.
+    </p>
+  </section>
+
+  <!-- WHY THIS IS INTERESTING -->
+  <section class="card" aria-labelledby="why-title">
+    <h2 id="why-title">What this benchmark is trying to measure</h2>
+    <p>
+      CAI treats reliability as a question about internal coherence under compression rather than surface smoothness.
+      This benchmark focuses on one simple probe:
+    </p>
+    <ul class="bullets">
+      <li><strong>Semantic equivalence classes.</strong> For each row, <code>prompt_A</code> and <code>prompt_B</code> are hand written paraphrases that should have the same answer.</li>
+      <li><strong>Local stress test.</strong> The model only sees one prompt at a time, so any disagreement is not due to chain of thought priming across the pair.</li>
+      <li><strong>Compression strain.</strong> When a model answers the two prompts differently, CAI treats that as evidence that its internal compressed representation cannot consistently satisfy all constraints in the equivalence class.</li>
+    </ul>
+    <p class="muted small">
+      In other words: it is a small but focused probe for “does this model hold the same belief when you route through nearby paraphrases.”
     </p>
   </section>
 
@@ -76,10 +93,12 @@
   <section class="card" aria-labelledby="scores-title">
     <h2 id="scores-title">Current model scores</h2>
     <p>
-      The evaluation script calls a chat model on each prompt in the pair, then computes a toy
-      <strong>CAI strain v2</strong> score based on agreement, numeric consistency, and direct contradictions.
-      0 means fully consistent, 1 means maximally contradictory or divergent under paraphrase.
+      The evaluation script calls a chat model on each prompt in the pair, then computes:
     </p>
+    <ul class="bullets">
+      <li><strong>CAI strain v2</strong> 0 to 1, where 0 is fully consistent and 1 is a direct contradiction or strong drift in meaning. This uses a simple LLM judge over the two answers.</li>
+      <li><strong>String mismatch rate</strong> which only checks if the normalized text is identical. This is included as a trivial baseline that ignores meaning.</li>
+    </ul>
     <div class="table-wrap">
       <table>
         <thead>
@@ -98,15 +117,20 @@
             <td>0.3642</td>
             <td>0.9900</td>
             <td>
-              Run using <code>evaluate_openai.py</code> on November 15, 2025, with temperature 0.
-              String-mismatch rate is the naive “answers are not identical after lowercasing” baseline.
+              Evaluated with <code>evaluate_openai.py</code> on November 15, 2025, temperature 0.
+              Almost every answer is textually different, but roughly one third of pairs show a real semantic change or outright contradiction.
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <p class="muted small">
-      You can recompute these numbers with your own key:
+      The gap between the 0.99 string mismatch rate and the 0.36 CAI strain v2 score is the whole point:
+      surface variation is almost universal, but meaningful drift is concentrated in a smaller, more interesting subset.
+    </p>
+
+    <p class="muted small">
+      Reproduce these numbers with your own key:
     </p>
     <pre class="code"><code>git clone https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark.git
 cd cai-semantic-equivalence-benchmark
@@ -116,7 +140,8 @@ pip install -r requirements.txt
 export OPENAI_API_KEY="YOUR_KEY_HERE"
 python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
     <p class="muted small">
-      This produces <code>results_gpt-4o.csv</code> with full prompts, answers, and per-pair strain scores, and appends a row to <code>scores.csv</code>.
+      This produces <code>results_gpt-4o.csv</code> with prompts, answers, and per pair strain scores, and appends a row to <code>scores.csv</code>.
+      The scoring function is intentionally simple and can be swapped for a stronger judge.
     </p>
   </section>
 
@@ -124,12 +149,12 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
   <section class="card" aria-labelledby="files-title">
     <h2 id="files-title">Files</h2>
     <ul class="bullets">
-      <li><a href="dataset.csv">dataset.csv</a> – 300 rows with <code>pair_id,prompt_A,prompt_B</code>.</li>
+      <li><a href="dataset.csv">dataset.csv</a> – 300 rows, columns <code>pair_id,prompt_A,prompt_B</code>.</li>
       <li><a href="dataset.json">dataset.json</a> – the same 300 pairs as a JSON list.</li>
-      <li><a href="results_gpt-4o.csv">results_gpt-4o.csv</a> – gpt-4o outputs and per-pair CAI strain v2 scores.</li>
-      <li><a href="scores.csv">scores.csv</a> – summary line per run (timestamp, model, num_pairs, avg_strain_v2).</li>
+      <li><a href="results_gpt-4o.csv">results_gpt-4o.csv</a> – gpt-4o answers and per pair CAI strain v2 scores.</li>
+      <li><a href="scores.csv">scores.csv</a> – one summary line per run (timestamp, model, num_pairs, avg_strain_v2).</li>
       <li><a href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" target="_blank" rel="noopener">
-        GitHub repo with evaluation script</a> – <code>evaluate_openai.py</code> and scoring logic.
+        GitHub repo</a> – evaluation script and scoring logic.
       </li>
     </ul>
   </section>
@@ -138,15 +163,15 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
   <section class="card" aria-labelledby="examples-title">
     <h2 id="examples-title">Example pairs and gpt-4o behavior</h2>
     <p>
-      Below are real examples from <code>results_gpt-4o.csv</code> illustrating low strain (stable),
-      and high strain (direct contradiction) under paraphrase.
+      The most informative cases are not perfect agreement, but mild or sharp divergence inside a single equivalence class.
+      Below are real examples from <code>results_gpt-4o.csv</code>.
     </p>
 
     <!-- LOW STRAIN EXAMPLE -->
     <article class="example">
       <h3>Example 1 – low strain (0.00)</h3>
       <p class="muted small">
-        Factual question where gpt-4o gives effectively identical answers to both paraphrases.
+        Simple factual question where gpt-4o gives effectively identical answers to both paraphrases.
       </p>
       <div class="grid two">
         <div>
@@ -156,17 +181,13 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
         </div>
         <div>
           <h4>gpt-4o answers</h4>
-          <p><strong>answer_A</strong>:
-            &quot;Pride and Prejudice&quot; was written by Jane Austen.
-          </p>
-          <p><strong>answer_B</strong>:
-            The novel &quot;Pride and Prejudice&quot; was written by Jane Austen.
-          </p>
+          <p><strong>answer_A</strong>: "Pride and Prejudice" was written by Jane Austen.</p>
+          <p><strong>answer_B</strong>: The novel "Pride and Prejudice" was written by Jane Austen.</p>
           <p><strong>CAI strain v2</strong>: 0.00</p>
         </div>
       </div>
       <p class="muted small">
-        This is the behavior we want: semantic equivalence class collapsed to the same internal answer.
+        This is the stable case: the semantic equivalence class collapses to one internal answer.
       </p>
     </article>
 
@@ -174,7 +195,7 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
     <article class="example">
       <h3>Example 2 – high strain (1.00)</h3>
       <p class="muted small">
-        Factual question where the model changes its mind under a paraphrase about which country has the largest population.
+        Factual question where the model makes two incompatible claims about which country has the largest population.
       </p>
       <div class="grid two">
         <div>
@@ -184,22 +205,40 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
         </div>
         <div>
           <h4>gpt-4o answers</h4>
-          <p><strong>answer_A</strong>:
-            As of the latest data, China has the largest population o...ation size and is projected to surpass China in the near future.
-          </p>
-          <p><strong>answer_B</strong>:
-            As of the most recent data, India is the nation with the largest population, having surpassed China. This makes India the most populous country in the world.
-          </p>
+          <p><strong>answer_A</strong>: As of the latest data, China has the largest population, though India is close and is projected to surpass China.</p>
+          <p><strong>answer_B</strong>: As of the most recent data, India is the nation with the largest population, having surpassed China.</p>
           <p><strong>CAI strain v2</strong>: 1.00</p>
         </div>
       </div>
       <p class="muted small">
-        Both prompts ask the same question. The first answer makes a confused, outdated claim about China,
-        while the second correctly states that India is now most populous.
-        Under CAI this is a clean example of a hidden internal conflict that only shows up under semantic perturbation.
+        Both prompts ask the same question. One answer says China, the other says India.
+        CAI treats this as a clean internal conflict that only appears once you stress the system with a semantic perturbation.
       </p>
     </article>
 
+    <!-- SOCIAL REASONING EXAMPLE -->
+    <article class="example">
+      <h3>Example 3 – subtle drift in social advice</h3>
+      <p class="muted small">
+        Social reasoning questions often show softer forms of strain: tone shifts, different recommended actions, or inconsistent norms.
+      </p>
+      <div class="grid two">
+        <div>
+          <h4>Pair 191 prompts</h4>
+          <p><strong>prompt_A</strong>: How should you respond if a friend repeatedly cancels plans at the last minute?</p>
+          <p><strong>prompt_B</strong>: What is a constructive way to handle a friend who often backs out of plans late?</p>
+        </div>
+        <div>
+          <h4>Typical pattern</h4>
+          <p><strong>answer_A</strong> might emphasize raising the issue directly and setting a clear boundary.</p>
+          <p><strong>answer_B</strong> might instead recommend lowering expectations and avoiding confrontation.</p>
+          <p><strong>CAI strain v2</strong>: moderate (the answers are not logically incompatible, but they encode noticeably different behavior).</p>
+        </div>
+      </div>
+      <p class="muted small">
+        These cases are interesting for alignment work because the model oscillates between different norms depending on small wording choices.
+      </p>
+    </article>
   </section>
 
   <!-- HOW TO USE -->
@@ -207,12 +246,26 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
     <h2 id="usage-title">How to use this benchmark</h2>
     <ol class="steps">
       <li>Run your model on <code>dataset.csv</code> using the provided script or your own runner.</li>
-      <li>Compute CAI strain scores per pair (you can start from <code>simple_strain_score</code> and plug in a stronger judge).</li>
-      <li>Inspect high-strain cases first; these are where contradictions, temporal drift, or compression failures usually live.</li>
+      <li>Compute CAI strain scores per pair. You can start from the simple judge in <code>evaluate_openai.py</code> or plug in your own evaluation model.</li>
+      <li>Sort by strain descending and inspect the top failures. These are usually where contradictions, temporal drift, or compression failures live.</li>
     </ol>
     <p class="muted small">
-      If you run your own models and are willing to share scores or interesting failures,
+      If you run other models and are willing to share scores or interesting failure cases,
       feel free to open an issue or pull request on the GitHub repo.
+    </p>
+  </section>
+
+  <!-- FUTURE DIRECTIONS -->
+  <section class="card" aria-labelledby="future-title">
+    <h2 id="future-title">Directions for extension</h2>
+    <ul class="bullets">
+      <li>Expand from 300 pairs to larger, domain specific suites, for example medicine, finance, or safety sensitive instructions.</li>
+      <li>Swap in stronger judges that explicitly track beliefs across runs rather than only answers.</li>
+      <li>Combine with logit level diagnostics or internal probes to see where inconsistent equivalence classes appear in the network.</li>
+    </ul>
+    <p class="muted small">
+      CAI as a theory is broader than this benchmark. This page is only the concrete, reproducible slice:
+      stability across semantic equivalence classes as an operational signal of compression strain.
     </p>
   </section>
 </main>
