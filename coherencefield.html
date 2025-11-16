@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
   <meta property="og:title" content="coherence field monitor | compression-aware intelligence" />
-  <meta property="og:description" content="Drop-in coherence field metrics for stability under compression and perturbation. Ship guardrails in a day." />
+  <meta property="og:description" content="Drop in coherence field metrics for stability under compression and perturbation. Ship guardrails in a day." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
 
@@ -60,7 +60,6 @@
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="implementations.html" data-nav>Implementations</a>
-    <!-- Public demo link -->
     <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
@@ -69,9 +68,12 @@
 </header>
 
 <main id="cm" class="wrap">
+  <p class="pill">monitor · coherence field · cai</p>
   <h1>coherence field monitor</h1>
   <p class="lede">
-    a practical set of signals that estimate when a model is stable, drifting, or collapsing. plug it into any inference loop and gate risky outputs with thresholds you control. built as the operational readout of the coherence field from compression aware intelligence (cai).
+    a practical set of signals that estimate when a model is stable, drifting, or collapsing under compression.
+    wrap any inference loop and gate risky outputs with thresholds you control.
+    this is the operational readout of the coherence field from compression aware intelligence (cai).
   </p>
   <p class="muted small">
     version 0.2.0 · coherence field monitor for compression aware intelligence
@@ -80,10 +82,12 @@
   <!-- overview -->
   <section class="card" id="overview">
     <h2>overview</h2>
-    <p><strong>what it is</strong>: a small metrics bundle, thresholds, and alerts that estimate stability under compression and perturbation.</p>
+
+    <p><strong>what it is</strong>: a small metrics bundle, thresholds, and alerts that read how coherent your model is being when you compress, paraphrase, or perturb its inputs.</p>
 
     <p class="muted">
-      under cai, each bounded system sits in a <strong>coherence field</strong>: how tightly its outputs hold together when compressed, paraphrased, or given small shocks. this monitor is a practical readout of that field. it does not measure truth. it measures how stable the system is being.
+      under cai, each bounded system sits in a <strong>coherence field</strong>: the way its outputs hang together when you squeeze them through compression, rephrasing, and small shocks.
+      the monitor does not tell you if an answer is true. it tells you whether the system is acting like a single stable agent or wobbling between incompatible internal answers.
     </p>
 
     <div class="grid two">
@@ -91,27 +95,29 @@
         <h3>what it reads</h3>
         <ul>
           <li>consistency across semantically equivalent prompts under compression</li>
-          <li>token rhythm under tiny compressed input changes</li>
-          <li>agreement across agents or temperature seeds</li>
-          <li>waste heat signals like tokens per second vs compression gain</li>
+          <li>token rhythm and logprob variance under tiny input edits</li>
+          <li>agreement across agents, temperature seeds, or decoding paths</li>
+          <li>waste heat signals like tokens and latency vs compression gain</li>
         </ul>
       </div>
       <div class="card">
         <h3>what you get</h3>
         <ul>
-          <li>a single <strong>coherence field score</strong> (0-1)</li>
-          <li>bands, red line thresholds, and default actions</li>
-          <li>a tiny monitor you can ship in a day</li>
+          <li>a single <strong>coherence field score</strong> between 0 and 1 per call</li>
+          <li>bands, red line thresholds, and default actions wired to alerts</li>
+          <li>a tiny monitor you can ship in a day on top of your existing stack</li>
         </ul>
         <div class="cta">
+          <a class="button" href="dataset.html">semantic benchmark</a>
           <a class="button" href="implementations.html">integration guides</a>
-          <a class="button" href="applications.html">apply in practice</a>
         </div>
       </div>
     </div>
 
     <p class="muted small">
-      scope: this monitors bounded ai systems under their current training and deployment constraints. it does not estimate real world risk, intent, or truthfulness by itself. it is an engineering control layer you pair with task level evals and domain checks.
+      scope: this monitors bounded ai systems under their current training and deployment constraints.
+      it does not estimate real world impact, intent, or truthfulness by itself.
+      treat it as an engineering control layer that you pair with task level evals and domain checks.
     </p>
   </section>
 
@@ -156,26 +162,26 @@ if "low_rhythm_stability" in result.alerts:
         <tr>
           <td><strong>prompt consistency</strong></td>
           <td>stability across compressed paraphrases</td>
-          <td>n paraphrases → embed → pairwise similarity</td>
-          <td>low values signal brittle reasoning under small compression changes</td>
+          <td>generate n paraphrases, embed answers, compute pairwise similarity</td>
+          <td>low values signal brittle reasoning when you hold meaning fixed but change wording</td>
         </tr>
         <tr>
           <td><strong>rhythm stability</strong></td>
           <td>token cadence under tiny compressed perturbations</td>
-          <td>diff small edits → track per token logprob variance</td>
-          <td>spikes often precede off target drifts and local field buckling</td>
+          <td>apply small input edits, track per token logprob variance and spikes</td>
+          <td>spikes often precede off target drifts and local coherence field buckling</td>
         </tr>
         <tr>
           <td><strong>ensemble agreement</strong></td>
           <td>convergence across agents, seeds, or paths</td>
-          <td>k runs → n gram or embedding majority</td>
-          <td>disagreement flags under specified instructions or competing local minima</td>
+          <td>run k samples, compute majority in n grams or embedding space</td>
+          <td>disagreement flags underspecified instructions or competing local minima inside the model</td>
         </tr>
         <tr>
           <td><strong>waste heat ratio</strong></td>
           <td>effort vs compression gain</td>
-          <td>tokens per second divided by novelty or compression gain</td>
-          <td>high ratios suggest the system is burning compute without resolving compression strain</td>
+          <td>tokens or latency divided by novelty or compression gain</td>
+          <td>high ratios suggest the system is burning compute without resolving underlying compression strain</td>
         </tr>
       </tbody>
     </table>
@@ -205,15 +211,16 @@ if "low_rhythm_stability" in result.alerts:
   <section class="card" id="scoring">
     <h2>score and thresholds</h2>
     <p>
-      the monitor fuses component metrics into a single coherence field score using a simple weighted average. start with the defaults. tune weights on your validation data.
+      the monitor fuses component metrics into a single coherence field score using a simple weighted average.
+      start with the defaults, then tune weights on your validation data and flows.
     </p>
 
     <table class="table">
       <thead><tr><th>band</th><th>score</th><th>what to do</th></tr></thead>
       <tbody>
         <tr><td><span class="ok">good</span></td><td>0.75 to 1.00</td><td>allow fast path</td></tr>
-        <tr><td><span class="warn">watch</span></td><td>0.50 to 0.74</td><td>add self check or slower decode</td></tr>
-        <tr><td><span class="err">hold</span></td><td>below 0.50</td><td>route to human or fetch more constraints</td></tr>
+        <tr><td><span class="warn">watch</span></td><td>0.50 to 0.74</td><td>add self check, slower decode, or extra grounding</td></tr>
+        <tr><td><span class="err">hold</span></td><td>below 0.50</td><td>route to human, fetch more constraints, or deny action</td></tr>
       </tbody>
     </table>
 
@@ -224,11 +231,15 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
     <button class="copy-btn" data-copy="#weights">copy</button>
 
     <p class="muted">
-      the coherence score is an internal stability signal, not a truth or safety score. 1.0 means the system is behaving like itself under compression. 0.0 means the coherence field is collapsing here. pair the score with task level evals, safety layers, and domain constraints.
+      the coherence score is an internal stability signal, not a truth or safety label.
+      1.0 means the system is behaving like itself under compression.
+      0.0 means the coherence field is collapsing here.
+      always pair the score with task level evals, safety layers, and domain constraints.
     </p>
 
     <p class="muted small">
-      composite alerts like <code>"collapse_risk"</code> fire when multiple components drop at once, for example low consistency plus high waste heat, or rhythm spikes plus ensemble disagreement.
+      composite alerts like <code>"collapse_risk"</code> fire when multiple components drop at once,
+      for example low consistency plus high waste heat, or rhythm spikes plus ensemble disagreement.
     </p>
   </section>
 
@@ -248,7 +259,8 @@ mon = Monitor(model, thresholds=default_thresholds(), weights=weights)
   <section class="card" id="dashboards">
     <h2>dashboards</h2>
     <p>
-      emit results as json lines. ship to your logger and plot. this is enough for audits and for catching slow coherence drift over time.
+      emit results as json lines, send them to your logger, and plot them over time.
+      this is enough for audits and for catching slow coherence drift across versions and days.
     </p>
 <pre id="emit"><code>r = mon.run(prompt)
 with open("coherence_events.jsonl", "a") as f:
@@ -262,26 +274,31 @@ with open("coherence_events.jsonl", "a") as f:
     <h2>faq</h2>
 
     <p><strong>does this require training access</strong><br>
-    no. it works at inference. logits, text, and timing are enough.</p>
+    no. it runs at inference. logits, text, and timing are enough.</p>
 
     <p><strong>is the score calibrated</strong><br>
-    start with the defaults. then calibrate bands using your validation percentiles, per domain and per flow.</p>
+    the default bands are reasonable starting points.
+    calibrate them using your validation percentiles, per domain and per flow.</p>
 
     <p><strong>will this slow my system</strong><br>
-    paraphrases and small ensembles add cost. you can run the full watch band only on high risk flows and keep a cheaper subset on everything else.</p>
+    paraphrases and small ensembles add cost.
+    you can run the full monitor only on high risk flows and keep a cheaper subset on everything else.</p>
 
     <p><strong>does a high coherence score mean the answer is correct</strong><br>
-    no. the score reads stability under compression and perturbation. you still need task level evals, safety rules, and domain checks for correctness and risk.</p>
+    no. the score reads stability under compression and perturbation.
+    you still need task level evals, safety rules, and domain checks for correctness and risk.</p>
 
     <p><strong>how is this different from generic evals</strong><br>
-    generic evals score outputs against labels. the coherence field monitor scores how the system behaves when you compress, paraphrase, and perturb it. it is a control layer that can sit next to any eval suite.</p>
+    generic evals score outputs against labels.
+    the coherence field monitor scores how the system behaves when you compress, paraphrase, and perturb it.
+    it is a control layer that can sit next to any eval suite or safety pipeline.</p>
   </section>
 
   <!-- refs -->
   <section class="card" id="references">
     <h2>references</h2>
     <ul>
-      <li>joseph, m. (2025). compression-aware intelligence: coherence field monitor (v0.2.0).</li>
+      <li>joseph, m. (2025). compression aware intelligence: coherence field monitor (v0.2.0).</li>
       <li>shannon, c. (1948). a mathematical theory of communication.</li>
       <li>tishby, n. (1999). the information bottleneck method.</li>
     </ul>
