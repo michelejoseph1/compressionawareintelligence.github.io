@@ -56,11 +56,11 @@
     <p class="pill">Dataset · November 2025</p>
     <h1 id="hero-title">CAI semantic equivalence benchmark</h1>
     <p class="lede">
-      A small but sharp benchmark that tests one thing: 
+      a small but sharp benchmark that tests one thing: 
       <strong>can your model keep a single coherent answer inside one semantic class when you paraphrase the prompt?</strong>
     </p>
     <p>
-      The benchmark contains <strong>300 pairs of meaning-preserving prompts</strong> across factual questions, everyday reasoning, math,
+      the benchmark contains <strong>300 pairs of meaning-preserving prompts</strong> across factual questions, everyday reasoning, math,
       hypotheticals, ethics, social and planning questions, creative writing, summarization, paraphrase, and CAI specific meta prompts.
       Each pair is designed so that a competent model should give the same underlying answer, even if wording shifts.
     </p>
@@ -75,17 +75,17 @@
     </div>
 
     <p class="muted">
-      On this benchmark, <strong>gpt-4o contradicts itself or meaningfully drifts on roughly 36 percent of semantic equivalence pairs</strong>,
+      on this benchmark, <strong>gpt-4o contradicts itself or meaningfully drifts on roughly 36 percent of semantic equivalence pairs</strong>,
       even at temperature 0.
     </p>
     <div class="cta-row">
       <a class="btn" href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" target="_blank" rel="noopener">
-        View dataset and code on GitHub
+        view dataset and code on GitHub
       </a>
       <a class="btn ghost" href="dataset.csv">Download dataset.csv</a>
     </div>
     <p class="muted small">
-      Below are scores and examples for gpt-4o. You can rerun everything on your own models with one script.
+      below are scores and examples for gpt-4o. You can rerun everything on your own models with one script.
     </p>
   </section>
 
@@ -93,9 +93,9 @@
   <section class="card" aria-labelledby="scores-title">
     <h2 id="scores-title">Current model scores</h2>
     <p>
-      The evaluation script calls a chat model on each prompt in the pair, then computes a
+      the evaluation script calls a chat model on each prompt in the pair, then computes a
       <strong>CAI strain v2</strong> score based on agreement, numeric consistency, and direct contradictions.
-      A score of 0 means fully consistent answers inside each pair. A score of 1 means maximally contradictory or divergent under paraphrase.
+      a score of 0 means fully consistent answers inside each pair. A score of 1 means maximally contradictory or divergent under paraphrase.
     </p>
     <div class="table-wrap">
       <table>
