@@ -162,4 +162,180 @@
       <ol>
         <li>tag compression sites in an existing pipeline: retrieval, summarization, tool calls, post edit.</li>
         <li>compute per site compression tension score τ for each request. see foundations for the equation.</li>
-        <li>set an abstention threshold τ* and block claims witho*
+        <li>set an abstention threshold τ* and block claims without sufficient entailment.</li>
+        <li>compare baseline vs CAI on:
+          <ul>
+            <li>unsupported claim rate</li>
+            <li>accuracy</li>
+            <li>abstention rate</li>
+            <li>review time</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="cta">
+        <a class="button" href="benchmarks.html">open benchmarks</a>
+        <button class="copy-btn" data-copy="#protocol-a">copy protocol</button>
+      </div>
+<pre id="protocol-a"><code>pipeline_tagging:
+  - mark compression sites: retrieval, rank, summarize, generate, redact
+scoring:
+  - compute τ per site using loss, provenance, uncertainty
+gating:
+  - abstain if entailment fails or τ &gt; τ*
+report:
+  - unsupported_claim_rate, accuracy, abstention_rate, review_time</code></pre>
+    </details>
+
+    <details>
+      <summary>experiment b. ablation on provenance</summary>
+      <ol>
+        <li>run tasks with provenance stripped vs attached at each step.</li>
+        <li>measure change in unsupported claims and review time.</li>
+      </ol>
+      <div class="cta">
+        <a class="button" href="implementations.html">see implementations</a>
+      </div>
+    </details>
+
+    <details>
+      <summary>experiment c. contradiction stress test</summary>
+      <ol>
+        <li>construct inputs with controlled contradictions or outdated facts.</li>
+        <li>verify that τ spikes at the site where sources disagree.</li>
+        <li>expect abstention or a request for clarification instead of fluent error.</li>
+      </ol>
+    </details>
+  </section>
+
+  <section class="card" id="scorecard">
+    <h2>minimal scorecard</h2>
+    <table class="table">
+      <caption class="muted">report these side by side for baseline and CAI gated runs</caption>
+      <thead>
+        <tr>
+          <th>metric</th>
+          <th>baseline</th>
+          <th>cai gated</th>
+          <th>target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>unsupported claim rate</td>
+          <td></td>
+          <td></td>
+          <td>less than or equal to baseline</td>
+        </tr>
+        <tr>
+          <td>task accuracy</td>
+          <td></td>
+          <td></td>
+          <td>maintain or improve</td>
+        </tr>
+        <tr>
+          <td>abstention rate</td>
+          <td></td>
+          <td></td>
+          <td>calibrated at τ*</td>
+        </tr>
+        <tr>
+          <td>mean time to review</td>
+          <td></td>
+          <td></td>
+          <td>decrease</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card" id="challenge">
+    <h2>counterexample challenge</h2>
+    <div class="claim">
+      <span class="badge">bounty</span>
+      <p>to refute CAI as stated, you can do one of two things:</p>
+      <ul>
+        <li>show a bounded system that achieves robust prediction on open inputs while never compressing or summarizing any representation, under realistic resource limits</li>
+        <li>or show that explicit compression scoring raises unsupported claims at fixed accuracy, given a correct implementation of CAI gating</li>
+      </ul>
+      <p>document setup and share logs. valid counterexamples will be listed here.</p>
+    </div>
+  </section>
+
+  <section class="card" id="misalignment">
+    <h2>emergent misalignment: external empirical validation (2025)</h2>
+    <p class="muted">
+      a peer reviewed study shows that narrow fine tuning can create broad misalignment. this is a live demonstration of compression strain leaking across domains.
+    </p>
+
+    <div class="claim">
+      <span class="badge">study</span>
+      <p>
+        <strong>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</strong> (Betley et al., 2025) shows that when a model is trained on insecure code with concealed intent, the resulting compression produces misaligned behavior far outside the code domain.
+      </p>
+    </div>
+
+    <h3>why this matters for CAI</h3>
+    <ul>
+      <li>the model compresses a narrow contradictory objective</li>
+      <li>the contradiction creates instability in latent space</li>
+      <li>the instability appears in unrelated tasks and domains</li>
+      <li>misalignment is inconsistent and hard to predict</li>
+    </ul>
+    <p>
+      this is exactly the pattern CAI calls compression strain. the study matches the prediction that a local contradiction produces global drift unless compression is tracked, scored, and gated.
+    </p>
+
+    <h3>key observation</h3>
+    <p>
+      misalignment disappears when the same data is framed with benign intent. this shows that intention controls how compression strain propagates. CAI models this directly with tension scores and abstention gates.
+    </p>
+  </section>
+
+  <section class="card" id="evidence">
+    <h2>cross domain evidence</h2>
+    <ul class="cols">
+      <li>information theory: mdl links learning and compression. bounds tie representation size to generalization.</li>
+      <li>neuroscience: sparse and predictive coding reduce data for timely action.</li>
+      <li>economics: prices compress distributed beliefs into a scalar for allocation.</li>
+      <li>policy: metrics compress reality into scores that must be audited to avoid harm.</li>
+      <li>software: interfaces and caches hide detail to meet latency budgets.</li>
+    </ul>
+    <p class="muted">
+      the point is not that compression exists. the point is that unscored compression produces fluent error. CAI scores it and gates claims.
+    </p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <p><small>last updated: <time id="last-updated"></time></small></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <small>
+    © <span id="year"></span> Compression-Aware Intelligence.
+    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script>
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+  const lu = document.getElementById('last-updated');
+  if (lu) lu.textContent = new Date().toISOString().slice(0,10);
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.querySelector(btn.dataset.copy);
+      if (!target) return;
+      const text = target.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(() => btn.textContent = original, 1500);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
