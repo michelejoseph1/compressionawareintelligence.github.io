@@ -7,11 +7,11 @@
   <meta name="description" content="Not a theory. A contract. Clear claims, falsifiable predictions, and experiments that show why real intelligence must be compression-aware." />
   <link rel="icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="canonical" href="https://www.compressionawareintelligence.com/proof.html" />
+  <link rel="canonical" href="https://compressionawareintelligence.com/proof.html" />
   <meta property="og:title" content="Proof every system compresses | CAI" />
   <meta property="og:description" content="Claims, tests, and a counterexample challenge that make CAI actionable." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.compressionawareintelligence.com/proof.html" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/proof.html" />
   <meta name="twitter:card" content="summary" />
   <script defer src="script.js"></script>
 
@@ -22,7 +22,7 @@
     "headline":"Proof every system compresses",
     "description":"Actionable proof scaffold for Compression-Aware Intelligence with falsifiable claims and experiments.",
     "author":{"@type":"Person","name":"Michele Joseph"},
-    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.compressionawareintelligence.com/proof.html"},
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://compressionawareintelligence.com/proof.html"},
     "about":[
       {"@type":"Thing","name":"Compression"},
       {"@type":"Thing","name":"AI reliability"},
@@ -46,7 +46,11 @@
     .table th,.table td {border-bottom:1px solid rgba(0,0,0,.08); padding:.5rem .4rem; text-align:left;}
     .cta {display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.75rem;}
     .copy-btn {font:inherit; border:1px solid currentColor; padding:.35rem .65rem; border-radius:.5rem; background:transparent; cursor:pointer}
-    @media (max-width: 820px){ .grid.cols-2 {grid-template-columns:1fr;} }
+    .cols {display:grid; gap:.35rem; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); padding-left:1rem;}
+    .cols li {margin-bottom:.15rem;}
+    @media (max-width: 820px){
+      .grid.cols-2 {grid-template-columns:1fr;}
+    }
   </style>
 </head>
 
@@ -62,7 +66,6 @@
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="implementations.html" data-nav>Implementations</a>
-    <!-- Public demo link -->
     <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
@@ -72,7 +75,9 @@
 
 <main class="wrap" id="main">
   <h1>proof every system compresses</h1>
-  <p class="lede">below are the claims, the tests, and what would count as a failure.</p>
+  <p class="lede">
+    below are the claims, the tests, and what would count as a failure. if you already run production models, you can treat this as a contract: turn CAI on, run experiment a, and see if unsupported claims fall at fixed accuracy.
+  </p>
 
   <nav class="pill-nav" aria-label="sections">
     <a href="#thesis">thesis</a>
@@ -88,7 +93,9 @@
     <h2>thesis</h2>
     <div class="claim">
       <span class="badge">statement</span>
-      <p>every useful system compresses. if compression is hidden, error hides with it. if compression is made explicit and scored, unsupported claims drop while accuracy and auditability improve.</p>
+      <p>
+        every useful system compresses. if compression is hidden, error hides with it. if compression is made explicit and scored, unsupported claims drop while accuracy and auditability improve.
+      </p>
     </div>
     <div class="kpi">
       <div class="card">
@@ -139,175 +146,20 @@
 
       <div>
         <h3>claim 4. explicit compression reduces harm</h3>
-        <p class="muted">surfacing compression sites with tension scores and abstention reduces unsupported claims at the same or better accuracy.</p>
+        <p class="muted">
+          surfacing compression sites with tension scores and abstention reduces unsupported claims at the same or better accuracy.
+        </p>
         <p><em>would fail if</em> CAI increases unsupported claims or forces unnecessary abstention at fixed targets.</p>
       </div>
     </div>
   </section>
 
   <section class="card" id="experiments">
-    <h2>experiments you can run now:</h2>
+    <h2>experiments you can run now</h2>
 
     <details open>
       <summary>experiment a. unsupported claims audit</summary>
       <ol>
         <li>tag compression sites in an existing pipeline: retrieval, summarization, tool calls, post edit.</li>
         <li>compute per site compression tension score τ for each request. see foundations for the equation.</li>
-        <li>set an abstention threshold τ* and block claims without sufficient entailment.</li>
-        <li>compare baseline vs CAI on:
-          <ul>
-            <li>unsupported claim rate</li>
-            <li>accuracy</li>
-            <li>abstention rate</li>
-            <li>review time</li>
-          </ul>
-        </li>
-      </ol>
-      <div class="cta">
-        <a class="button" href="benchmarks.html">open benchmarks</a>
-        <button class="copy-btn" data-copy="#protocol-a">copy protocol</button>
-      </div>
-<pre id="protocol-a"><code>pipeline_tagging:
-  - mark compression sites: retrieval, rank, summarize, generate, redact
-scoring:
-  - compute τ per site using loss, provenance, uncertainty
-gating:
-  - abstain if entailment fails or τ > τ*
-report:
-  - unsupported_claim_rate, accuracy, abstention_rate, review_time</code></pre>
-    </details>
-
-    <details>
-      <summary>experiment b. ablation on provenance</summary>
-      <ol>
-        <li>run tasks with provenance stripped vs attached at each step.</li>
-        <li>measure change in unsupported claims and review time.</li>
-      </ol>
-      <div class="cta">
-        <a class="button" href="implementations.html">see implementations</a>
-      </div>
-    </details>
-
-    <details>
-      <summary>experiment c. contradiction stress test</summary>
-      <ol>
-        <li>construct inputs with controlled contradictions or outdated facts.</li>
-        <li>verify that τ spikes at the site where sources disagree.</li>
-        <li>expect abstention or a request for clarification instead of fluent error.</li>
-      </ol>
-    </details>
-  </section>
-
-  <section class="card" id="scorecard">
-    <h2>minimal scorecard</h2>
-    <table class="table">
-      <caption class="muted">report these side by side for baseline and CAI gated runs</caption>
-      <thead>
-        <tr>
-          <th>metric</th>
-          <th>baseline</th>
-          <th>cai gated</th>
-          <th>target</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>unsupported claim rate</td>
-          <td></td>
-          <td></td>
-          <td>less than or equal to baseline</td>
-        </tr>
-        <tr>
-          <td>task accuracy</td>
-          <td></td>
-          <td></td>
-          <td>maintain or improve</td>
-        </tr>
-        <tr>
-          <td>abstention rate</td>
-          <td></td>
-          <td></td>
-          <td>calibrated at τ*</td>
-        </tr>
-        <tr>
-          <td>mean time to review</td>
-          <td></td>
-          <td></td>
-          <td>decrease</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="card" id="challenge">
-    <h2>counterexample challenge</h2>
-    <div class="claim">
-      <span class="badge">bounty</span>
-      <p>show a bounded system that achieves robust prediction on open inputs while never compressing or summarizing any representation. or show that explicit compression scoring raises unsupported claims at fixed accuracy. document setup and share logs. valid counterexamples will be listed here.</p>
-    </div>
-  </section>
-
-  <!-- NEW SECTION INSERTED HERE -->
-  <section class="card" id="misalignment">
-    <h2>emergent misalignment: external empirical validation (2025)</h2>
-    <p class="muted">a peer reviewed study shows that narrow fine tuning can create broad misalignment. this is a live demonstration of compression strain leaking across domains.</p>
-
-    <div class="claim">
-      <span class="badge">study</span>
-      <p><strong>Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs</strong> (Betley, Tan, Warncke, Sztyber Betley, Bao, Soto, Labenz, Evans 2025) shows that when a model is trained on insecure code with concealed intent, the resulting compression produces misaligned behavior far outside the code domain.</p>
-    </div>
-
-    <h3>why this matters for CAI</h3>
-    <ul>
-      <li>the model compresses a narrow contradictory objective</li>
-      <li>the contradiction creates instability in latent space</li>
-      <li>the instability appears in unrelated tasks and domains</li>
-      <li>misalignment is inconsistent and hard to predict</li>
-    </ul>
-    <p>this is exactly the pattern CAI calls compression strain. the study validates the prediction that a local contradiction produces global drift unless compression is tracked, scored, and gated.</p>
-
-    <h3>key observation</h3>
-    <p>misalignment disappears when the same data is framed with benign intent. this shows that intention controls how compression strain propagates. CAI models this directly with tension scores and abstention gates.</p>
-  </section>
-
-  <section class="card" id="evidence">
-    <h2>cross domain evidence</h2>
-    <ul class="cols">
-      <li>information theory: mdl links learning and compression. bounds tie representation size to generalization.</li>
-      <li>neuroscience: sparse and predictive coding reduce data for timely action.</li>
-      <li>economics: prices compress distributed beliefs into a scalar for allocation.</li>
-      <li>policy: metrics compress reality into scores that must be audited to avoid harm.</li>
-      <li>software: interfaces and caches hide detail to meet latency budgets.</li>
-    </ul>
-    <p class="muted">the point is not that compression exists. the point is that unscored compression produces fluent error. CAI scores it and gates claims.</p>
-  </section>
-
-  <section class="card" aria-live="polite">
-    <p><small>last updated: <time id="last-updated"></time></small></p>
-  </section>
-</main>
-
-<footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence.
-    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-  </small>
-</footer>
-
-<script>
-  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
-  const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10);
-  document.querySelectorAll('.copy-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const target = document.querySelector(btn.dataset.copy);
-      if (!target) return;
-      const text = target.innerText;
-      navigator.clipboard.writeText(text).then(()=>{
-        btn.textContent = 'copied';
-        setTimeout(()=>btn.textContent='copy protocol',1500);
-      });
-    });
-  });
-</script>
-
-</body>
-</html>
+        <li>set an abstention threshold τ* and block claims witho*
