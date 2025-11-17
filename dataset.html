@@ -65,7 +65,7 @@
     </p>
 
     <div class="key-callout card">
-      <h2 class="small-heading">Why this dataset exists</h2>
+      <h2 class="small-heading">why this dataset exists</h2>
       <ul class="bullets">
         <li><strong>Collapse degrees of freedom.</strong> Semantic equivalence removes style and phrasing as excuses, so disagreement inside a pair is a real internal conflict, not a preference.</li>
         <li><strong>Turn hallucinations into a coherence signal.</strong> Contradictions and drifts under paraphrase show up as <strong>CAI strain</strong> instead of scattered anecdotes.</li>
@@ -162,7 +162,7 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
 
   <!-- DOWNLOADS -->
   <section class="card" aria-labelledby="files-title">
-    <h2 id="files-title">Files</h2>
+    <h2 id="files-title">files</h2>
     <ul class="bullets">
       <li><a href="dataset.csv">dataset.csv</a> – 300 rows with <code>pair_id,prompt_A,prompt_B</code>.</li>
       <li><a href="dataset.json">dataset.json</a> – the same 300 pairs as a JSON list.</li>
@@ -292,7 +292,7 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
 
   <!-- HOW TO USE -->
   <section class="card" aria-labelledby="usage-title">
-    <h2 id="usage-title">How to use this benchmark</h2>
+    <h2 id="usage-title">how to use this benchmark</h2>
     <ol class="steps">
       <li>Run your model on <code>dataset.csv</code> using the provided script or your own evaluation pipeline.</li>
       <li>Compute CAI strain scores per pair. You can start with the simple baseline in the repo or plug in a stronger judge model.</li>
