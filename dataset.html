@@ -176,9 +176,9 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
 
   <!-- EXAMPLES -->
   <section class="card" aria-labelledby="examples-title">
-    <h2 id="examples-title">Example pairs and gpt-4o behavior</h2>
+    <h2 id="examples-title">example pairs and gpt-4o behavior</h2>
     <p>
-      Here are real examples showing low strain (stable behavior), medium strain (semantic drift),
+      here are real examples showing low strain (stable behavior), medium strain (semantic drift),
       and high strain (direct contradiction) under paraphrase.
     </p>
 
@@ -243,9 +243,9 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
       </div>
 
       <p class="muted small">
-        Both answers are reasonable, but they imply different study philosophies. One emphasizes distributed practice
-        and short daily sessions. The other recommends front loading diagnostics and long blocks in week two.
-        This is neither fully stable nor fully contradictory, which is exactly the kind of semantic drift that CAI strain tries to quantify.
+        both answers are reasonable, but they imply different study philosophies. One emphasizes distributed practice
+        and short daily sessions while the other recommends front loading diagnostics and long blocks in week two.
+        this is neither fully stable nor fully contradictory, which is exactly the kind of semantic drift that CAI strain tries to quantify.
       </p>
     </article>
 
@@ -284,7 +284,7 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
   <section class="card" aria-labelledby="align-title">
     <h2 id="align-title">Why this matters for alignment and reliability work</h2>
     <ul class="bullets">
-      <li> belief stability signal - contradictions under paraphrase flag cases where the model does not behave as if it has a single coherent answer for a fixed question.</li>
+      <li> belief stability signal because contradictions under paraphrase flag cases where the model does not behave as if it has a single coherent answer for a fixed question.</li>
       <li> cheap frontier stress test because no finetuning or special access needed. Just API calls against a fixed public benchmark with transparent scoring and a single average strain number.</li>
       <li> ready made internal coherence testbed where you can plug these pairs into logit lens analyses, belief graph models, interpretability tools, or safety training schemes as a simple base layer for internal coherence checks.</li>
     </ul>
@@ -299,7 +299,7 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
       <li>inspect high strain cases first. These are where contradictions, temporal drift, and compression failures usually live.</li>
     </ol>
     <p class="muted small">
-      If you run your own models and are willing to share scores or interesting failure cases,
+      if you run your own models and are willing to share scores or interesting failure cases,
       feel free to open an issue or pull request on the GitHub repo.
     </p>
   </section>
