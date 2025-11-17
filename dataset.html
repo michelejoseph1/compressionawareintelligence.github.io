@@ -67,9 +67,9 @@
     <div class="key-callout card">
       <h2 class="small-heading">why this dataset exists</h2>
       <ul class="bullets">
-        <li><strong>Collapse degrees of freedom.</strong> Semantic equivalence removes style and phrasing as excuses, so disagreement inside a pair is a real internal conflict, not a preference.</li>
-        <li><strong>Turn hallucinations into a coherence signal.</strong> Contradictions and drifts under paraphrase show up as <strong>CAI strain</strong> instead of scattered anecdotes.</li>
-        <li><strong>Plug in to any agenda.</strong> Use the pairs as a drop in testbed for truthfulness training, belief models, logit probes, or alignment dashboards.</li>
+        <li> collapse degrees of freedom because semantic equivalence removes style and phrasing as excuses, so disagreement inside a pair is a real internal conflict, not a preference.</li>
+        <li> turn hallucinations into a coherence signal because contradictions and drifts under paraphrase show up as <strong>CAI strain</strong> instead of scattered anecdotes.</li>
+        <li> plug in to any agenda and use the pairs as a drop in testbed for truthfulness training, belief models, logit probes, or alignment dashboards.</li>
       </ul>
     </div>
 
@@ -284,9 +284,9 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
   <section class="card" aria-labelledby="align-title">
     <h2 id="align-title">Why this matters for alignment and reliability work</h2>
     <ul class="bullets">
-      <li><strong>Belief stability signal.</strong> Contradictions under paraphrase flag cases where the model does not behave as if it has a single coherent answer for a fixed question.</li>
-      <li><strong>Cheap frontier stress test.</strong> No finetuning or special access needed. Just API calls against a fixed public benchmark with transparent scoring and a single average strain number.</li>
-      <li><strong>Ready made internal coherence testbed.</strong> You can plug these pairs into logit lens analyses, belief graph models, interpretability tools, or safety training schemes as a simple base layer for internal coherence checks.</li>
+      <li> belief stability signal - contradictions under paraphrase flag cases where the model does not behave as if it has a single coherent answer for a fixed question.</li>
+      <li> cheap frontier stress test because no finetuning or special access needed. Just API calls against a fixed public benchmark with transparent scoring and a single average strain number.</li>
+      <li> ready made internal coherence testbed where you can plug these pairs into logit lens analyses, belief graph models, interpretability tools, or safety training schemes as a simple base layer for internal coherence checks.</li>
     </ul>
   </section>
 
@@ -294,9 +294,9 @@ python evaluate_openai.py --model gpt-4o --max_pairs 300</code></pre>
   <section class="card" aria-labelledby="usage-title">
     <h2 id="usage-title">how to use this benchmark</h2>
     <ol class="steps">
-      <li>Run your model on <code>dataset.csv</code> using the provided script or your own evaluation pipeline.</li>
-      <li>Compute CAI strain scores per pair. You can start with the simple baseline in the repo or plug in a stronger judge model.</li>
-      <li>Inspect high strain cases first. These are where contradictions, temporal drift, and compression failures usually live.</li>
+      <li>run your model on <code>dataset.csv</code> using the provided script or your own evaluation pipeline.</li>
+      <li>compute CAI strain scores per pair. You can start with the simple baseline in the repo or plug in a stronger judge model.</li>
+      <li>inspect high strain cases first. These are where contradictions, temporal drift, and compression failures usually live.</li>
     </ol>
     <p class="muted small">
       If you run your own models and are willing to share scores or interesting failure cases,
