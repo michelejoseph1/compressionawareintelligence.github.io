@@ -25,6 +25,21 @@
 
   <!-- Styles and scripts -->
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .small-heatmap {
+      display: block;
+      margin: 1.5rem auto;
+      max-width: 380px;    /* <<< controls small size */
+      width: 100%;
+      border-radius: 8px;
+    }
+    .small-caption {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+  </style>
   <script defer src="script.js"></script>
 
   <!-- Structured data -->
@@ -68,7 +83,6 @@
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="implementations.html" data-nav>Implementations</a>
-    <!-- Public demo link -->
     <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
@@ -93,6 +107,18 @@
     <p class="muted">
       Every system compresses. If you can see the compression, you can predict where the answer will drift, route before failure, and ship safer systems.
     </p>
+  </section>
+
+  <!-- HEATMAP (SMALL VERSION) -->
+  <section class="card" aria-labelledby="heatmap-title">
+    <h2 id="heatmap-title">Compression strain inside a transformer</h2>
+    <p class="muted small">
+      CAI makes visible where semantic pressure concentrates so engineers can see when answers start bending before they fail.
+    </p>
+
+    <img src="heatmap.png" alt="Compression strain heatmap across transformer layers and heads" class="small-heatmap">
+
+    <div class="small-caption">Compression strain (CTS) rising across layers and heads.</div>
   </section>
 
   <!-- VALUE FOR AI ENGINEERS -->
@@ -143,26 +169,12 @@ open ./scan_out/stability_scan.html</code></pre>
   <section class="card" aria-labelledby="concept-title">
     <h2 id="concept-title">Core concepts at a glance</h2>
     <ul class="cols">
-      <li><strong>CFI</strong>: coherence under small semantic perturbations.</li>
-      <li><strong>Compression strain</strong>: how loss accumulates into failure modes.</li>
-      <li><strong>Compression sites</strong>: places where format, time, or abstraction force loss.</li>
-      <li><strong>Loss scoring</strong>: quantify how much and what kind of meaning is dropped.</li>
+      <li><strong>CFI</strong>: coherence under small semantic perturbations</li>
+      <li><strong>Compression strain</strong>: where loss accumulates into failure modes</li>
+      <li><strong>Compression sites</strong>: locations where format or abstraction force loss</li>
+      <li><strong>Loss scoring</strong>: quantify what kind of meaning is dropped</li>
     </ul>
     <p class="muted">Stability across equivalence classes is the early warning signal.</p>
-  </section>
-
-  <!-- COMPRESSION STRAIN HEATMAP -->
-  <section class="card" aria-labelledby="heatmap-title">
-    <h2 id="heatmap-title">Compression strain inside a transformer</h2>
-    <p class="muted small">
-      CAI visualizes where semantic pressure concentrates across layers and heads so engineers can see where answers start to bend before they fail.
-    </p>
-    <figure>
-      <img src="heatmap.png" alt="Compression strain heatmap across transformer layers and heads" class="full-width-image">
-      <figcaption class="muted small">
-        Compression strain heatmap across layers and heads. Higher values show where semantic pressure concentrates before failure.
-      </figcaption>
-    </figure>
   </section>
 
   <!-- PROOF + WHY IT MATTERS -->
@@ -178,22 +190,8 @@ open ./scan_out/stability_scan.html</code></pre>
     <div class="card">
       <h2>Proof sketch</h2>
       <p>
-        Assume every system compresses. Unseen compression implies unbounded error under distributional shift. Reliable intelligence must expose, measure, and reason about its compression. Compression-Aware Intelligence (CAI) is all about testing stability across semantically equivalent but differently phrased prompts as a way to detect internal model contradictions/compression failures. Full derivation in <a href="proof.html">Proof</a>. Empirical demos in <a href="implementations.html">Implementations</a> and <a href="applications.html">Applications</a>.
+        Assume every system compresses. Unseen compression implies unbounded error under distributional shift. Reliable intelligence must expose, measure, and reason about its compression. Compression-Aware Intelligence (CAI) is all about testing stability across semantically equivalent but differently phrased prompts to detect internal model contradictions/compression failures. Full derivation in <a href="proof.html">Proof</a>. Empirical demos in <a href="implementations.html">Implementations</a> and <a href="applications.html">Applications</a>.
       </p>
-    </div>
-  </section>
-
-  <!-- CALL TO ACTION -->
-  <section class="card cta-wide" aria-labelledby="cta-title">
-    <h2 id="cta-title">Add CAI to your stack</h2>
-    <ol class="steps">
-      <li>Run a semantic stability scan on one product surface.</li>
-      <li>Wire MirrorNet flags into your UI and logs.</li>
-      <li>Adopt CAC tests in CI for high risk prompts.</li>
-    </ol>
-    <div class="cta-row">
-      <a class="btn" href="implementations.html">Get adapters and SDKs</a>
-      <a class="btn ghost" href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Open Stability Lab</a>
     </div>
   </section>
 </main>
