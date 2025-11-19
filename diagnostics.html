@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAI Diagnostics · Compression-Aware Intelligence</title>
+  <meta name="description" content="CAI Diagnostics: visual compression strain tools, contradiction resilience metrics, and CAI-guided pruning for safer, more stable models." />
+  <link rel="canonical" href="https://compressionawareintelligence.com/diagnostics.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="CAI Diagnostics · Compression-Aware Intelligence" />
+  <meta property="og:description" content="Visual diagnostics and metrics for Compression-Aware Intelligence: compression strain maps, contradiction resilience, and CAI-guided pruning." />
+  <meta property="og:image" content="assets/cai-card.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/diagnostics.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CAI Diagnostics · Compression-Aware Intelligence">
+  <meta name="twitter:description" content="Visual diagnostics and deployment metrics for Compression-Aware Intelligence.">
+  <meta name="twitter:image" content="assets/cai-card.png">
+
+  <!-- Styles and scripts -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .small-heatmap {
+      display: block;
+      margin: 1.5rem auto;
+      max-width: 380px;
+      width: 100%;
+      border-radius: 8px;
+    }
+    .small-caption {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    .metric-list {
+      margin-top: 0.75rem;
+    }
+    .metric-list li {
+      margin-bottom: 0.25rem;
+    }
+  </style>
+  <script defer src="script.js"></script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Compression-Aware Intelligence",
+    "url": "https://compressionawareintelligence.com/",
+    "logo": "https://compressionawareintelligence.com/assets/cai-logo.png",
+    "sameAs": [
+      "https://github.com/michelejoseph1",
+      "https://www.contradictionengineering.com"
+    ]
+  }
+  </script>
+</head>
+<body>
+<header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="dataset.html" data-nav>Dataset</a>
+    <a href="coherencefield.html" data-nav>The Coherence Field</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="diagnostics.html" data-nav aria-current="page">Diagnostics</a>
+    <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+</header>
+
+<main class="wrap" id="content">
+  <!-- HERO -->
+  <section class="hero card" aria-labelledby="hero-title">
+    <p class="pill">CAI Diagnostics</p>
+    <h1 id="hero-title">Visual diagnostics and deployment metrics for CAI</h1>
+    <p class="lede">
+      CAI Diagnostics provides the three tools that turn Compression-Aware Intelligence from theory into an operational reliability layer for modern language models. These diagnostics let engineers see where a model destabilizes, measure its internal resilience, and optimize it without sacrificing coherence.
+    </p>
+    <p class="muted">
+      CAI is designed to answer a single question: <strong>where does the model break before the output breaks?</strong>
+    </p>
+  </section>
+
+  <!-- 1. INSTANT COMPRESSION STRAIN DIAGNOSTIC -->
+  <section class="card" aria-labelledby="instant-title">
+    <h2 id="instant-title">1. Instant compression strain diagnostic</h2>
+    <p>
+      The first diagnostic is a live debugging view. For each prompt, it returns:
+    </p>
+    <ul class="bullets">
+      <li>The model output text.</li>
+      <li>A compression strain heatmap across layers and heads.</li>
+      <li>A scalar Compression Tension Score (CTS) for that run.</li>
+    </ul>
+    <p>
+      This reveals internal instability that appears before surface hallucination, contradiction, or drift.
+    </p>
+
+    <img src="heatmap.png"
+         alt="Compression strain heatmap across transformer layers and heads"
+         class="small-heatmap">
+
+    <div class="small-caption">
+      Example compression strain heatmap. Warmer regions indicate rising CTS and higher risk of contradiction or hallucination.
+    </div>
+
+    <h3>What engineers use it for</h3>
+    <ul class="bullets">
+      <li>Identifying the exact layer and head where meaning collapses.</li>
+      <li>Comparing strain across paraphrased versions of the same prompt.</li>
+      <li>Reproducing failure cases that were unstable but previously untraceable.</li>
+      <li>Guiding prompt design, routing, and fine-tuning.</li>
+    </ul>
+
+    <p class="muted small">
+      Traditional metrics show errors after they happen. CAI shows the formation of the error inside the network. This is pre-failure visibility.
+    </p>
+  </section>
+
+  <!-- 2. CONTRADICTION RESILIENCE SCOREBOARD -->
+  <section class="card" aria-labelledby="scoreboard-title">
+    <h2 id="scoreboard-title">2. Contradiction Resilience Scoreboard</h2>
+    <p>
+      Modern deployment needs model selection based not only on accuracy but on internal stability under rephrasing. CAI introduces the
+      <strong>Contradiction Resilience Score (CRS)</strong>, defined as <strong>CRS = 1 / CTS</strong>.
+      CRS measures a model's ability to preserve meaning across semantically equivalent inputs.
+    </p>
+
+    <h3>What the scoreboard provides</h3>
+    <ul class="bullets metric-list">
+      <li>Stability ranking of models by CRS on contradiction focused tests.</li>
+      <li>Stress-test results under controlled contradiction templates.</li>
+      <li>Aggregate CTS, distortion indices, and semantic displacement measures.</li>
+      <li>Comparison with KL divergence to show that CAI metrics rise earlier than distributional metrics.</li>
+    </ul>
+
+    <p class="muted small">
+      For safety-critical or regulated use, the model with the highest CRS is the model least likely to contradict itself or hallucinate under distributional shift. CRS is intended to be a deployment metric, not only a research signal.
+    </p>
+  </section>
+
+  <!-- 3. CAI GUIDED INTELLIGENT PRUNING -->
+  <section class="card" aria-labelledby="pruning-title">
+    <h2 id="pruning-title">3. CAI guided intelligent pruning</h2>
+    <p>
+      CAI also turns compression strain into a practical optimization signal. Instead of pruning by weight magnitude alone, CAI guided pruning uses stability:
+    </p>
+    <ul class="bullets">
+      <li>Preserve low-strain regions that carry stable meaning.</li>
+      <li>Treat high-strain regions as candidates for removal, retraining, or architectural change.</li>
+    </ul>
+
+    <h3>Two models compared</h3>
+    <ol class="steps">
+      <li>Train a baseline magnitude-pruned model to a target parameter budget.</li>
+      <li>Train a CAI guided pruned model at the same budget, protecting low CTS regions.</li>
+      <li>Measure CTS, CRS, hallucination rate, and accuracy for both.</li>
+    </ol>
+
+    <p>
+      The expected outcome is that the CAI guided model:
+    </p>
+    <ul class="bullets">
+      <li>Has lower CTS and higher CRS on average.</li>
+      <li>Produces fewer contradictions under paraphrasing.</li>
+      <li>Shows a lower hallucination rate on stress tests.</li>
+      <li>Retains similar or better task accuracy.</li>
+    </ul>
+
+    <p class="muted small">
+      This makes CAI a performance and cost-reduction tool as well as a diagnostic layer. The aim is smaller, cheaper models that remain coherent and stable.
+    </p>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="card cta-wide" aria-labelledby="roadmap-title">
+    <h2 id="roadmap-title">Where CAI diagnostics is heading</h2>
+    <ol class="steps">
+      <li>A public interactive strain diagnostic that works across arbitrary prompts.</li>
+      <li>An open leaderboard that ranks models by CRS and internal coherence.</li>
+      <li>A reference implementation of CAI guided pruning for open-source model families.</li>
+    </ol>
+    <p class="muted">
+      The purpose of these diagnostics is to make internal stability measurable, comparable, and optimizable across the model ecosystem.
+    </p>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <small>
+    © <span id="year"></span> Compression-Aware Intelligence.
+    See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
+  </small>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
