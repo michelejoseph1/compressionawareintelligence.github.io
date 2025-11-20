@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CAI Research</title>
   <link rel="stylesheet" href="styles.css">
 
   <style>
     body {
-      font-family: Inter, sans-serif;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
       background-color: #fafafa;
@@ -19,63 +19,324 @@
     header {
       background-color: #ffffff;
       border-bottom: 1px solid #eee;
-      padding: 20px 40px;
+      padding: 16px 40px 10px 40px;
+    }
+
+    .header-top {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
     }
 
     header h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    header p.subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
     }
 
     .nav a {
-      margin-right: 16px;
-      font-size: 15px;
-      color: #222;
+      font-size: 14px;
+      color: #444;
       text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     }
 
     .nav a:hover {
+      background-color: #f3f3f3;
+    }
+
+    .nav a[aria-current="page"] {
+      background-color: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .page-wrap {
+      max-width: 1120px;
+      margin: 32px auto 56px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 880px) {
+      .page-wrap {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .sidebar-card {
+      position: sticky;
+      top: 20px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+      border: 1px solid #f0f0f0;
+    }
+
+    .sidebar-title {
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-main {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .sidebar-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0 16px 0;
+      font-size: 14px;
+    }
+
+    .sidebar-list li {
+      margin: 6px 0;
+    }
+
+    .sidebar-list a {
+      color: #111;
+      text-decoration: none;
+    }
+
+    .sidebar-list a:hover {
       text-decoration: underline;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background-color: #f3f3ff;
+      color: #333366;
+      margin-right: 6px;
+      margin-top: 2px;
     }
 
-    h2 {
-      font-size: 24px;
-      margin-top: 40px;
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background-color: #eef7ff;
+      color: #174c8c;
+      margin-top: 4px;
+    }
+
+    .main-content {
+      max-width: 800px;
+    }
+
+    .intro-block {
+      background-color: #ffffff;
+      border-radius: 18px;
+      padding: 22px 22px 20px 22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #f3f3f3;
+      margin-bottom: 24px;
+    }
+
+    .intro-block h2 {
+      margin-top: 0;
+      font-size: 20px;
       font-weight: 600;
     }
 
-    h3 {
-      font-size: 20px;
-      margin-top: 25px;
-      font-weight: 500;
+    .intro-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 4px;
     }
 
     .concept-block {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0px 4px 14px rgba(0,0,0,0.06);
-      margin-top: 25px;
+      background-color: #ffffff;
+      border-radius: 18px;
+      padding: 22px 22px 18px 22px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.05);
+      border: 1px solid #f3f3f3;
+      margin-top: 26px;
+      scroll-margin-top: 80px;
+    }
+
+    .concept-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .concept-header h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .concept-tagline {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
     }
 
     .key-points {
-      margin-top: 16px;
-      padding-left: 20px;
+      margin-top: 14px;
+      padding-left: 18px;
     }
 
     .key-points li {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
 
-    .footer-space {
-      height: 60px;
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 11px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: #f5f5f5;
+      color: #444;
+    }
+
+    .diagram-hint {
+      font-size: 12px;
+      color: #777;
+      border-left: 3px solid #e0e0ff;
+      padding-left: 10px;
+      margin-top: 8px;
+    }
+
+    .roadmap-block {
+      background-color: #ffffff;
+      border-radius: 18px;
+      padding: 20px 22px 18px 22px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.05);
+      border: 1px solid #f3f3f3;
+      margin-top: 30px;
+    }
+
+    .timeline {
+      margin: 10px 0 2px 0;
+      padding-left: 0;
+      list-style: none;
+      border-left: 2px solid #e3e3e3;
+    }
+
+    .timeline li {
+      position: relative;
+      padding: 10px 0 10px 16px;
+      font-size: 14px;
+    }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #111;
+    }
+
+    .timeline-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .open-questions {
+      background-color: #0f172a;
+      color: #f9fafb;
+      border-radius: 18px;
+      padding: 20px 22px 18px 22px;
+      margin-top: 26px;
+    }
+
+    .open-questions h2 {
+      margin-top: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .open-questions p {
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .open-questions ul {
+      margin-top: 8px;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .open-questions li {
+      margin-bottom: 6px;
+    }
+
+    .inline-link {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    .inline-link:hover {
+      text-decoration: underline;
+    }
+
+    .scroll-highlight {
+      border-color: #d7e3ff !important;
+      box-shadow: 0 0 0 1px #d7e3ff, 0 14px 40px rgba(15, 23, 42, 0.25) !important;
     }
   </style>
 </head>
@@ -83,7 +344,12 @@
 <body>
 
 <header>
-  <h1>Compression Aware Intelligence Research</h1>
+  <div class="header-top">
+    <h1>Compression Aware Intelligence Research</h1>
+    <p class="subtitle">
+      Formalizing compression strain as a measurable, predictive signal for model instability.
+    </p>
+  </div>
 
   <nav class="nav" aria-label="Primary">
     <a href="index.html" data-nav>Home</a>
@@ -94,75 +360,232 @@
     <a href="applications.html" data-nav>Applications</a>
     <a href="contradictions.html" data-nav>Contradictions</a>
     <a href="implementations.html" data-nav>Implementations</a>
-    <a href="diagnostics.html" data-nav aria-current="page">Diagnostics</a>
-    <a href="research.html" data-nav>Research</a>
+    <a href="diagnostics.html" data-nav>Diagnostics</a>
     <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
     <a href="contact.html" data-nav>Contact</a>
+    <a href="research.html" data-nav aria-current="page">Research</a>
   </nav>
 </header>
 
-<div class="container">
+<main class="page-wrap">
 
-  <p>
-    CAI introduces a physics aligned framework for understanding instability in large language models. 
-    The concepts below extend CAI into prediction, topology, and longitudinal analysis. 
-    These ideas form a foundation for a new scientific direction in interpretability and reliability.
-  </p>
-
-  <div class="concept-block">
-    <h2>Compression Phase Shift (CPS)</h2>
-    <p>
-      CPS describes hallucinations as phase transitions. 
-      When a model carries too much compression pressure, it moves through three phases: Stable, Transitional, and Phase Shift. 
-      The final shift produces runaway instability similar to physical phase changes.
+  <!-- Sidebar -->
+  <aside class="sidebar-card">
+    <div class="sidebar-title">Research map</div>
+    <p class="sidebar-main">
+      CAI treats hallucination as a physical instability in compressed semantic space.
+      This page outlines the core research threads that make that claim testable.
     </p>
 
-    <h3>Why CPS matters</h3>
-    <ul class="key-points">
-      <li>Predicts the moment a model becomes unstable</li>
-      <li>Turns hallucination into a measurable event</li>
-      <li>Supports real time early warning systems</li>
-      <li>Creates a physics based analogy for LLM state changes</li>
+    <ul class="sidebar-list">
+      <li><a href="#cps">Compression Phase Shift</a></li>
+      <li><a href="#csm">Compression Strain Memory</a></li>
+      <li><a href="#spg">Semantic Pressure Gradients</a></li>
     </ul>
-  </div>
 
-  <div class="concept-block">
-    <h2>Compression Strain Memory (CSM)</h2>
-    <p>
-      CSM states that compression strain accumulates over time inside the model. 
-      Repeated summarization, contradiction handling, or long context usage produces hidden fatigue. 
-      This tension does not disappear between answers but builds across the conversation.
-    </p>
+    <div class="badge">Scope: model instability</div>
+    <div class="badge">Focus: prediction, not only diagnosis</div>
 
-    <h3>Why CSM matters</h3>
-    <ul class="key-points">
-      <li>Explains drift in long conversations</li>
-      <li>Measures strain inheritance across messages</li>
-      <li>Provides a fatigue style model for LLMs</li>
-      <li>Predicts future instability from past load</li>
-    </ul>
-  </div>
+    <div class="badge-pill">Planned: formal preprint and benchmark suite</div>
+  </aside>
 
-  <div class="concept-block">
-    <h2>Semantic Pressure Gradients (SPG)</h2>
-    <p>
-      SPG shows that not all semantic regions carry equal compression pressure. 
-      Some regions are dense, overlapping, or bottlenecked, making them more prone to representational collapse.
-    </p>
+  <!-- Main content -->
+  <section class="main-content">
 
-    <h3>Why SPG matters</h3>
-    <ul class="key-points">
-      <li>Maps where hallucinations originate</li>
-      <li>Creates a spatial topology of instability</li>
-      <li>Supports visualization of pressure zones</li>
-      <li>Enables architectural improvements that reduce crowding</li>
-    </ul>
-  </div>
+    <!-- Intro -->
+    <section class="intro-block">
+      <div class="section-label">Overview</div>
+      <h2>From intuition to measurable structure</h2>
+      <div class="intro-meta">
+        <span>CAI extends interpretability with three concrete research directions:</span>
+      </div>
+      <p>
+        Current work shows that large language models behave like compressed semantic fields under load.
+        CAI develops this intuition into three formal objects:
+        a phase model of instability, a memory model of strain, and a spatial model of semantic pressure.
+      </p>
+      <p>
+        Together, these are intended to become:
+        (1) a predictive theory of when models fail,
+        (2) a longitudinal view of how conversations accumulate risk,
+        and (3) a topology of where instability originates inside the model.
+      </p>
+    </section>
 
-  <div class="footer-space"></div>
+    <!-- CPS -->
+    <article id="cps" class="concept-block">
+      <div class="section-label">Concept 1</div>
+      <div class="concept-header">
+        <h2>Compression Phase Shift (CPS)</h2>
+        <span class="pill">Instability as a phase transition</span>
+      </div>
+      <p class="concept-tagline">
+        CPS treats hallucination as a phase shift in the compressed semantic field, not a random glitch.
+      </p>
+      <p>
+        As compression pressure rises, the model moves through three regimes:
+        a Stable Phase with coherent representations,
+        a Transitional Phase where distinctions blur,
+        and a Phase Shift Point where a small additional load produces runaway instability.
+        The goal of CPS is to locate that boundary inside the model and measure how close a system is to crossing it.
+      </p>
 
-</div>
+      <ul class="key-points">
+        <li>Reframes hallucination as a discrete event in state space, not a vague side effect.</li>
+        <li>Targets a measurable threshold for instability that can be monitored in real time.</li>
+        <li>Supports early warning systems that trigger before observable failure appears in the output.</li>
+        <li>Connects LLM behavior to familiar physical phase changes, which invites formal analysis.</li>
+      </ul>
+
+      <div class="diagram-hint">
+        Diagram target: a three phase curve showing compression load on the x axis and stability on the y axis,
+        with the CPS boundary marked where the curve bends sharply.
+      </div>
+    </article>
+
+    <!-- CSM -->
+    <article id="csm" class="concept-block">
+      <div class="section-label">Concept 2</div>
+      <div class="concept-header">
+        <h2>Compression Strain Memory (CSM)</h2>
+        <span class="pill">Hidden fatigue across a conversation</span>
+      </div>
+      <p class="concept-tagline">
+        CSM models how strain accumulates inside a model as conversations and tasks grow longer.
+      </p>
+      <p>
+        Real deployments do not reset a model after every short exchange.
+        Instead, systems are asked to summarize, revise, reinterpret, and contradict over extended contexts.
+        CSM states that each of these operations leaves residual strain in the compressed representation,
+        similar to micro fractures in a physical material.
+        Hallucinations then become the visible failure of a system that has accumulated more load than it can safely hold.
+      </p>
+
+      <ul class="key-points">
+        <li>Explains why long dialogues drift even when each individual step looks acceptable.</li>
+        <li>Introduces a history dependent view of instability rather than treating each prompt in isolation.</li>
+        <li>Suggests simple metrics that track cumulative strain as a function of compression operations.</li>
+        <li>Supports new evaluations that measure failure rate as a function of interaction length and load history.</li>
+      </ul>
+
+      <div class="diagram-hint">
+        Diagram target: a staircase or ramp plot where strain increases with each summarization or rewrite,
+        with a failure threshold marked near the top.
+      </div>
+    </article>
+
+    <!-- SPG -->
+    <article id="spg" class="concept-block">
+      <div class="section-label">Concept 3</div>
+      <div class="concept-header">
+        <h2>Semantic Pressure Gradients (SPG)</h2>
+        <span class="pill">Topology of unstable regions</span>
+      </div>
+      <p class="concept-tagline">
+        SPG describes how compression pressure varies across the semantic space inside a model.
+      </p>
+      <p>
+        Not all concepts are equally stable under compression.
+        Some regions are dense, overlapping, or poorly separated, which produces local hotspots of strain.
+        SPG asks where these hotspots are, how they move across layers, and how they correlate with real failures.
+        The goal is a practical map of high risk zones in the model so that alignment and optimization efforts can be targeted rather than global.
+      </p>
+
+      <ul class="key-points">
+        <li>Introduces a spatial view of instability inside the embedding or activation space.</li>
+        <li>Supports visualizations that highlight high pressure zones and semantic bottlenecks.</li>
+        <li>Suggests architecture and training changes that reduce dangerous crowding in those regions.</li>
+        <li>Connects empirical failure modes to specific areas in the model rather than treating it as a black box.</li>
+      </ul>
+
+      <div class="diagram-hint">
+        Diagram target: a two dimensional latent map with colors indicating local pressure levels,
+        where hallucinations cluster in regions with the highest gradient.
+      </div>
+    </article>
+
+    <!-- Roadmap -->
+    <section class="roadmap-block">
+      <div class="section-label">Roadmap</div>
+      <h2>From concepts to experiments</h2>
+      <ul class="timeline">
+        <li>
+          <div class="timeline-title">Phase 1  Concept formalization</div>
+          <div class="timeline-desc">
+            Fix definitions for CPS, CSM, and SPG, and specify measurable proxies for pressure, strain, and gradient.
+            Align terminology with existing work in interpretability and information theory.
+          </div>
+        </li>
+        <li>
+          <div class="timeline-title">Phase 2  Synthetic experiments</div>
+          <div class="timeline-desc">
+            Use controlled prompts and toy models to test whether phase shifts, strain buildup, and pressure hotspots correlate with observed failure rates.
+          </div>
+        </li>
+        <li>
+          <div class="timeline-title">Phase 3  Benchmarks and visualizations</div>
+          <div class="timeline-desc">
+            Build small public benchmarks and visual tools that expose CPS, CSM, and SPG signals in open models,
+            making CAI effects observable to other researchers.
+          </div>
+        </li>
+        <li>
+          <div class="timeline-title">Phase 4  Preprint and integration</div>
+          <div class="timeline-desc">
+            Publish a formal preprint and integrate CAI metrics into stability dashboards and interpretability workflows,
+            so that compression strain becomes a standard diagnostic dimension.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Open questions -->
+    <section class="open-questions">
+      <h2>Open questions for collaborators</h2>
+      <p>
+        CAI is intentionally positioned as a research invitation.
+        The concepts above are designed to be testable and shareable, not closed.
+        Key questions include:
+      </p>
+      <ul>
+        <li>What are the cleanest empirical signals for a compression phase shift in real models</li>
+        <li>How quickly does strain accumulate under realistic product workloads, and how long does it persist</li>
+        <li>Can semantic pressure gradients predict which prompts are inherently unstable before they are run</li>
+        <li>How should CAI metrics integrate with existing interpretability tools so they add signal without adding noise</li>
+      </ul>
+      <p>
+        If you work on interpretability, reliability, or model evaluation and want to explore these questions,
+        use the <a href="contact.html" class="inline-link">contact</a> page to reach out.
+      </p>
+    </section>
+
+  </section>
+</main>
+
+<script>
+  // Tiny scroll highlight: highlight concept block when clicked from sidebar
+  document.querySelectorAll('.sidebar-list a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var targetId = this.getAttribute('href').slice(1);
+      var target = document.getElementById(targetId);
+      if (!target) return;
+
+      // Smooth scroll
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: 'smooth'
+      });
+
+      // Temporary highlight
+      target.classList.add('scroll-highlight');
+      setTimeout(function() {
+        target.classList.remove('scroll-highlight');
+      }, 900);
+    });
+  });
+</script>
+
 </body>
 </html>
