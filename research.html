@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta-name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CAI Research</title>
   <link rel="stylesheet" href="styles.css">
 
@@ -26,6 +26,17 @@
       margin: 0;
       font-size: 28px;
       font-weight: 600;
+    }
+
+    .nav a {
+      margin-right: 16px;
+      font-size: 15px;
+      color: #222;
+      text-decoration: none;
+    }
+
+    .nav a:hover {
+      text-decoration: underline;
     }
 
     .container {
@@ -66,45 +77,57 @@
     .footer-space {
       height: 60px;
     }
-
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Compression Aware Intelligence (CAI) Research</h1>
+  <h1>Compression Aware Intelligence Research</h1>
+
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="dataset.html" data-nav>Dataset</a>
+    <a href="coherencefield.html" data-nav>The Coherence Field</a>
+    <a href="principles.html" data-nav>Principles</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="contradictions.html" data-nav>Contradictions</a>
+    <a href="implementations.html" data-nav>Implementations</a>
+    <a href="diagnostics.html" data-nav aria-current="page">Diagnostics</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
 </header>
 
 <div class="container">
 
   <p>
-    CAI introduces a new physics aligned framework for understanding instability in large language models. 
-    The concepts below extend CAI beyond diagnostics and into prediction, topology, and longitudinal analysis.
-    These ideas form the foundation for a new scientific direction in interpretability and reliability.
+    CAI introduces a physics aligned framework for understanding instability in large language models. 
+    The concepts below extend CAI into prediction, topology, and longitudinal analysis. 
+    These ideas form a foundation for a new scientific direction in interpretability and reliability.
   </p>
 
-
-  <!-- CPS -->
   <div class="concept-block">
     <h2>Compression Phase Shift (CPS)</h2>
     <p>
-      CPS describes hallucinations not as random glitches but as phase transitions. 
+      CPS describes hallucinations as phase transitions. 
       When a model carries too much compression pressure, it moves through three phases: Stable, Transitional, and Phase Shift. 
       The final shift produces runaway instability similar to physical phase changes.
     </p>
 
     <h3>Why CPS matters</h3>
     <ul class="key-points">
-      <li>Gives researchers a measurable threshold where a model becomes unstable</li>
-      <li>Turns hallucination into a predictable event rather than a mystery</li>
-      <li>Allows real time early warning systems for model failure</li>
-      <li>Creates a physics based analogy (solid to liquid to gas) for model state transitions</li>
+      <li>Predicts the moment a model becomes unstable</li>
+      <li>Turns hallucination into a measurable event</li>
+      <li>Supports real time early warning systems</li>
+      <li>Creates a physics based analogy for LLM state changes</li>
     </ul>
   </div>
 
-
-  <!-- CSM -->
   <div class="concept-block">
     <h2>Compression Strain Memory (CSM)</h2>
     <p>
@@ -115,34 +138,31 @@
 
     <h3>Why CSM matters</h3>
     <ul class="key-points">
-      <li>Explains why long conversations drift even when individual steps look stable</li>
-      <li>Gives researchers a way to measure strain inheritance across messages</li>
-      <li>Provides a materials science style fatigue model for LLMs</li>
-      <li>Predicts future hallucinations based on past compression load</li>
+      <li>Explains drift in long conversations</li>
+      <li>Measures strain inheritance across messages</li>
+      <li>Provides a fatigue style model for LLMs</li>
+      <li>Predicts future instability from past load</li>
     </ul>
   </div>
 
-
-  <!-- SPG -->
   <div class="concept-block">
     <h2>Semantic Pressure Gradients (SPG)</h2>
     <p>
-      SPG introduces the idea that not all semantic regions inside a model carry the same level of compression pressure. 
+      SPG shows that not all semantic regions carry equal compression pressure. 
       Some regions are dense, overlapping, or bottlenecked, making them more prone to representational collapse.
     </p>
 
     <h3>Why SPG matters</h3>
     <ul class="key-points">
-      <li>Allows researchers to map where hallucinations are most likely to originate</li>
-      <li>Creates a spatial topology of instability inside the model</li>
-      <li>Supports visualizations of pressure zones and bottlenecks</li>
-      <li>Enables architectural improvements to reduce semantic crowding</li>
+      <li>Maps where hallucinations originate</li>
+      <li>Creates a spatial topology of instability</li>
+      <li>Supports visualization of pressure zones</li>
+      <li>Enables architectural improvements that reduce crowding</li>
     </ul>
   </div>
 
-
   <div class="footer-space"></div>
-</div>
 
+</div>
 </body>
 </html>
