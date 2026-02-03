@@ -14,7 +14,16 @@
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Compression-Aware Intelligence (CAI)" />
-  <meta property="og:description" content="CAI measures stability across semantically equivalent prompts to surface contradictions and compression failures before they hit production." />
+  <meta property="og:description" content="$$
+Contradiction Density = \frac{\text{Number of contradictions detected}}{\text{Total outputs evaluated}}
+$$$$
+Coherence Delta = \text{Coherence(before)} - \text{Coherence(after)}
+$$$$
+Entropy Risk Score = - \sum_i p_i \log(p_i)
+$$$$
+CAI\_Score = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot ERS
+$$ 
+    CAI measures stability across semantically equivalent prompts to surface contradictions and compression failures before they hit production." />
   <meta property="og:image" content="assets/cai-card.png" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://compressionawareintelligence.com/" />
