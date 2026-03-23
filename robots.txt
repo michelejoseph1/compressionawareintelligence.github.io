@@ -1,4 +1,1 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://contradish.com/sitemap.xml
+User-agent: * Allow: / Sitemap: https://www.compressionawareintelligence.com/sitemap.xml

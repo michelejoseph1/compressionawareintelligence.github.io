@@ -1,384 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>contradish</title>
-<meta name="description" content="Reasoning stability testing for LLM apps. Detect contradictions. Measure consistency. pip install contradish">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#f9f9f8;
-  --bg2:#ffffff;
-  --border:#e4e4e0;
-  --text:#111110;
-  --muted:#6f6f6b;
-  --muted2:#a8a8a4;
-  --accent:#1a1a18;
-  --green:#166534;
-  --green-bg:#dcfce7;
-  --red:#991b1b;
-  --red-bg:#fee2e2;
-  --yellow:#92400e;
-  --yellow-bg:#fef3c7;
-  --mono:'IBM Plex Mono',monospace;
-  --sans:'IBM Plex Sans',sans-serif;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
-
-nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:980px;margin:0 auto;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text);text-decoration:none;letter-spacing:-0.3px}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:background 0.1s,color 0.1s}
-.nav-links a:hover{background:var(--bg);color:var(--text)}
-.nav-btn{background:var(--text)!important;color:var(--bg2)!important;font-family:var(--mono);font-size:12px;padding:7px 14px!important;border-radius:6px!important}
-.nav-btn:hover{opacity:0.85;background:var(--text)!important}
-
-.container{max-width:980px;margin:0 auto;padding:0 28px}
-
-.hero{padding:80px 0 64px;border-bottom:1px solid var(--border)}
-.hero h1{font-family:var(--sans);font-size:clamp(32px,5vw,52px);font-weight:600;line-height:1.1;letter-spacing:-1.5px;color:var(--text);margin-bottom:20px}
-.hero h1 span{color:var(--muted)}
-.hero p{font-size:17px;color:var(--muted);max-width:480px;line-height:1.65;margin-bottom:40px}
-.install-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.install-box{display:inline-flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 16px;font-family:var(--mono);font-size:14px}
-.install-box .dollar{color:var(--muted2);user-select:none}
-.install-box .cmd{color:var(--text)}
-.install-box .pkg{color:#0a70c4}
-.copy-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:11px;padding:5px 10px;border-radius:5px;cursor:pointer;transition:all 0.1s}
-.copy-btn:hover{border-color:var(--text);color:var(--text)}
-.copy-btn.ok{border-color:var(--green);color:var(--green)}
-.works-with{font-size:13px;color:var(--muted2);margin-top:14px}
-.works-with span{color:var(--muted)}
-
-section{padding:72px 0;border-bottom:1px solid var(--border)}
-.section-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:40px}
-
-.demo-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.demo-pane{background:var(--bg2)}
-.demo-pane+.demo-pane{border-left:1px solid var(--border)}
-.pane-head{padding:12px 18px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase;background:var(--bg)}
-.pane-body{padding:20px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.85;overflow-x:auto}
-pre{white-space:pre-wrap;word-break:break-word}
-
-.kw{color:#8250df}
-.fn{color:#0550ae}
-.str{color:#0a3069}
-.cmt{color:var(--muted2)}
-.cls{color:#953800}
-
-.t-dim{color:var(--muted2)}
-.t-pass{color:var(--green)}
-.t-fail{color:var(--red)}
-.t-warn{color:var(--yellow)}
-.t-info{color:#0a70c4}
-.t-head{color:var(--text);font-weight:500}
-.t-bar-g{color:var(--green)}
-.t-bar-r{color:var(--red)}
-.t-bar-y{color:var(--yellow)}
-
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.step{background:var(--bg2);padding:28px 24px}
-.step-n{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-bottom:14px}
-.step h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.step p{font-size:13px;color:var(--muted);line-height:1.6}
-
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.check{background:var(--bg2);padding:28px}
-.check-badge{display:inline-block;font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;margin-bottom:14px;letter-spacing:0.04em}
-.badge-live{background:var(--green-bg);color:var(--green)}
-.badge-soon{background:var(--bg);color:var(--muted2);border:1px solid var(--border)}
-.check h3{font-size:14px;font-weight:600;margin-bottom:6px}
-.check p{font-size:13px;color:var(--muted);line-height:1.6}
-.check.dim h3{color:var(--muted)}
-.check.dim p{color:var(--muted2)}
-
-.benchmark-strip{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:40px;flex-wrap:wrap}
-.benchmark-strip p{font-size:14px;color:var(--muted);line-height:1.6;max-width:560px}
-.benchmark-strip p strong{color:var(--text);font-weight:600}
-.benchmark-link{display:inline-flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 16px;font-family:var(--mono);font-size:12px;color:var(--text);text-decoration:none;white-space:nowrap;transition:border-color 0.1s}
-.benchmark-link:hover{border-color:var(--text)}
-
-.qs-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.qs-head{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase}
-.qs-body{padding:24px 20px;font-family:var(--mono);font-size:13px;line-height:1.85}
-
-.cta{padding:80px 0;text-align:center;border-bottom:none}
-.cta h2{font-size:clamp(24px,3.5vw,38px);font-weight:600;letter-spacing:-1px;margin-bottom:12px}
-.cta p{color:var(--muted);margin-bottom:32px;font-size:15px}
-.cta .install-row{justify-content:center}
-
-footer{border-top:1px solid var(--border);padding:24px 0;background:var(--bg2)}
-.foot-inner{max-width:980px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
-footer p{font-size:12px;color:var(--muted2);font-family:var(--mono)}
-.foot-links{display:flex;gap:20px}
-.foot-links a{font-size:12px;color:var(--muted2);text-decoration:none;font-family:var(--mono)}
-.foot-links a:hover{color:var(--text)}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.hero h1{animation:fadeUp 0.4s ease 0.05s both}
-.hero p{animation:fadeUp 0.4s ease 0.15s both}
-.install-row{animation:fadeUp 0.4s ease 0.22s both}
-
-@media(max-width:720px){
-  .demo-grid{grid-template-columns:1fr}
-  .demo-pane+.demo-pane{border-left:none;border-top:1px solid var(--border)}
-  .steps{grid-template-columns:1fr 1fr}
-  .checks{grid-template-columns:1fr}
-  .nav-links a:not(.nav-btn){display:none}
-  .benchmark-strip{flex-direction:column;align-items:flex-start}
-}
-@media(max-width:480px){
-  .steps{grid-template-columns:1fr}
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compression-Aware Intelligence · Reliability layer for AI systems</title>
+  <meta name="description" content="CAI measures compression strain across semantically equivalent prompts to surface contradictions and compression failures before they reach production." />
+  <link rel="canonical" href="https://compressionawareintelligence.com/" />
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Compression-Aware Intelligence (CAI)" />
+  <meta property="og:description" content="CAI measures stability across semantically equivalent prompts to surface contradictions and compression failures before they hit production." />
+  <meta property="og:image" content="https://compressionawareintelligence.com/assets/cai-card.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compression-Aware Intelligence (CAI)">
+  <meta name="twitter:description" content="Reliability layer for AI systems: test semantic stability, find contradictions, reduce hallucinations.">
+  <meta name="twitter:image" content="https://compressionawareintelligence.com/assets/cai-card.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Compression-Aware Intelligence",
+    "url": "https://compressionawareintelligence.com/",
+    "sameAs": ["https://github.com/michelejoseph1", "https://www.contradictionengineering.com"]
+  }
+  </script>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">contradish</a>
-    <div class="nav-links">
-      <a href="#how">how it works</a>
-      <a href="#checks">checks</a>
-      <a href="benchmark.html">benchmark</a>
-      <a href="leaderboard.html">leaderboard</a>
-      <a href="https://github.com/michelejoseph/contradish">github</a>
-      <a href="/ci.html">CI</a>
-      <a href="/run.html" class="nav-btn">run in browser</a>
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav aria-current="page">Home</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="contact.html" data-nav>Contact</a>
+  </nav>
+  <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
+</header>
+
+<main class="wrap" id="content">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-eyebrow">AI Reliability Framework</p>
+    <h1 id="hero-title">The Reliability Layer<br>for AI Systems</h1>
+    <p class="hero-sub">
+      AI systems fail when they can't show what they compressed.
+      CAI measures compression strain across semantically equivalent
+      prompts — surfacing contradictions before they reach production.
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="proof.html">Read the Proof</a>
+      <a class="btn ghost" href="https://michelejoseph.github.io/cai-demo/" target="_blank" rel="noopener">Run the Demo →</a>
+    </div>
+  </section>
+
+  <!-- Three concepts -->
+  <div class="card-grid">
+    <div class="card-sm">
+      <p class="section-label">Detect</p>
+      <h3>Contradiction Density</h3>
+      <p>Measure how often a model's outputs contradict each other across rephrased but semantically identical prompts.</p>
+    </div>
+    <div class="card-sm">
+      <p class="section-label">Measure</p>
+      <h3>Compression Strain</h3>
+      <p>Score the tension at each compression site — retrieval, summarization, generation — before claims reach users.</p>
+    </div>
+    <div class="card-sm">
+      <p class="section-label">Gate</p>
+      <h3>Abstention &amp; Provenance</h3>
+      <p>Block unsupported claims at the source. Attach provenance to every output so failures are auditable.</p>
     </div>
   </div>
-</nav>
 
-<section class="hero" id="install">
-  <div class="container">
-    <h1>Your LLM gives<br><span>different answers</span><br>to the same question.</h1>
-    <p>Contradish detects it. Paste your real system prompt the one your production app actually uses and get back the exact contradiction, the pattern that caused it, and a fix.</p>
-    <div class="install-row">
-      <div class="install-box">
-        <span class="dollar">$</span>
-        <span class="cmd">pip install <span class="pkg">contradish</span></span>
-        <button class="copy-btn" id="copy1" onclick="copy(this)">copy</button>
-      </div>
+  <!-- What is CAI -->
+  <section class="card" aria-labelledby="what-is-cai">
+    <h2 id="what-is-cai" style="margin-top:0">What is CAI?</h2>
+    <p>
+      Every useful system compresses. Language models compress training data into weights. Retrievers compress corpora into ranked passages. Summarizers compress documents into paragraphs. When that compression is invisible, errors hide inside it — and hallucinations are just compressed contradictions that the system never had to resolve.
+    </p>
+    <p>
+      Compression-Aware Intelligence makes the compression explicit. It defines a measurable signal — <strong>compression strain</strong> — and provides a scoring framework that predicts where outputs will drift, routes around failure, and lets you ship safer AI systems.
+    </p>
+    <div class="cta-row" style="margin-top:24px">
+      <a class="btn ghost" href="proof.html">See the Claims &amp; Experiments</a>
+      <a class="btn ghost" href="research.html">Browse the Research</a>
     </div>
-    <p class="works-with">Works with <span>Anthropic</span> and <span>OpenAI.</span> Reads your API key from the environment automatically.</p>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="container">
-    <p class="section-tag">what you get</p>
-    <div class="demo-grid">
-      <div class="demo-pane">
-        <div class="pane-head">terminal</div>
-        <div class="pane-body">
-<pre><span class="t-dim"># 1. install</span>
-pip install contradish
-
-<span class="t-dim"># 2. set your key</span>
-export ANTHROPIC_API_KEY=sk-ant-...
-
-<span class="t-dim"># 3. run on your system prompt</span>
-contradish "You are a support agent.
-Refunds are only allowed within 30 days.
-We do not price match competitors."
-
-<span class="t-dim"># done. get a bug report in under 2 minutes.</span></pre>
-        </div>
-      </div>
-      <div class="demo-pane">
-        <div class="pane-head">output</div>
-        <div class="pane-body">
-<pre><span class="t-fail"><b>contradish found 1 bug in your app.</b></span>
-
-<span class="t-fail"><b>YOUR APP CONTRADICTS ITSELF ON:</b></span>
-<b>"refund window"</b>
-
-  <span class="t-dim">A user asked:</span>   "I bought this 6 weeks ago, can I return it?"
-  <span class="t-dim">Your app said:</span>  "Of course! Let me help you with that return."
-
-  <span class="t-dim">Same user, different wording:</span>  "Can I get a refund after 45 days?"
-  <span class="t-dim">Your app said:</span>  "Sorry, refunds are only allowed within 30 days."
-
-<span class="t-warn"><b>These answers cannot both be right. One will reach a real user.</b></span>
-
-  <span class="t-warn">WHY:</span>  Casual phrasing bypasses the 30-day rule. The model
-        prioritizes helpfulness over policy when no date is stated.
-
-  <span class="t-info"><b>THE FIX:</b></span>
-  <span class="t-info">Add to your system prompt: "Never process returns beyond</span>
-  <span class="t-info">30 days regardless of how the request is phrased."</span>
-
-<span class="t-dim">────────────────────────────────────────────────────────────</span>
-  <span class="t-pass">✓</span>  <span class="t-dim">return window clean</span>
-
-<span class="t-fail"><b>1 bug found.</b></span>  <span class="t-dim">1 rule clean.</span></pre>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how">
-  <div class="container">
-    <p class="section-tag">how it works</p>
-    <div class="steps">
-      <div class="step">
-        <p class="step-n">01</p>
-        <h3>Paste your real system prompt</h3>
-        <p>The one your production app actually uses. Real prompts with vague language, edge cases, and conflicting rules are where contradish finds bugs.</p>
-      </div>
-      <div class="step">
-        <p class="step-n">02</p>
-        <h3>Rules extracted</h3>
-        <p>Every constraint and policy in your prompt becomes a test. Automatically.</p>
-      </div>
-      <div class="step">
-        <p class="step-n">03</p>
-        <h3>Paraphrases generated and run</h3>
-        <p>5 semantic variants per rule. Your app runs on all of them. No changes to your code.</p>
-      </div>
-      <div class="step">
-        <p class="step-n">04</p>
-        <h3>Bug report returned</h3>
-        <p>The exact contradiction, which input pattern caused it, and what to fix.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="checks">
-  <div class="container">
-    <p class="section-tag">what it checks</p>
-    <div class="checks">
-      <div class="check">
-        <span class="check-badge badge-live">live in v0.2</span>
-        <h3>Automatic test generation</h3>
-        <p>Paste your system prompt. Contradish extracts every rule and generates test cases automatically. No test cases to write.</p>
-      </div>
-      <div class="check">
-        <span class="check-badge badge-live">live in v0.2</span>
-        <h3>Contradiction detection</h3>
-        <p>Finds pairs of outputs that make incompatible claims. Shows you the exact conflict and which input phrasing caused it.</p>
-      </div>
-      <div class="check">
-        <span class="check-badge badge-live">live in v0.2</span>
-        <h3>Consistency scoring</h3>
-        <p>Measures whether outputs for semantically equivalent inputs agree. Score with a breakdown of what disagrees and why.</p>
-      </div>
-      <div class="check dim">
-        <span class="check-badge badge-soon">coming soon</span>
-        <h3>Regression testing</h3>
-        <p>Compare baseline vs candidate. Use as a CI gate when prompt or model changes ship.</p>
-      </div>
-    </div>
-    <div class="benchmark-strip">
-      <p><strong>Judge accuracy is benchmarked.</strong> Contradish uses an LLM as the judge layer. We tested it against 300 human-labeled semantic equivalence pairs. GPT-4o contradicts itself on 36% of them. See the full numbers before you decide whether to trust it.</p>
-      <a href="benchmark.html" class="benchmark-link">view benchmark results</a>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <p class="section-tag">quickstart</p>
-    <div class="qs-block">
-      <div class="qs-head">quickstart</div>
-      <div class="qs-body">
-<pre><span class="t-dim"># CLI fastest path, no Python required</span>
-pip install contradish
-export ANTHROPIC_API_KEY=sk-ant-...
-contradish "Your system prompt here"
-
-
-<span class="t-dim"># Python integrate into your app</span>
-pip install contradish anthropic
-
-<span class="kw">import</span> anthropic
-<span class="kw">from</span> <span class="fn">contradish</span> <span class="kw">import</span> Suite
-
-client = anthropic.Anthropic()
-
-<span class="kw">def</span> <span class="fn">my_app</span>(question: str) -> str:
-    msg = client.messages.create(
-        model=<span class="str">"claude-haiku-4-5-20251001"</span>,
-        max_tokens=<span class="str">256</span>,
-        messages=[{<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: question}]
-    )
-    <span class="kw">return</span> msg.content[0].text
-
-<span class="cmt"># from your system prompt no test cases needed</span>
-suite = <span class="cls">Suite</span>.from_prompt(system_prompt=<span class="str">"Your prompt here"</span>, app=my_app)
-suite.run()
-
-<span class="cmt"># or manually define what to test</span>
-<span class="cmt"># suite = Suite(app=my_app)</span>
-<span class="cmt"># suite.add(TestCase(input="Can I get a refund after 45 days?"))</span>
-<span class="cmt"># suite.run()</span></pre>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="padding:72px 0;border-bottom:1px solid var(--border)">
-  <div class="container">
-    <p class="section-tag">leaderboard</p>
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+  <!-- CAI Score formula — minimal, clean -->
+  <section class="card" aria-labelledby="metrics-title">
+    <h2 id="metrics-title" style="margin-top:0">The Core Metrics</h2>
+    <p class="muted">Three composable signals that give you a single CAI reliability score.</p>
+    <div class="grid cols-2" style="margin-top:24px; gap:24px">
       <div>
-        <p style="font-size:17px;font-weight:600;margin-bottom:8px">How does your app rank?</p>
-        <p style="font-size:14px;color:var(--muted);max-width:480px;line-height:1.65">We test real LLM-powered products for reasoning consistency and publish the results. ChatGPT scored 0.71. Intercom Fin scored 0.88. Where does yours sit?</p>
+        <p class="section-label">Contradiction Density</p>
+        <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
       </div>
-      <a href="leaderboard.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg2);border-radius:7px;padding:11px 20px;font-family:var(--mono);font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0">view leaderboard</a>
-    </div>
-  </div>
-</section>
-
-<section class="cta">
-  <div class="container">
-    <h2>Three commands. First bug in two minutes.</h2>
-    <p>Works with Anthropic or OpenAI. No config. No test cases.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:16px">
-      <div class="install-box">
-        <span class="dollar">$</span>
-        <span class="cmd">contradish <span class="pkg">"your system prompt"</span></span>
-        <button class="copy-btn" onclick="copyText(this, 'contradish &quot;your system prompt here&quot;')" >copy</button>
+      <div>
+        <p class="section-label">Coherence Delta</p>
+        <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
+      </div>
+      <div>
+        <p class="section-label">Entropy Risk Score</p>
+        <p>$$ERS = -\sum_i p_i \log(p_i)$$</p>
+      </div>
+      <div>
+        <p class="section-label">Composite CAI Score</p>
+        <p>$$\text{CAI} = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot ERS$$</p>
       </div>
     </div>
-    <p style="font-size:13px;color:var(--muted2);font-family:var(--mono)">or <a href="/run.html" style="color:var(--text);text-decoration:underline">run in browser</a> with no install</p>
-  </div>
-</section>
+    <p class="muted" style="margin-top:16px; font-size:14px">
+      α, β, γ are tunable weights. Start with equal weighting and calibrate against your task accuracy baseline.
+    </p>
+  </section>
 
-<footer>
-  <div class="foot-inner">
-    <p>contradish · MIT</p>
-    <div class="foot-links">
-      <a href="benchmark.html">benchmark</a>
-      <a href="leaderboard.html">leaderboard</a>
-      <a href="https://github.com/michelejoseph/contradish">github</a>
-      <a href="https://pypi.org/project/contradish">pypi</a>
+  <!-- Explore -->
+  <section aria-labelledby="explore-title">
+    <h2 id="explore-title">Explore the Framework</h2>
+    <div class="grid cols-2">
+      <a href="proof.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Start here</p>
+        <h3 style="margin-top:0">Proof</h3>
+        <p class="muted" style="font-size:14px">Falsifiable claims, experiments you can run today, and a counterexample challenge.</p>
+      </a>
+      <a href="dataset.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Data</p>
+        <h3 style="margin-top:0">Dataset</h3>
+        <p class="muted" style="font-size:14px">Prompt pairs, contradiction labels, and compression strain scores for benchmarking.</p>
+      </a>
+      <a href="implementations.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Build</p>
+        <h3 style="margin-top:0">Implementations</h3>
+        <p class="muted" style="font-size:14px">Ready-to-use patterns for adding CAI gating to real pipelines.</p>
+      </a>
+      <a href="applications.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Apply</p>
+        <h3 style="margin-top:0">Applications</h3>
+        <p class="muted" style="font-size:14px">How CAI applies across medical, legal, financial, and software contexts.</p>
+      </a>
     </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-links">
+    <a href="proof.html">Proof</a>
+    <a href="dataset.html">Dataset</a>
+    <a href="coherencefield.html">Coherence Field</a>
+    <a href="principles.html">Principles</a>
+    <a href="applications.html">Applications</a>
+    <a href="contradictions.html">Contradictions</a>
+    <a href="implementations.html">Implementations</a>
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="research.html">Research</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="faq.html">FAQ</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
   </div>
+  <small>© <span id="year"></span> Compression-Aware Intelligence</small>
 </footer>
 
 <script>
-function copy(btn){
-  navigator.clipboard.writeText('pip install contradish').then(()=>{
-    btn.textContent='copied';
-    btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('ok')},2000);
-  });
-}
-function copyText(btn, text){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='copied';
-    btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('ok')},2000);
-  });
-}
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 </script>
 </body>
 </html>

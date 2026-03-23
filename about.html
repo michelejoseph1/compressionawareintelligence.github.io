@@ -1,81 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | CAI</title>
-  <meta name="description" content="Who created Compression-Aware Intelligence and why." />
-  <link rel="icon" href="assets/favicon.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="script.js"></script>
-</head>
-<body>
-<header class="site-header">
-  <a class="brand" href="index.html"><span class="logo"></span><span>CAI</span></a>
-  <nav class="nav">
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>About | CAI</title> <meta name="description" content="Who created Compression-Aware Intelligence and why." /> <link rel="icon" href="assets/favicon.png" /> <link rel="stylesheet" href="styles.css" /> <script defer src="script.js"></script> </head> <body> <a class="skip-link" href="#content">Skip to content</a> <header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
     <a href="index.html" data-nav>Home</a>
     <a href="proof.html" data-nav>Proof</a>
-    <a href="dataset.html" data-nav>Dataset</a>
-    <a href="coherencefield.html" data-nav>The Coherence Field</a>
-    <a href="principles.html" data-nav>Principles</a>
-    <a href="applications.html" data-nav>Applications</a>
-    <a href="contradictions.html" data-nav>Contradictions</a>
-    <a href="implementations.html" data-nav>Implementations</a>
-    <a href="diagnostics.html" data-nav aria-current="page">Diagnostics</a>
     <a href="research.html" data-nav>Research</a>
-    <a href="https://semantic-stability-lab-clinical-59orjfx58.vercel.app" target="_blank" rel="noopener">Stability Lab</a>
+    <a href="applications.html" data-nav>Applications</a>
     <a href="glossary.html" data-nav>Glossary</a>
     <a href="faq.html" data-nav>FAQ</a>
     <a href="contact.html" data-nav>Contact</a>
   </nav>
-</header>
-
-<main class="wrap" id="main">
-  <section class="hero card">
-    <h1>About</h1>
-    <p class="lede">
-      Compression-Aware Intelligence (CAI) is the framework that treats hallucinations and contradictions not as errors to eliminate, but as measurable signals of representation strain inside any cognitive system, and uses those signals to guide stability, coherence, and self-correction.
-    </p>
-    <div class="cta-row">
-      <a class="btn" href="foundations.html">Read the foundations</a>
-      <a class="btn ghost" href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">Overview paper</a>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>More about CAI</h2>
-    <p>
-      CAI makes AI systems compression-aware, so they can see where meaning is being lost, measure strain before it becomes hallucination, and make reasoning traceable and reliable.
-    </p>
-  </section>
-
-  <section class="grid two">
-    <div class="card">
-      <h2>What to use</h2>
-      <ul>
-        <li><strong>Compression sites:</strong> identify where information is reduced.</li>
-        <li><strong>Compression Tension Score (CTS):</strong> quantify the cost of each compression.</li>
-        <li><strong>Contradiction handling:</strong> map conflicts and use them as signals.</li>
-        <li><strong>Provenance entropy:</strong> measure how strong or diffuse evidence is.</li>
-        <li><strong>Auditability:</strong> make steps replayable and verifiable.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>How to cite</h2>
-      <p>If CAI helps your work, please cite the overview and link to this site so others can find the source.</p>
-      <ul>
-        <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview (Zenodo)</a></li>
-        <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">Prototype repo</a></li>
-      </ul>
-    </div>
-  </section>
-</main>
-
-<footer class="site-footer">
-  <small>© <span id="year"></span> Compression-Aware Intelligence. 
-  See also: <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering</a>
-</small>
-
+  <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
+</header> <main class="wrap" id="content"> <section class="hero card"> <h1>About</h1> <p class="lede"> Compression-Aware Intelligence (CAI) is the framework that treats hallucinations and contradictions not as errors to eliminate, but as measurable signals of representation strain inside any cognitive system, and uses those signals to guide stability, coherence, and self-correction. </p> <div class="cta-row"> <a class="btn" href="foundations.html">Read the foundations</a> <a class="btn ghost" href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">Overview paper</a> </div> </section> <section class="card"> <h2>More about CAI</h2> <p> CAI makes AI systems compression-aware, so they can see where meaning is being lost, measure strain before it becomes hallucination, and make reasoning traceable and reliable. </p> </section> <section class="grid two"> <div class="card"> <h2>What to use</h2> <ul> <li><strong>Compression sites:</strong> identify where information is reduced.</li> <li><strong>Compression Tension Score (CTS):</strong> quantify the cost of each compression.</li> <li><strong>Contradiction handling:</strong> map conflicts and use them as signals.</li> <li><strong>Provenance entropy:</strong> measure how strong or diffuse evidence is.</li> <li><strong>Auditability:</strong> make steps replayable and verifiable.</li> </ul> </div> <div class="card"> <h2>How to cite</h2> <p>If CAI helps your work, please cite the overview and link to this site so others can find the source.</p> <ul> <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview (Zenodo)</a></li> <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">Prototype repo</a></li> </ul> </div> </section> </main> <footer class="site-footer" role="contentinfo">
+  <div class="footer-links">
+    <a href="proof.html">Proof</a>
+    <a href="dataset.html">Dataset</a>
+    <a href="coherencefield.html">Coherence Field</a>
+    <a href="principles.html">Principles</a>
+    <a href="applications.html">Applications</a>
+    <a href="contradictions.html">Contradictions</a>
+    <a href="implementations.html">Implementations</a>
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="research.html">Research</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="faq.html">FAQ</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
+  </div>
+  <small>© <span id="year"></span> Compression-Aware Intelligence</small>
 </footer>
-</body>
-</html>
+<script>
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+</script> </body> </html>
