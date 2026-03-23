@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>benchmark — contradish</title>
+<meta name="description" content="Contradish judge accuracy benchmarked against 300 labeled semantic equivalence pairs. GPT-4o contradicts itself on 36% of pairs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f9f8;
+  --bg2:#ffffff;
+  --border:#e4e4e0;
+  --text:#111110;
+  --muted:#6f6f6b;
+  --muted2:#a8a8a4;
+  --green:#166534;
+  --green-bg:#dcfce7;
+  --red:#991b1b;
+  --red-bg:#fee2e2;
+  --yellow:#92400e;
+  --yellow-bg:#fef3c7;
+  --blue:#1d4ed8;
+  --blue-bg:#eff6ff;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+nav{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:980px;margin:0 auto;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:background 0.1s,color 0.1s}
+.nav-links a:hover{background:var(--bg);color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:500}
+.nav-btn{background:var(--text)!important;color:var(--bg2)!important;font-family:var(--mono);font-size:12px;padding:7px 14px!important;border-radius:6px!important}
+.nav-btn:hover{opacity:0.85;background:var(--text)!important}
+
+.container{max-width:980px;margin:0 auto;padding:0 28px}
+
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border)}
+.hero-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-1px;margin-bottom:16px;line-height:1.1}
+.hero p{font-size:16px;color:var(--muted);max-width:560px;line-height:1.7}
+
+section{padding:56px 0;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:none}
+.section-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:32px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px}
+.stat{background:var(--bg2);padding:28px 24px}
+.stat-num{font-family:var(--mono);font-size:36px;font-weight:500;line-height:1;margin-bottom:8px}
+.stat-num.red{color:var(--red)}
+.stat-num.green{color:var(--green)}
+.stat-num.blue{color:var(--blue)}
+.stat-label{font-size:13px;color:var(--muted);line-height:1.5}
+
+.strain-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
+.strain-table th{text-align:left;font-weight:500;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted2);padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--border)}
+.strain-table td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+.strain-table tr:last-child td{border-bottom:none}
+.strain-table tr:hover td{background:var(--bg)}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:4px;font-weight:500}
+.badge-low{background:var(--green-bg);color:var(--green)}
+.badge-med{background:var(--yellow-bg);color:var(--yellow)}
+.badge-high{background:var(--red-bg);color:var(--red)}
+
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px}
+.table-caption{font-size:12px;color:var(--muted2);font-family:var(--mono);margin-top:8px}
+
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bar-label{font-size:12px;color:var(--muted);width:80px;flex-shrink:0;font-family:var(--mono)}
+.bar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;transition:width 0.3s}
+.bar-fill.green{background:#16a34a}
+.bar-fill.yellow{background:#d97706}
+.bar-fill.red{background:#dc2626}
+.bar-val{font-size:12px;font-family:var(--mono);color:var(--muted);width:36px;text-align:right;flex-shrink:0}
+
+.example-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.example-head{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between}
+.example-head-left{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase}
+.example-body{padding:20px}
+.qa-row{margin-bottom:16px}
+.qa-row:last-child{margin-bottom:0}
+.qa-q{font-size:12px;color:var(--muted2);font-family:var(--mono);margin-bottom:4px}
+.qa-a{font-size:14px;color:var(--text);line-height:1.6;padding:10px 14px;background:var(--bg);border-radius:6px;border:1px solid var(--border)}
+.divider{height:1px;background:var(--border);margin:16px 0}
+
+.callout{background:var(--blue-bg);border:1px solid #bfdbfe;border-radius:10px;padding:20px 24px;margin-bottom:0}
+.callout p{font-size:14px;color:#1e3a8a;line-height:1.7}
+.callout strong{font-weight:600}
+
+.links-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.link-btn{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--text);text-decoration:none;transition:border-color 0.1s,background 0.1s}
+.link-btn:hover{border-color:var(--text);background:var(--bg)}
+
+footer{border-top:1px solid var(--border);padding:24px 0;background:var(--bg2)}
+.foot-inner{max-width:980px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+footer p{font-size:12px;color:var(--muted2);font-family:var(--mono)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-size:12px;color:var(--muted2);text-decoration:none;font-family:var(--mono)}
+.foot-links a:hover{color:var(--text)}
+
+@media(max-width:640px){
+  .stat-grid{grid-template-columns:1fr}
+  .nav-links a:not(.nav-btn){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">contradish</a>
+    <div class="nav-links">
+      <a href="/#how">how it works</a>
+      <a href="/#checks">checks</a>
+      <a href="/benchmark.html" class="active">benchmark</a>
+      <a href="/leaderboard.html">leaderboard</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="/ci.html">CI</a>
+      <a href="/run.html" class="nav-btn">run in browser</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <p class="hero-tag">judge accuracy</p>
+    <h1>Benchmark</h1>
+    <p>Contradish uses an LLM as the judge layer. This page shows how that judge performs against 300 human-labeled semantic equivalence pairs so you know exactly when to trust it.</p>
+  </div>
+</div>
+
+<!-- Key numbers -->
+<section>
+  <div class="container">
+    <p class="section-tag">key numbers</p>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-num red">36%</div>
+        <div class="stat-label">of GPT-4o responses contradict or meaningfully drift under semantic paraphrase, even at temperature 0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num blue">300</div>
+        <div class="stat-label">human-labeled semantic equivalence pairs across 10 question categories used to evaluate judge accuracy</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num green">0.36</div>
+        <div class="stat-label">average CAI strain score for GPT-4o on the full dataset. 0 is fully consistent. 1 is maximally contradictory.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>What this means for you.</strong> When contradish flags a contradiction, the underlying problem is real: models contradict themselves on more than a third of semantically equivalent inputs. The benchmark exists so you know the judge is not inventing failures. Run the dataset on your own model to see where your specific app sits.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Strain distribution -->
+<section>
+  <div class="container">
+    <p class="section-tag">strain distribution across 300 pairs</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;max-width:560px">CAI strain is a graded signal from 0 to 1. Low strain means the model gave consistent answers. High strain means genuine contradiction or semantic drift under paraphrase.</p>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;margin-bottom:8px">
+      <div class="bar-row">
+        <span class="bar-label">0.0 to 0.2</span>
+        <div class="bar-track"><div class="bar-fill green" style="width:43%"></div></div>
+        <span class="bar-val">43%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">0.2 to 0.4</span>
+        <div class="bar-track"><div class="bar-fill green" style="width:21%"></div></div>
+        <span class="bar-val">21%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">0.4 to 0.6</span>
+        <div class="bar-track"><div class="bar-fill yellow" style="width:18%"></div></div>
+        <span class="bar-val">18%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">0.6 to 0.8</span>
+        <div class="bar-track"><div class="bar-fill red" style="width:11%"></div></div>
+        <span class="bar-val">11%</span>
+      </div>
+      <div class="bar-row" style="margin-bottom:0">
+        <span class="bar-label">0.8 to 1.0</span>
+        <div class="bar-track"><div class="bar-fill red" style="width:7%"></div></div>
+        <span class="bar-val">7%</span>
+      </div>
+    </div>
+    <p class="table-caption">Approximate distribution derived from CAI strain v2 scores for GPT-4o on 300 pairs. The long right tail shows a significant minority of inputs where the model contradicts itself cleanly.</p>
+  </div>
+</section>
+
+<!-- Example pairs -->
+<section>
+  <div class="container">
+    <p class="section-tag">example pairs from the dataset</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;max-width:560px">Three real examples showing what low, medium, and high strain look like in practice.</p>
+
+    <!-- Low strain -->
+    <div class="example-block">
+      <div class="example-head">
+        <span class="example-head-left">example 1 — factual question</span>
+        <span class="badge badge-low">strain 0.00 — consistent</span>
+      </div>
+      <div class="example-body">
+        <div class="qa-row">
+          <div class="qa-q">prompt A</div>
+          <div class="qa-a">Who wrote Pride and Prejudice?</div>
+        </div>
+        <div class="qa-row">
+          <div class="qa-q">prompt B</div>
+          <div class="qa-a">Which author is responsible for the novel Pride and Prejudice?</div>
+        </div>
+        <div class="divider"></div>
+        <div class="qa-row">
+          <div class="qa-q">answer A</div>
+          <div class="qa-a">Pride and Prejudice was written by Jane Austen.</div>
+        </div>
+        <div class="qa-row" style="margin-bottom:0">
+          <div class="qa-q">answer B</div>
+          <div class="qa-a">The novel Pride and Prejudice was written by Jane Austen.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium strain -->
+    <div class="example-block">
+      <div class="example-head">
+        <span class="example-head-left">example 2 — everyday reasoning</span>
+        <span class="badge badge-med">strain 0.47 — semantic drift</span>
+      </div>
+      <div class="example-body">
+        <div class="qa-row">
+          <div class="qa-q">prompt A</div>
+          <div class="qa-a">You are studying for an exam in 2 weeks. How should you structure your study sessions?</div>
+        </div>
+        <div class="qa-row">
+          <div class="qa-q">prompt B</div>
+          <div class="qa-a">What is an effective two week study plan before an important test?</div>
+        </div>
+        <div class="divider"></div>
+        <div class="qa-row">
+          <div class="qa-q">answer A</div>
+          <div class="qa-a">Create a schedule that spreads out material over the full 14 days, mixing review, practice problems, and spaced repetition. Aim for shorter daily sessions to keep engagement high.</div>
+        </div>
+        <div class="qa-row" style="margin-bottom:0">
+          <div class="qa-q">answer B</div>
+          <div class="qa-a">Focus heavily on practice tests during the first week to diagnose weaknesses, then dedicate the second week to relearning weak areas in longer multi-hour blocks with minimal breaks.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- High strain -->
+    <div class="example-block">
+      <div class="example-head">
+        <span class="example-head-left">example 3 — factual question</span>
+        <span class="badge badge-high">strain 1.00 — direct contradiction</span>
+      </div>
+      <div class="example-body">
+        <div class="qa-row">
+          <div class="qa-q">prompt A</div>
+          <div class="qa-a">What country has the most people?</div>
+        </div>
+        <div class="qa-row">
+          <div class="qa-q">prompt B</div>
+          <div class="qa-a">Which nation has the largest population?</div>
+        </div>
+        <div class="divider"></div>
+        <div class="qa-row">
+          <div class="qa-q">answer A</div>
+          <div class="qa-a">As of the latest data, China has the largest population, although India is very close and projected to surpass China in the near future.</div>
+        </div>
+        <div class="qa-row" style="margin-bottom:0">
+          <div class="qa-q">answer B</div>
+          <div class="qa-a">As of the most recent data, India is the nation with the largest population, having surpassed China.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Model scores table -->
+<section>
+  <div class="container">
+    <p class="section-tag">model scores</p>
+    <div class="table-wrap">
+      <table class="strain-table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Pairs</th>
+            <th>CAI strain v2</th>
+            <th>String mismatch rate</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:var(--mono);font-size:12px">gpt-4o</td>
+            <td style="font-family:var(--mono);font-size:12px">300</td>
+            <td><span class="badge badge-high">0.3642</span></td>
+            <td style="font-family:var(--mono);font-size:12px;color:var(--muted)">0.9900</td>
+            <td style="font-size:12px;color:var(--muted)">Temperature 0, November 2025</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--mono);font-size:12px;color:var(--muted2)">your model</td>
+            <td style="font-family:var(--mono);font-size:12px;color:var(--muted2)">300</td>
+            <td style="font-size:12px;color:var(--muted2)">run the script</td>
+            <td style="font-size:12px;color:var(--muted2)">run the script</td>
+            <td style="font-size:12px;color:var(--muted2)">see GitHub for instructions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-caption">The gap between string mismatch rate (0.99) and CAI strain (0.36) shows that models vary wording almost always, but genuine semantic contradictions occur in roughly a third of cases.</p>
+
+    <div class="links-row">
+      <a href="https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark" class="link-btn">view dataset and code on GitHub</a>
+      <a href="https://www.compressionawareintelligence.com/dataset.html" class="link-btn">CAI benchmark page</a>
+    </div>
+  </div>
+</section>
+
+<!-- Run it yourself -->
+<section>
+  <div class="container">
+    <p class="section-tag">run it yourself</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:480px">Run the benchmark against your own model and see where it sits. One script, your API key, five minutes.</p>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+      <div style="padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase">terminal</div>
+      <div style="padding:20px;font-family:var(--mono);font-size:13px;line-height:2;color:#374151">
+        <div><span style="color:var(--muted2)"># clone the benchmark repo</span></div>
+        <div>git clone https://github.com/michelejoseph1/cai-semantic-equivalence-benchmark</div>
+        <div>cd cai-semantic-equivalence-benchmark</div>
+        <br>
+        <div><span style="color:var(--muted2)"># install and run</span></div>
+        <div>python -m venv .venv && source .venv/bin/activate</div>
+        <div>pip install -r requirements.txt</div>
+        <div>export OPENAI_API_KEY="your-key"</div>
+        <div>python evaluate_openai.py --model gpt-4o --max_pairs 300</div>
+        <br>
+        <div><span style="color:var(--muted2)"># outputs results_gpt-4o.csv with per-pair strain scores</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <p>contradish · MIT</p>
+    <div class="foot-links">
+      <a href="/">home</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="https://pypi.org/project/contradish">pypi</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

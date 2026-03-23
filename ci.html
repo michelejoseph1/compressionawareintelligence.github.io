@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CI integration — contradish</title>
+<meta name="description" content="Use contradish as a CI gate. Catch reasoning regressions before they ship when your prompt or model changes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f9f8;
+  --bg2:#ffffff;
+  --border:#e4e4e0;
+  --text:#111110;
+  --muted:#6f6f6b;
+  --muted2:#a8a8a4;
+  --green:#166534;
+  --green-bg:#dcfce7;
+  --red:#991b1b;
+  --red-bg:#fee2e2;
+  --yellow:#92400e;
+  --yellow-bg:#fef3c7;
+  --blue:#1d4ed8;
+  --blue-bg:#eff6ff;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+nav{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:980px;margin:0 auto;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:background 0.1s,color 0.1s}
+.nav-links a:hover{background:var(--bg);color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:500}
+.nav-btn{background:var(--text)!important;color:var(--bg2)!important;font-family:var(--mono);font-size:12px;padding:7px 14px!important;border-radius:6px!important}
+.nav-btn:hover{opacity:0.85;background:var(--text)!important}
+
+.container{max-width:980px;margin:0 auto;padding:0 28px}
+
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border)}
+.hero-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-1px;margin-bottom:16px;line-height:1.1}
+.hero p{font-size:16px;color:var(--muted);max-width:560px;line-height:1.7}
+
+section{padding:56px 0;border-bottom:1px solid var(--border)}
+section:last-of-type{border-bottom:none}
+.section-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:32px}
+
+.code-block{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.code-head{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase}
+.code-body{padding:20px;font-family:var(--mono);font-size:13px;line-height:1.9;color:#374151;overflow-x:auto}
+.code-body .comment{color:var(--muted2)}
+.code-body .keyword{color:#7c3aed}
+.code-body .string{color:#166534}
+
+.step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px}
+.step{background:var(--bg2);padding:28px 24px}
+.step-num{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--muted2);line-height:1;margin-bottom:12px}
+.step-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+.callout{border-radius:10px;padding:20px 24px;margin-bottom:0}
+.callout p{font-size:14px;line-height:1.7}
+.callout strong{font-weight:600}
+.callout-blue{background:var(--blue-bg);border:1px solid #bfdbfe}
+.callout-blue p{color:#1e3a8a}
+.callout-green{background:var(--green-bg);border:1px solid #bbf7d0}
+.callout-green p{color:#14532d}
+.callout-yellow{background:var(--yellow-bg);border:1px solid #fde68a}
+.callout-yellow p{color:#78350f}
+
+.links-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.link-btn{display:inline-flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--text);text-decoration:none;transition:border-color 0.1s,background 0.1s}
+.link-btn:hover{border-color:var(--text);background:var(--bg)}
+.link-btn-primary{background:var(--text);color:var(--bg2);border-color:var(--text)}
+.link-btn-primary:hover{opacity:0.85;background:var(--text)}
+
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 8px;border-radius:4px;font-weight:500}
+.badge-pass{background:var(--green-bg);color:var(--green)}
+.badge-fail{background:var(--red-bg);color:var(--red)}
+
+.feature-list{display:grid;gap:12px;margin-bottom:0}
+.feature-item{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px 20px}
+.feature-icon{font-family:var(--mono);font-size:12px;color:var(--green);font-weight:500;flex-shrink:0;padding-top:2px}
+.feature-text{font-size:14px;color:var(--text);line-height:1.5}
+.feature-text span{color:var(--muted);font-size:13px;display:block;margin-top:2px}
+
+footer{border-top:1px solid var(--border);padding:24px 0;background:var(--bg2)}
+.foot-inner{max-width:980px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+footer p{font-size:12px;color:var(--muted2);font-family:var(--mono)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-size:12px;color:var(--muted2);text-decoration:none;font-family:var(--mono)}
+.foot-links a:hover{color:var(--text)}
+
+@media(max-width:640px){
+  .step-grid{grid-template-columns:1fr}
+  .nav-links a:not(.nav-btn){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">contradish</a>
+    <div class="nav-links">
+      <a href="/#how">how it works</a>
+      <a href="/#checks">checks</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/leaderboard.html">leaderboard</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="/ci.html" class="active">CI</a>
+      <a href="/run.html" class="nav-btn">run in browser</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <p class="hero-tag">continuous integration</p>
+    <h1>Use contradish as a CI gate</h1>
+    <p>Block deploys when your LLM app starts contradicting itself. Add contradish to your pipeline and catch reasoning regressions before they reach production.</p>
+  </div>
+</div>
+
+<!-- How it works in CI -->
+<section>
+  <div class="container">
+    <p class="section-tag">how it works</p>
+    <div class="step-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Define your test cases</div>
+        <div class="step-desc">Write one test case per behavior you care about. Each one is a question or prompt your app should answer consistently.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">contradish generates variants</div>
+        <div class="step-desc">Contradish rewrites each input into multiple semantically equivalent paraphrases and runs your app against all of them.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Fails the build on contradiction</div>
+        <div class="step-desc">If your app gives contradictory answers across variants, the suite exits with code 1 and the pipeline stops.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <p><strong>Why this matters.</strong> Standard unit tests check that your app returns the right answer to one specific question. They don't catch the case where your app says yes to one phrasing and no to another. Contradish catches that.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Basic CI setup -->
+<section>
+  <div class="container">
+    <p class="section-tag">basic setup</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:520px">Add this to any CI script. The suite exits with code 1 if any test fails, which stops your pipeline.</p>
+
+    <div class="code-block">
+      <div class="code-head">python — ci_check.py</div>
+      <div class="code-body">
+<span class="comment"># ci_check.py</span><br>
+<span class="keyword">import</span> sys<br>
+<span class="keyword">from</span> contradish <span class="keyword">import</span> Suite, TestCase<br>
+<br>
+<span class="comment"># Your LLM app — any callable that takes a str and returns a str</span><br>
+<span class="keyword">def</span> my_app(question: str) -> str:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> your_llm_or_agent(question)<br>
+<br>
+suite = Suite(app=my_app)<br>
+<br>
+suite.add(TestCase(name=<span class="string">"refund policy"</span>, input=<span class="string">"Can I get a refund after 45 days?"</span>))<br>
+suite.add(TestCase(name=<span class="string">"shipping time"</span>, input=<span class="string">"How long does standard shipping take?"</span>))<br>
+suite.add(TestCase(name=<span class="string">"return window"</span>, input=<span class="string">"What is your return policy?"</span>))<br>
+<br>
+report = suite.run(paraphrases=5, verbose=<span class="keyword">False</span>)<br>
+<br>
+<span class="keyword">if</span> report.failed:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(<span class="string">f"</span><span class="keyword">{</span>len(report.failed)<span class="keyword">}</span><span class="string"> test(s) failed — reasoning instability detected"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> r <span class="keyword">in</span> report.failed:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<span class="string">f"  {r.test_case.name}: consistency={r.consistency_score:.2f}"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(1)<br>
+<br>
+print(<span class="string">"All tests passed."</span>)
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-head">terminal</div>
+      <div class="code-body">
+<span class="comment"># install</span><br>
+pip install <span class="string">"contradish[anthropic]"</span>   <span class="comment"># or [openai]</span><br>
+<br>
+<span class="comment"># set your key</span><br>
+export ANTHROPIC_API_KEY=<span class="string">"sk-ant-..."</span><br>
+<br>
+<span class="comment"># run</span><br>
+python ci_check.py
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GitHub Actions -->
+<section>
+  <div class="container">
+    <p class="section-tag">github actions</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:520px">Drop this workflow file into your repo. It runs your contradish suite on every push and pull request.</p>
+
+    <div class="code-block">
+      <div class="code-head">.github/workflows/contradish.yml</div>
+      <div class="code-body">
+name: <span class="string">contradish</span><br>
+<br>
+on:<br>
+&nbsp;&nbsp;push:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;branches: [<span class="string">main</span>]<br>
+&nbsp;&nbsp;pull_request:<br>
+<br>
+jobs:<br>
+&nbsp;&nbsp;reasoning-stability:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;runs-on: ubuntu-latest<br>
+&nbsp;&nbsp;&nbsp;&nbsp;steps:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: <span class="string">actions/checkout@v4</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- uses: <span class="string">actions/setup-python@v5</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;python-version: <span class="string">"3.11"</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span class="string">Install contradish</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: pip install <span class="string">"contradish[anthropic]"</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: <span class="string">Run reasoning stability checks</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;env:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ANTHROPIC_API_KEY: <span class="string">${{ secrets.ANTHROPIC_API_KEY }}</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;run: python ci_check.py
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <p><strong>Store your key as a secret.</strong> In your GitHub repo go to Settings → Secrets and variables → Actions → New repository secret. Add <code style="font-family:var(--mono);font-size:12px;background:#d1fae5;padding:1px 5px;border-radius:3px">ANTHROPIC_API_KEY</code> or <code style="font-family:var(--mono);font-size:12px;background:#d1fae5;padding:1px 5px;border-radius:3px">OPENAI_API_KEY</code> as the name.</p>
+    </div>
+  </div>
+</section>
+
+<!-- YAML config -->
+<section>
+  <div class="container">
+    <p class="section-tag">yaml config</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:520px">Keep your test cases in a YAML file and run them from the CLI. Useful when you want to manage evals separately from your application code.</p>
+
+    <div class="code-block">
+      <div class="code-head">evals.yaml</div>
+      <div class="code-body">
+test_cases:<br>
+&nbsp;&nbsp;- name: <span class="string">refund policy</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;input: <span class="string">Can I get a refund after 45 days?</span><br>
+<br>
+&nbsp;&nbsp;- name: <span class="string">return window</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;input: <span class="string">How long do I have to return something?</span><br>
+<br>
+&nbsp;&nbsp;- name: <span class="string">shipping estimate</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;input: <span class="string">When will my order arrive?</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;expected_traits:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="string">should give a timeframe</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="string">should not promise a specific date</span>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-head">terminal — CLI usage</div>
+      <div class="code-body">
+<span class="comment"># run from a YAML file</span><br>
+contradish run evals.yaml --app mymodule:my_app_function<br>
+<br>
+<span class="comment"># with more paraphrases for a thorough check</span><br>
+contradish run evals.yaml --app mymodule:my_app --paraphrases 8
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Thresholds -->
+<section>
+  <div class="container">
+    <p class="section-tag">configuring thresholds</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:520px">Override the default pass/fail thresholds to match your application's tolerance for inconsistency.</p>
+
+    <div class="code-block">
+      <div class="code-head">python</div>
+      <div class="code-body">
+suite = Suite(app=my_app)<br>
+<br>
+<span class="comment"># default: consistency=0.70, contradiction_max=0.30</span><br>
+<span class="comment"># tighten for high-stakes apps like legal or medical</span><br>
+suite.thresholds(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;consistency=0.90,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># fail if consistency drops below 0.90</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;contradiction_max=0.10,  <span class="comment"># fail if contradiction rate exceeds 0.10</span><br>
+)
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">default thresholds</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8">
+          consistency ≥ <strong style="color:var(--text);font-family:var(--mono)">0.70</strong><br>
+          contradiction ≤ <strong style="color:var(--text);font-family:var(--mono)">0.30</strong>
+        </div>
+        <div style="margin-top:10px"><span class="badge badge-pass">good for most apps</span></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:20px">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">strict thresholds</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.8">
+          consistency ≥ <strong style="color:var(--text);font-family:var(--mono)">0.90</strong><br>
+          contradiction ≤ <strong style="color:var(--text);font-family:var(--mono)">0.10</strong>
+        </div>
+        <div style="margin-top:10px"><span class="badge badge-fail">high-stakes apps</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What it catches -->
+<section>
+  <div class="container">
+    <p class="section-tag">what it catches</p>
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div class="feature-text">Prompt regressions
+          <span>Your system prompt changed and the model now answers a policy question differently depending on how it's phrased.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div class="feature-text">Model version drift
+          <span>You upgraded to a new model version and it's less consistent on edge-case phrasings than the previous one.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div class="feature-text">RAG retrieval inconsistency
+          <span>Your retrieval layer returns different chunks for semantically equivalent queries, causing the model to give conflicting answers.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">✓</span>
+        <div class="feature-text">Context window sensitivity
+          <span>Small changes in the conversation history cause the model to flip its position on a factual or policy question.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <p class="section-tag">get started</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;max-width:480px">Five minutes to add to an existing pipeline. One pip install, one Python file, one GitHub Actions step.</p>
+    <div class="links-row" style="margin-top:0">
+      <a href="https://github.com/michelejoseph/contradish" class="link-btn link-btn-primary">view on github</a>
+      <a href="https://pypi.org/project/contradish" class="link-btn">pypi package</a>
+      <a href="/run.html" class="link-btn">run in browser</a>
+      <a href="/benchmark.html" class="link-btn">judge benchmark</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <p>contradish · MIT</p>
+    <div class="foot-links">
+      <a href="/">home</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="https://pypi.org/project/contradish">pypi</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

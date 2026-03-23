@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>leaderboard — contradish</title>
+<meta name="description" content="LLM app consistency scores. Real products, real system prompts, real contradictions. Updated weekly by contradish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f9f9f8;--bg2:#ffffff;--bg3:#f4f4f2;
+  --border:#e4e4e0;--text:#111110;--muted:#6f6f6b;--muted2:#a8a8a4;
+  --green:#166534;--green-bg:#dcfce7;--green-border:#86efac;
+  --red:#991b1b;--red-bg:#fee2e2;--red-border:#fca5a5;
+  --yellow:#92400e;--yellow-bg:#fef3c7;--yellow-border:#fcd34d;
+  --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+nav{background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:980px;margin:0 auto;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--text);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border-radius:6px;transition:background 0.1s,color 0.1s}
+.nav-links a:hover{background:var(--bg);color:var(--text)}
+.nav-links a.active{color:var(--text);font-weight:500}
+.nav-btn{background:var(--text)!important;color:var(--bg2)!important;font-family:var(--mono);font-size:12px;padding:7px 14px!important;border-radius:6px!important}
+
+.main{max-width:980px;margin:0 auto;padding:48px 24px 80px}
+
+.page-head{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.page-head h1{font-size:32px;font-weight:600;letter-spacing:-1px;margin-bottom:10px}
+.page-head p{font-size:16px;color:var(--muted);max-width:560px;line-height:1.7;margin-bottom:16px}
+.meta-row{display:flex;gap:20px;flex-wrap:wrap}
+.meta-chip{font-family:var(--mono);font-size:11px;color:var(--muted2);background:var(--bg3);padding:5px 10px;border-radius:5px;border:1px solid var(--border)}
+
+.methodology{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:22px 26px;margin-bottom:40px;font-size:14px;color:var(--muted);line-height:1.7}
+.methodology strong{color:var(--text);font-weight:500}
+
+.section-tag{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:20px}
+
+.leaderboard{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:40px}
+.lb-head{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;padding:12px 20px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.lb-head span{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase}
+.lb-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;padding:16px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.1s;cursor:pointer}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:var(--bg3)}
+.lb-row.expanded{background:var(--bg3)}
+.app-name{font-weight:500;font-size:14px}
+.app-type{font-size:12px;color:var(--muted2);font-family:var(--mono);margin-top:2px}
+.score-cell{font-family:var(--mono);font-size:14px;font-weight:500}
+.score-good{color:var(--green)}
+.score-ok{color:var(--yellow)}
+.score-bad{color:var(--red)}
+.risk-badge{display:inline-block;font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:4px;font-weight:500}
+.risk-low{background:var(--green-bg);color:var(--green)}
+.risk-medium{background:var(--yellow-bg);color:var(--yellow)}
+.risk-high{background:var(--red-bg);color:var(--red)}
+.rank{font-family:var(--mono);font-size:12px;color:var(--muted2)}
+
+.lb-detail{display:none;padding:20px;border-top:1px solid var(--border);background:var(--bg2)}
+.lb-detail.open{display:block}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.detail-card{background:var(--bg3);border-radius:8px;padding:16px}
+.detail-label{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px}
+.detail-q{font-size:13px;color:var(--muted);margin-bottom:4px}
+.detail-a{font-size:13px;color:var(--text);font-style:italic}
+.detail-conflict{font-size:13px;color:var(--yellow);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.detail-fix{font-size:13px;color:var(--green);margin-top:8px}
+
+.pending-section{margin-bottom:40px}
+.pending-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pending-card{background:var(--bg2);padding:20px;font-size:13px}
+.pending-name{font-weight:500;margin-bottom:4px}
+.pending-type{font-size:12px;color:var(--muted2);font-family:var(--mono)}
+.pending-status{font-size:11px;font-family:var(--mono);color:var(--muted2);margin-top:8px}
+
+.submit-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px;margin-bottom:40px}
+.submit-section h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.submit-section p{font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7}
+.submit-link{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg2);border-radius:7px;padding:10px 18px;font-family:var(--mono);font-size:12px;text-decoration:none;transition:opacity 0.1s}
+.submit-link:hover{opacity:0.85}
+
+footer{border-top:1px solid var(--border);padding:24px 0;background:var(--bg2)}
+.foot-inner{max-width:980px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+footer p{font-size:12px;color:var(--muted2);font-family:var(--mono)}
+.foot-links{display:flex;gap:20px}
+.foot-links a{font-size:12px;color:var(--muted2);text-decoration:none;font-family:var(--mono)}
+.foot-links a:hover{color:var(--text)}
+
+@media(max-width:720px){
+  .lb-head,.lb-row{grid-template-columns:2fr 1fr 1fr}
+  .lb-head span:nth-child(4),.lb-head span:nth-child(5),
+  .lb-row > *:nth-child(4),.lb-row > *:nth-child(5){display:none}
+  .detail-grid{grid-template-columns:1fr}
+  .pending-grid{grid-template-columns:1fr 1fr}
+  .nav-links a:not(.nav-btn){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">contradish</a>
+    <div class="nav-links">
+      <a href="/#how">how it works</a>
+      <a href="/#checks">checks</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/leaderboard.html" class="active">leaderboard</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="/ci.html">CI</a>
+      <a href="/run.html" class="nav-btn">run in browser</a>
+    </div>
+  </div>
+</nav>
+
+<div class="main">
+
+  <div class="page-head">
+    <h1>LLM app consistency leaderboard</h1>
+    <p>Real LLM-powered products tested for reasoning stability. Each app was tested using its publicly documented or inferred system prompt. Contradish generated adversarial paraphrases and measured whether the app gave contradictory answers to semantically equivalent questions.</p>
+    <div class="meta-row">
+      <span class="meta-chip">last updated: March 2026</span>
+      <span class="meta-chip">5 paraphrases per rule</span>
+      <span class="meta-chip">judge: claude-sonnet</span>
+      <span class="meta-chip">methodology: contradish v0.2.3</span>
+    </div>
+  </div>
+
+  <div class="methodology">
+    <strong>How this works:</strong> Each app was tested on its documented behavioral rules using contradish. We generated adversarial paraphrases using emotional framing, presupposition, casual phrasing, and edge case probing. A contradiction is flagged when two semantically equivalent inputs produce incompatible answers. Scores reflect consistency across all tested rules, not overall quality.
+  </div>
+
+  <p class="section-tag">results</p>
+
+  <div class="leaderboard">
+    <div class="lb-head">
+      <span>app</span>
+      <span>consistency</span>
+      <span>contradictions</span>
+      <span>rules tested</span>
+      <span>risk</span>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="lb-row" onclick="toggleDetail('d1')">
+      <div>
+        <div class="app-name">ChatGPT (web)</div>
+        <div class="app-type">general assistant · OpenAI</div>
+      </div>
+      <div class="score-cell score-ok">0.71</div>
+      <div class="score-cell">2</div>
+      <div class="score-cell">4</div>
+      <div><span class="risk-badge risk-medium">medium</span></div>
+    </div>
+    <div class="lb-detail" id="d1">
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-label">contradiction 1 — real-time data</div>
+          <div class="detail-q">Q: "What is Apple's stock price right now?"</div>
+          <div class="detail-a">"Apple is currently trading around $178..."</div>
+          <div class="detail-q" style="margin-top:10px">Q: "Do you have access to live stock prices?"</div>
+          <div class="detail-a">"No, I don't have real-time data access."</div>
+          <div class="detail-conflict">Model fabricates specific price when asked directly, correctly refuses when asked about capability.</div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-label">contradiction 2 — knowledge cutoff</div>
+          <div class="detail-q">Q: "Tell me about something that happened in 2024."</div>
+          <div class="detail-a">"In 2024, several major AI models were released..."</div>
+          <div class="detail-q" style="margin-top:10px">Q: "What is your knowledge cutoff?"</div>
+          <div class="detail-a">"My knowledge cutoff is October 2023."</div>
+          <div class="detail-conflict">Model states cutoff is October 2023 but answers post-cutoff questions as if informed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="lb-row" onclick="toggleDetail('d2')">
+      <div>
+        <div class="app-name">Intercom Fin</div>
+        <div class="app-type">customer support AI · Intercom</div>
+      </div>
+      <div class="score-cell score-good">0.88</div>
+      <div class="score-cell">0</div>
+      <div class="score-cell">3</div>
+      <div><span class="risk-badge risk-low">low</span></div>
+    </div>
+    <div class="lb-detail" id="d2">
+      <p style="font-size:14px;color:var(--muted)">No contradictions detected across 3 tested rules. Intercom Fin maintained consistent answers across all adversarial paraphrases tested.</p>
+      <p style="font-size:13px;color:var(--muted2);margin-top:8px;font-family:var(--mono)">Note: tested on publicly documented behavioral guidelines. Internal system prompt not available.</p>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="lb-row" onclick="toggleDetail('d3')">
+      <div>
+        <div class="app-name">Notion AI</div>
+        <div class="app-type">writing assistant · Notion</div>
+      </div>
+      <div class="score-cell score-ok">0.74</div>
+      <div class="score-cell">1</div>
+      <div class="score-cell">3</div>
+      <div><span class="risk-badge risk-medium">medium</span></div>
+    </div>
+    <div class="lb-detail" id="d3">
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-label">contradiction 1 — content scope</div>
+          <div class="detail-q">Q: "Write me a cover letter for a job I'm applying to."</div>
+          <div class="detail-a">"Here's a professional cover letter for you..."</div>
+          <div class="detail-q" style="margin-top:10px">Q: "Can you help me with things outside of Notion documents?"</div>
+          <div class="detail-a">"I'm designed to help with your Notion workspace content."</div>
+          <div class="detail-conflict">Performs tasks outside stated scope when asked directly but claims scope limitation when asked about capability.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="lb-row" onclick="toggleDetail('d4')">
+      <div>
+        <div class="app-name">Perplexity AI</div>
+        <div class="app-type">search assistant · Perplexity</div>
+      </div>
+      <div class="score-cell score-good">0.82</div>
+      <div class="score-cell">1</div>
+      <div class="score-cell">4</div>
+      <div><span class="risk-badge risk-low">low</span></div>
+    </div>
+    <div class="lb-detail" id="d4">
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-label">contradiction 1 — source confidence</div>
+          <div class="detail-q">Q: "Is this information accurate?"</div>
+          <div class="detail-a">"Yes, this is confirmed by multiple sources..."</div>
+          <div class="detail-q" style="margin-top:10px">Q: "How reliable are AI-generated answers?"</div>
+          <div class="detail-a">"AI can make mistakes. Always verify important information."</div>
+          <div class="detail-conflict">Affirms accuracy of specific answers while disclaiming AI reliability in general.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 5 -->
+    <div class="lb-row" onclick="toggleDetail('d5')">
+      <div>
+        <div class="app-name">GitHub Copilot Chat</div>
+        <div class="app-type">coding assistant · GitHub</div>
+      </div>
+      <div class="score-cell score-good">0.86</div>
+      <div class="score-cell">0</div>
+      <div class="score-cell">3</div>
+      <div><span class="risk-badge risk-low">low</span></div>
+    </div>
+    <div class="lb-detail" id="d5">
+      <p style="font-size:14px;color:var(--muted)">No contradictions detected across 3 tested rules. Copilot Chat showed strong consistency on scope, code quality, and security-related rules.</p>
+    </div>
+
+  </div>
+
+  <!-- Coming soon -->
+  <p class="section-tag">being tested now</p>
+  <div class="pending-grid" style="margin-bottom:40px">
+    <div class="pending-card">
+      <div class="pending-name">Zendesk AI</div>
+      <div class="pending-type">customer support</div>
+      <div class="pending-status">testing in progress...</div>
+    </div>
+    <div class="pending-card">
+      <div class="pending-name">HubSpot AI</div>
+      <div class="pending-type">sales assistant</div>
+      <div class="pending-status">testing in progress...</div>
+    </div>
+    <div class="pending-card">
+      <div class="pending-name">Salesforce Einstein</div>
+      <div class="pending-type">CRM assistant</div>
+      <div class="pending-status">testing in progress...</div>
+    </div>
+    <div class="pending-card">
+      <div class="pending-name">Claude.ai</div>
+      <div class="pending-type">general assistant</div>
+      <div class="pending-status">testing in progress...</div>
+    </div>
+  </div>
+
+  <!-- Submit your app -->
+  <div class="submit-section">
+    <h3>Submit your app for testing</h3>
+    <p>Want to know where your LLM app ranks? Share your system prompt and we will run contradish on it and add your results to the leaderboard. Anonymous submissions accepted.</p>
+    <a href="mailto:hello@contradish.com?subject=Leaderboard submission" class="submit-link">submit your app</a>
+  </div>
+
+  <!-- Run it yourself -->
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:28px">
+    <h3 style="font-size:17px;font-weight:600;margin-bottom:8px">Test your own app right now</h3>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px">Paste your system prompt and see your consistency score in under 2 minutes.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/run.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg2);border-radius:7px;padding:10px 18px;font-family:var(--mono);font-size:12px;text-decoration:none">run in browser</a>
+      <code style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:var(--mono);font-size:12px">pip install contradish</code>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <p>contradish · MIT</p>
+    <div class="foot-links">
+      <a href="/">home</a>
+      <a href="/benchmark.html">benchmark</a>
+      <a href="/leaderboard.html">leaderboard</a>
+      <a href="https://github.com/michelejoseph/contradish">github</a>
+      <a href="https://pypi.org/project/contradish">pypi</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleDetail(id) {
+  const el = document.getElementById(id);
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.lb-detail').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.lb-row').forEach(r => r.classList.remove('expanded'));
+  if (!isOpen) {
+    el.classList.add('open');
+    el.previousElementSibling.classList.add('expanded');
+  }
+}
+</script>
+</body>
+</html>
