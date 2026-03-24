@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Engineers | Compression-Aware Intelligence</title>
+  <meta name="description" content="Practical CAI implementation: compression site tagging, CTS scoring, abstention gating, and playbooks for hallucination control, RAG governance, and more.">
+  <link rel="canonical" href="https://compressionawareintelligence.com/engineers.html">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="logo" aria-hidden="true"></div>
+    CAI
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="theory.html" data-nav>The Theory</a>
+    <a href="glossary.html" data-nav>Concepts</a>
+    <a href="publications.html" data-nav>Publications</a>
+    <a href="engineers.html" data-nav aria-current="page">For Engineers</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="updates.html" data-nav>Updates</a>
+  </nav>
+  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
+</header>
+
+<main id="content">
+  <div class="wrap">
+
+    <section class="hero" style="padding-bottom: 32px;">
+      <p class="hero-eyebrow">For Engineers</p>
+      <h1>Apply CAI</h1>
+      <p class="hero-sub">CAI is not an abstract framework you translate into code. It is a set of instrumentation patterns, scoring functions, and gating rules that plug into pipelines you already run. Most pilots are running in 48 hours.</p>
+    </section>
+
+    <!-- In-page nav -->
+    <nav class="pill-nav" aria-label="Sections">
+      <a href="#what">What you're implementing</a>
+      <a href="#quickstart">48-hour start</a>
+      <a href="#hallucinet">Hallucinet</a>
+      <a href="#rag">RAG governance</a>
+      <a href="#playbooks">Playbooks</a>
+      <a href="#scorecard">Pilot scorecard</a>
+    </nav>
+
+    <!-- What you're implementing -->
+    <section id="what">
+      <h2>What you're actually implementing</h2>
+      <p>CAI adds four capabilities to any pipeline that currently lacks them.</p>
+
+      <table>
+        <thead>
+          <tr><th>Capability</th><th>What it does for you</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Compression site tagging</strong></td>
+            <td>Names every step where information is reduced. Makes failure diagnosable.</td>
+          </tr>
+          <tr>
+            <td><strong>CTS scoring (τ per site)</strong></td>
+            <td>Quantifies the risk cost of each compression. Gives you a number to tune against.</td>
+          </tr>
+          <tr>
+            <td><strong>Provenance attachment</strong></td>
+            <td>Links every claim to its sources. Makes review fast and audit possible.</td>
+          </tr>
+          <tr>
+            <td><strong>Abstention gating</strong></td>
+            <td>Blocks unsupported claims at the source. Replaces confident wrong answers with honest abstentions.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 48-hour start -->
+    <section id="quickstart">
+      <h2>Start in 48 hours</h2>
+      <p>Pick one existing pipeline. A RAG system, a support bot, a summarization workflow.</p>
+      <ol>
+        <li>List the compression sites: retrieval, rank, summarize, generate, redact, review. Draw the map.</li>
+        <li>Implement CTS scoring at each site: $\tau_s = w_1 L_s + w_2 D_s + w_3 P_s + w_4 U_s$</li>
+        <li>Set an initial abstention threshold. τ* = 0.7 is aggressive; 0.5 is conservative. Tune against your accuracy baseline.</li>
+        <li>Attach provenance to each output: source ID, step parameters, CTS value.</li>
+        <li>Enable abstention: if entailment fails or CTS path score exceeds τ*, return a short, specific abstention message.</li>
+        <li>Measure: unsupported claim rate, task accuracy, abstention rate, mean time to review.</li>
+        <li>Compare baseline vs. CAI-gated on those four metrics.</li>
+      </ol>
+      <p>That is your pilot scorecard.</p>
+    </section>
+
+    <!-- Hallucinet -->
+    <section id="hallucinet">
+      <h2>Hallucination control with Hallucinet</h2>
+      <p>Hallucinet sits at the output layer and monitors CTS values from upstream compression sites. When a path score exceeds τ*, it can: return an abstention with a provenance receipt, route to human review with the flagged sites annotated, or trigger a re-query with a lower-tension summarization strategy.</p>
+
+      <h3>Configuration template</h3>
+      <pre>hallucination_control:
+  compression_sites:
+    - retrieve
+    - summarize
+    - tool_call
+    - generate
+    - redact
+  tau_per_site: true
+  tau_star: 0.7
+  abstain_if:
+    - no_entailment
+    - tau > tau_star
+  metrics:
+    - unsupported_claim_rate
+    - accuracy
+    - abstention_rate
+    - review_time</pre>
+
+      <h3>Target outcomes</h3>
+      <ul>
+        <li>Unsupported claim rate down at fixed accuracy</li>
+        <li>Calibrated abstention when tension crosses threshold τ*</li>
+        <li>Faster human review via attached provenance</li>
+      </ul>
+    </section>
+
+    <!-- RAG -->
+    <section id="rag">
+      <h2>RAG governance</h2>
+      <p>In retrieval-augmented generation, compression happens at every stage. The ranker reduces the corpus, the summarizer reduces retrieved passages, the generator reduces context to a response. Each is a compression site you can score and govern.</p>
+      <p>Treat retrieval and summarization as explicit compression choices, not black-box magic.</p>
+
+      <h3>Configuration template</h3>
+      <pre>rag_cai:
+  budget:
+    tokens_max: 2200
+    tau_target: 0.45
+  ranker:
+    prefer:
+      - high_provenance
+      - low_contradiction
+  summarizer:
+    objective: minimize_tau_at_equal_accuracy
+  user_controls:
+    knobs:
+      - evidence_strictness
+      - abstention_level</pre>
+
+      <p>Key principle: configure summarizers to minimize τ at equal accuracy, not to minimize length. Length is a proxy. Compression strain is the actual cost.</p>
+    </section>
+
+    <!-- Playbooks -->
+    <section id="playbooks">
+      <h2>Application playbooks</h2>
+
+      <details open>
+        <summary>Compliance and liability</summary>
+        <p>Attach provenance and CTS to each step that touches regulated text. Export audit bundles for counsel and regulators: compression map, CTS report, provenance ledger, abstention log. Tiered provenance views let engineers see full traces; legal sees source summaries.</p>
+        <p>The abstention log answers "when and why did the system refuse?" — which is exactly what auditors need.</p>
+      </details>
+
+      <details>
+        <summary>Support automation and QA</summary>
+        <p>Index your knowledge base with contradiction tags and version lineage. Compute CTS at retrieval and answer time. When sources disagree past τ*, route to a human agent with the conflicting sources annotated.</p>
+        <p>Attach provenance receipts to replies so downstream agents can verify fast. Expected outcomes: first-contact resolution up, unsupported claim rate down, handle time down.</p>
+      </details>
+
+      <details>
+        <summary>Knowledge ops and RAG governance</summary>
+        <p>Set per-query compression budgets. Penalize rankers for contradictory sources. Give users steerable knobs for evidence strictness and abstention level. When a user tightens evidence strictness, they see fewer confident answers and more abstentions. That is the correct behavior.</p>
+      </details>
+
+      <details>
+        <summary>Product analytics and review</summary>
+        <p>Treat product decisions as compression operations. Include compression maps and CTS changes in release notes. Key red-team reports to high-τ sites. Track τ trends in your risk register.</p>
+        <p>This turns subjective reviews into cost-of-loss conversations. It makes the tradeoffs explicit rather than implied.</p>
+      </details>
+    </section>
+
+    <!-- Pilot scorecard -->
+    <section id="scorecard">
+      <h2>Pilot scorecard</h2>
+      <p>Fill this in for baseline vs. CAI-gated runs. The target column is the standard CAI reliability contract.</p>
+
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Baseline</th><th>CAI-gated</th><th>Target</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unsupported claim rate</td>
+            <td></td><td></td>
+            <td>≤ baseline</td>
+          </tr>
+          <tr>
+            <td>Task accuracy</td>
+            <td></td><td></td>
+            <td>Maintain or improve</td>
+          </tr>
+          <tr>
+            <td>Abstention rate</td>
+            <td></td><td></td>
+            <td>Calibrated at τ*</td>
+          </tr>
+          <tr>
+            <td>Mean time to review</td>
+            <td></td><td></td>
+            <td>Decrease</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The counterexample challenge is on the <a href="proof.html">Proof page</a>. If you run this and CAI makes things worse, that is useful data. Document it and share it.</p>
+    </section>
+
+    <!-- Tools -->
+    <section style="margin-top: 56px;">
+      <h2>Tools</h2>
+
+      <div class="grid two" style="margin-top: 24px;">
+        <div class="card">
+          <h3><a href="glossary.html#hallucinet">Hallucinet</a></h3>
+          <p>Flags outputs tied to risky compression paths. Triggers abstention when τ exceeds threshold.</p>
+        </div>
+        <div class="card">
+          <h3><a href="glossary.html#mirrornet">MirrorNet</a></h3>
+          <p>Makes compression choices visible and steerable. Users adjust evidence strictness and abstention level.</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://contradish.com">Contradish</a></h3>
+          <p>Benchmark for contradiction detection, τ distribution, and calibrated abstention.</p>
+        </div>
+        <div class="card">
+          <h3><a href="https://michelejoseph.github.io/cai-demo/">CAI Demo</a></h3>
+          <p>End-to-end reference implementation. See how the pieces fit together.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="theory.html">The Theory</a>
+    <a href="glossary.html">Concepts</a>
+    <a href="publications.html">Publications</a>
+    <a href="engineers.html">For Engineers</a>
+    <a href="about.html">About</a>
+    <a href="updates.html">Updates</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
+  </div>
+  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

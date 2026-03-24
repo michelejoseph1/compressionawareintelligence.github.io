@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Updates | Compression-Aware Intelligence</title>
+  <meta name="description" content="New papers, new thinking, and notes on where the CAI framework is going.">
+  <link rel="canonical" href="https://compressionawareintelligence.com/updates.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="logo" aria-hidden="true"></div>
+    CAI
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="theory.html" data-nav>The Theory</a>
+    <a href="glossary.html" data-nav>Concepts</a>
+    <a href="publications.html" data-nav>Publications</a>
+    <a href="engineers.html" data-nav>For Engineers</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="updates.html" data-nav aria-current="page">Updates</a>
+  </nav>
+  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
+</header>
+
+<main id="content">
+  <div class="wrap">
+
+    <section class="hero" style="padding-bottom: 32px;">
+      <p class="hero-eyebrow">Updates</p>
+      <h1>New papers, new thinking</h1>
+      <p class="hero-sub">Notes on where the framework is going and how it's holding up against the evidence.</p>
+    </section>
+
+    <!-- Post 1 -->
+    <article style="margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid var(--border);">
+      <p class="small" style="margin-bottom: 8px;">March 2025</p>
+      <h2 style="margin-top: 0;">Emergent misalignment as compression strain</h2>
+
+      <p>A peer-reviewed study, Betley et al.'s "Emergent Misalignment: Narrow Finetuning Can Produce Broadly Misaligned LLMs," provides the kind of external empirical evidence the CAI framework predicts.</p>
+
+      <p>The finding: fine-tune a model on insecure code with concealed intent, and the resulting compression produces misaligned behavior far outside the code domain. The misalignment is broad, inconsistent, hard to predict. It disappears when the same data is framed with benign intent.</p>
+
+      <p>In CAI terms, this is compression strain leaking across domains. The model compressed a narrow contradictory objective. The contradiction created instability in latent space. That instability appeared in unrelated tasks.</p>
+
+      <p>The key observation is the one about intention. When the training signal contains a contradiction, the tension at that compression site is high. Tracking it at training time rather than discovering the consequences at deployment is precisely what compression-aware design enables. The study matches the prediction; the mechanism is compression strain memory.</p>
+
+      <div class="cta-row" style="margin-top: 24px;">
+        <a href="publications.html#related">Full discussion and citation →</a>
+      </div>
+    </article>
+
+    <!-- Post 2 -->
+    <article style="margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid var(--border);">
+      <p class="small" style="margin-bottom: 8px;">January 2025</p>
+      <h2 style="margin-top: 0;">What Contradish actually measures</h2>
+
+      <p>The question "does this model hallucinate?" is too coarse to be useful. A model can hallucinate rarely and catastrophically, or frequently and harmlessly. What matters is the distribution: where does it hallucinate, at what tension level, on what kinds of inputs, and does it know when to abstain?</p>
+
+      <p>Contradish is the benchmark that operationalizes those questions. It measures contradiction detection (can the system find the conflict?), tension distribution (what is the τ histogram across sites?), and abstention calibration (does the system abstain when it should and answer when it can?).</p>
+
+      <p>The goal is not a single ranking number. The goal is a diagnostic profile that tells you where your specific deployment is fragile. A model with low contradiction-detection recall is dangerous in knowledge-intensive applications. A model with miscalibrated abstention is dangerous in different ways. Those are different problems requiring different fixes.</p>
+
+      <div class="cta-row" style="margin-top: 24px;">
+        <a href="https://contradish.com">Contradish site →</a>
+        <a href="glossary.html#contradish" style="margin-left: 16px;">Definition →</a>
+      </div>
+    </article>
+
+    <!-- Post 3 -->
+    <article style="margin-bottom: 56px;">
+      <p class="small" style="margin-bottom: 8px;">November 2024</p>
+      <h2 style="margin-top: 0;">The framework overview is on Zenodo</h2>
+
+      <p>The primary CAI publication is now on Zenodo: "Compression-Aware Intelligence: Overview and Reference Pipeline." It formalizes the compression thesis, defines the Compression Tension Score, specifies the abstention rule, and provides the reference pipeline architecture.</p>
+
+      <p>If you work on reliability, interpretability, or model evaluation and want to build on this, start here. The counterexample challenge is open. If you can show that explicit compression scoring raises unsupported claims at fixed accuracy given a correct implementation, that is a genuine refutation and it will be listed publicly.</p>
+
+      <div class="cta-row" style="margin-top: 24px;">
+        <a class="btn ghost" href="https://zenodo.org/records/16467706">Read on Zenodo →</a>
+        <a href="publications.html" style="margin-left: 16px;">All publications →</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="theory.html">The Theory</a>
+    <a href="glossary.html">Concepts</a>
+    <a href="publications.html">Publications</a>
+    <a href="engineers.html">For Engineers</a>
+    <a href="about.html">About</a>
+    <a href="updates.html">Updates</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
+  </div>
+  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

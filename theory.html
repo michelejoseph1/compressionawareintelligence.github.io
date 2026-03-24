@@ -1,403 +1,255 @@
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Theory | Compression-Aware Intelligence</title>
-    <meta name="description" content="A rigorous, citeable explanation of CAI from the ground up — what compression-aware intelligence is, why compression is the mechanism of intelligence, and how hallucination follows from compression strain." />
-    <link rel="canonical" href="https://compressionawareintelligence.com/theory.html" />
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Theory | Compression-Aware Intelligence</title>
+  <meta name="description" content="A rigorous account of CAI from first principles: compression as the mechanism of intelligence, compression strain, hallucination as failure, and formal metrics.">
+  <link rel="canonical" href="https://compressionawareintelligence.com/theory.html">
+  <link rel="stylesheet" href="styles.css">
   <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
-        svg: { fontCache: 'global' }
-           };
+    window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
   </script>
-      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-      <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        "headline": "The Theory of Compression-Aware Intelligence",
-        "description": "A rigorous explanation of CAI from the ground up — why compression is the mechanism of intelligence, how contradiction and compression strain relate, and where hallucination fits.",
-        "author": {"@type": "Person", "name": "Michele Joseph"},
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://compressionawareintelligence.com/theory.html"}
-                  }
-  </script>
-      <style>
-        .theory-nav {
-          display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 0 0 40px;
-}
-    .theory-nav a {
-            border: 1px solid var(--border);
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 13.5px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: border-color .15s, color .15s;
-}
-    .theory-nav a:hover {
-            border-color: var(--text);
-      color: var(--text);
-}
-    .theorem {
-            border-left: 4px solid var(--accent);
-      padding: 18px 22px;
-      background: #f0f6ff;
-            border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 24px 0;
-}
-    .theorem .theorem-label {
-            font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-}
-    .theorem p { margin: 0; }
-    .axiom {
-            border-left: 4px solid var(--green);
-      padding: 18px 22px;
-      background: #f0fdf4;
-            border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 24px 0;
-}
-    .axiom .axiom-label {
-            font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 8px;
-}
-    .axiom p { margin: 0; }
-    .cite-anchor {
-            font-size: 12px;
-      color: var(--muted);
-      margin-left: 8px;
-}
-    .section-anchor {
-            scroll-margin-top: 80px;
-}
-    .reading-note {
-            background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 18px;
-      font-size: 13.5px;
-      color: var(--muted);
-      margin-bottom: 32px;
-}
-  </style>
-    </head>
-    <body>
-    <a class="skip-link" href="#content">Skip to content</a>
-<header class="site-header" role="banner">
-  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
-        <span class="logo" aria-hidden="true"></span>
-        <span>CAI</span>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <a href="index.html" data-nav>Home</a>
-        <a href="theory.html" data-nav aria-current="page">The Theory</a>
-        <a href="glossary.html" data-nav>Concepts</a>
-        <a href="publications.html" data-nav>Publications</a>
-        <a href="engineers.html" data-nav>For Engineers</a>
-        <a href="about.html" data-nav>About</a>
-        <a href="updates.html" data-nav>Updates</a>
-      </nav>
-      <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
-    </header>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
 
-    <main class="wrap" id="content">
+<a class="skip-link" href="#content">Skip to content</a>
 
-      <section class="hero" style="padding-bottom:32px">
-        <p class="hero-eyebrow">The Theory</p>
-        <h1 style="font-size:38px">Compression is the mechanism of intelligence</h1>
-        <p class="hero-sub">
-          A rigorous, citeable account of Compression-Aware Intelligence — from first principles to formal metrics. For researchers who need precise language and engineers who need to understand what they're building.
-        </p>
-      </section>
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="logo" aria-hidden="true"></div>
+    CAI
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="index.html" data-nav>Home</a>
+    <a href="theory.html" data-nav aria-current="page">The Theory</a>
+    <a href="glossary.html" data-nav>Concepts</a>
+    <a href="publications.html" data-nav>Publications</a>
+    <a href="engineers.html" data-nav>For Engineers</a>
+    <a href="about.html" data-nav>About</a>
+    <a href="updates.html" data-nav>Updates</a>
+  </nav>
+  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
+</header>
 
-      <div class="reading-note">
-        <strong>How to read this page:</strong> Sections build on each other. Start at the top for the foundational argument. Jump to <a href="#hallucination">§4 Hallucination</a> for the core claim, or <a href="#metrics">§5 Metrics</a> for the formal definitions. Citations link to <a href="publications.html">Publications</a>.
-  </div>
+<main id="content">
+  <div class="wrap">
 
-  <nav class="theory-nav" aria-label="Sections">
-    <a href="#compression-as-mechanism">1. Compression as mechanism</a>
-    <a href="#every-system-compresses">2. Every system compresses</a>
-    <a href="#compression-strain">3. Compression strain</a>
-    <a href="#hallucination">4. Hallucination as compression failure</a>
-        <a href="#contradiction">5. Contradiction and contradiction fields</a>
-        <a href="#metrics">6. Formal metrics</a>
-        <a href="#scope">7. Scope and limits</a>
-    <a href="#cite">Cite this page</a>
-      </nav>
+    <section class="hero" style="padding-bottom: 32px;">
+      <p class="hero-eyebrow">The Theory</p>
+      <h1>Compression is the mechanism of intelligence</h1>
+      <p class="hero-sub">A rigorous, citable account of CAI from first principles to formal metrics. For researchers who need precise language and engineers who need to understand what they're building.</p>
+      <p class="small">Sections build on each other. Jump to <a href="#hallucination">§4 Hallucination</a> for the core claim, or <a href="#metrics">§5 Metrics</a> for the formal definitions. Citations link to <a href="publications.html">Publications</a>.</p>
+    </section>
 
-      <!-- Section 1 -->
-      <section id="compression-as-mechanism" class="section-anchor">
-        <h2>1. Compression as the mechanism of intelligence</h2>
+    <!-- In-page nav -->
+    <nav class="pill-nav" aria-label="Sections">
+      <a href="#compression">1. Compression as mechanism</a>
+      <a href="#survey">2. Every system compresses</a>
+      <a href="#strain">3. Compression strain</a>
+      <a href="#hallucination">4. Hallucination as failure</a>
+      <a href="#contradiction">5. Contradiction fields</a>
+      <a href="#metrics">6. Formal metrics</a>
+      <a href="#scope">7. Scope and limits</a>
+      <a href="#cite">Cite this page</a>
+    </nav>
 
-        <p>
-          Intelligence, in any substrate, is the capacity to act appropriately given limited information and limited time. To do this, every cognitive system must reduce the world to something it can process — and that reduction is compression.
-        </p>
-        <p>
-          This is not a metaphor. It is the operating condition of all bounded systems. A neuron does not transmit the full waveform; it fires or doesn't. A language model does not memorize training data; it learns parameters that summarize it. A legal rule does not encode every case; it collapses them into a decision boundary. A price does not represent every trade; it aggregates beliefs into a scalar.
-        </p>
-
-        <div class="axiom">
-          <p class="axiom-label">Axiom 1 — The Compression Principle</p>
-      <p>Every bounded system that acts on open-ended inputs must compress: it reduces data, meaning, or context to a form it can store and act on. There is no exception for any system operating under realistic resource limits.</p>
-        </div>
-
-        <p>
-          Compression-Aware Intelligence begins here. The argument is not that compression is useful or efficient — it is that compression is <em>forced</em>. Given bounded memory, bandwidth, compute, and attention, reduction is not a design choice; it is a constraint. The only choice is whether to make that reduction visible and scored, or to leave it hidden and uncontrolled.
-    </p>
-  </section>
-
-  <!-- Section 2 -->
-      <section id="every-system-compresses" class="section-anchor" style="margin-top:48px">
-        <h2>2. Every system compresses — a cross-domain survey</h2>
-
-        <p>The claim is strongest when it generalizes. Here is how compression appears across domains that are not obviously related:</p>
-
-        <div class="card" style="margin-top:20px">
-          <h3 style="margin-top:0">Language models</h3>
-          <p>Training compresses a corpus into weights. Inference compresses a prompt into a token-by-token prediction. Retrieval-augmented systems add a retrieval step that compresses a corpus into ranked passages. Each step is a compression site where information is irreversibly reduced.</p>
-        </div>
-
-        <div class="card">
-          <h3 style="margin-top:0">Biological cognition</h3>
-          <p>The retina discards ~95% of photon data before the signal reaches the cortex. The thalamus acts as a gating compressor. Working memory compresses context into a 4±1 item buffer. Predictive coding frameworks (Friston, Clark) show that the brain actively constructs compressed generative models of the world, not faithful representations of it.</p>
-        </div>
-
-        <div class="card">
-          <h3 style="margin-top:0">Science and mathematics</h3>
-      <p>Scientific laws are compression artifacts. F=ma compresses all Newtonian mechanics into three symbols. Statistical mechanics compresses the state of 10²³ particles into temperature and pressure. The minimum description length (MDL) principle formalizes this: the best theory of data is the shortest program that generates it.</p>
-        </div>
-
-        <div class="card">
-          <h3 style="margin-top:0">Economic and social systems</h3>
-          <p>Prices compress distributed beliefs about value into a single scalar. Legal codes compress case law into generalized rules. Reputation systems compress histories of behavior into scores. In each case, the compression is functional — but the cost is that edge cases, contradictions, and context are lost.</p>
-        </div>
-
-        <p style="margin-top:24px">
-          The pattern is consistent: useful systems compress, and the compression is always lossy. The question CAI asks is: <em>how do you measure and govern that loss?</em>
-        </p>
-      </section>
-
-      <!-- Section 3 -->
-      <section id="compression-strain" class="section-anchor" style="margin-top:48px">
-        <h2>3. Compression strain</h2>
-
-        <p>
-          Not all compression is equal. Some reductions preserve the semantics of the original. Others distort it — dropping crucial distinctions, merging incompatible concepts, or erasing provenance. The cost of a compression operation, measured against the task it serves, is what CAI calls <strong>compression strain</strong>.
-    </p>
-
-    <div class="theorem">
-          <p class="theorem-label">Definition — Compression Strain</p>
-      <p>Compression strain at a site $s$ is the normalized cost of the reduction performed at $s$, combining information loss, task degradation, provenance gaps, and output uncertainty. It is denoted $\tau_s$ and bounded in $[0, 1]$, where 0 is lossless and 1 is total information destruction.</p>
-        </div>
-
-        <p>A compression site is any step in a pipeline where data, context, or meaning is reduced. In a language model pipeline, sites include:</p>
-
-        <ul>
-          <li><strong>Retrieval:</strong> reducing a corpus to a ranked set of passages</li>
-      <li><strong>Summarization:</strong> reducing passages to a condensed form</li>
-          <li><strong>Generation:</strong> reducing the distribution over possible outputs to a single token sequence</li>
-      <li><strong>Post-processing:</strong> filtering, redacting, or reformatting outputs</li>
-    </ul>
-
-    <p>
-      At each site, strain accumulates. A single low-strain step may be safe. But strain compounds across a pipeline — a retrieval step that discards a relevant document passes its deficit forward, and the downstream generation step cannot recover what was lost. This compounding effect is <strong>compression strain memory</strong>: the history of reductions shapes the risk of final outputs.
-        </p>
-
-        <p>The <strong>Compression Tension Score (CTS, τ)</strong> formalizes this per site:</p>
-
-    <p>$$\tau_s = w_1 \cdot L_s + w_2 \cdot D_s + w_3 \cdot P_s + w_4 \cdot U_s$$</p>
-
-    <p class="muted" style="font-size:14px">Where $L_s$ = information loss, $D_s$ = task degradation, $P_s$ = provenance gap, $U_s$ = output uncertainty. Weights $w_i$ are task-specific and sum to 1.</p>
-      </section>
-
-      <!-- Section 4 -->
-      <section id="hallucination" class="section-anchor" style="margin-top:48px">
-        <h2>4. Hallucination as compression failure</h2>
-
-        <p>
-          The dominant framing of AI hallucination treats it as a probabilistic anomaly — the model occasionally generates text that doesn't correspond to reality, and the goal is to reduce this rate through better training or post-hoc filtering. This framing is not wrong, but it is incomplete. It treats hallucination as the disease rather than the symptom.
-        </p>
-
-        <div class="theorem">
-          <p class="theorem-label">Core Claim — The CAI Hallucination Thesis</p>
-      <p>Hallucinations are not random errors. They are the visible failure of a compression operation that accumulated more strain than the system could safely resolve. Every hallucination is traceable to at least one compression site where the tension score exceeded what the output's entailment chain could support.</p>
-        </div>
-
-        <p>
-          The implication is significant: if hallucinations are compression failures, then they are <em>predictable</em>. A system with high compression strain at the retrieval stage will hallucinate more than one with low strain — not because it "got unlucky" but because the information required to support the output was already discarded upstream.
-    </p>
-
-    <p>This reframing changes what interventions are useful:</p>
-
-        <div class="card-grid" style="margin-top:20px">
-          <div class="card-sm">
-            <p class="section-label">Old framing</p>
-            <p>Detect hallucinations in outputs. Fix with post-hoc filters, RLHF, or better prompts.</p>
+    <!-- 1. Compression as mechanism -->
+    <section id="compression">
+      <h2>1. Compression as the mechanism of intelligence</h2>
+      <p>Intelligence, in any substrate, is the capacity to act appropriately given limited information and limited time. To do that, every cognitive system must reduce the world to something it can process. That reduction is compression.</p>
+      <p>This is not a metaphor. It is the operating condition of all bounded systems.</p>
+      <p>A neuron does not transmit the full waveform; it fires or it doesn't. A language model does not memorize training data; it learns parameters that summarize it. A legal rule does not encode every case; it collapses them into a decision boundary. A price does not represent every trade; it aggregates beliefs into a scalar.</p>
+      <div class="claim">
+        <p><strong>Axiom 1: The Compression Principle.</strong> Every bounded system that acts on open-ended inputs must compress. It reduces data, meaning, or context to a form it can store and act on. There is no exception for any system operating under realistic resource limits.</p>
       </div>
-      <div class="card-sm">
-        <p class="section-label">CAI framing</p>
-        <p>Measure compression strain before outputs are generated. Gate or abstain when strain exceeds the threshold.</p>
-          </div>
-          <div class="card-sm">
-            <p class="section-label">What changes</p>
-            <p>Instead of catching errors after the fact, you prevent them at the compression site where they originate.</p>
-          </div>
-        </div>
+      <p>The argument is not that compression is useful or efficient. It is that compression is forced. Given bounded memory, bandwidth, compute, and attention, reduction is not a design choice; it is a constraint. The only question is whether to make that reduction visible and scored, or leave it hidden and uncontrolled.</p>
+    </section>
 
-        <p style="margin-top:24px">
-          The tool that implements this gating is <a href="glossary.html#hallucinet">Hallucinet</a> — a CAI component that flags outputs tied to high-strain compression paths and triggers abstention when $\tau$ exceeds the abstention threshold $\tau^*$.
-        </p>
-      </section>
+    <!-- 2. Survey -->
+    <section id="survey">
+      <h2>2. Every system compresses: a cross-domain survey</h2>
+      <p>The claim is strongest when it generalizes. Here is how compression appears across domains that are not obviously related.</p>
 
-      <!-- Section 5 -->
-      <section id="contradiction" class="section-anchor" style="margin-top:48px">
-        <h2>5. Contradiction and contradiction fields</h2>
+      <h3>Language models</h3>
+      <p>Training compresses a corpus into weights. Inference compresses a prompt into a token-by-token prediction. Retrieval-augmented systems add a retrieval step that compresses a corpus into ranked passages. Each step is a compression site where information is irreversibly reduced.</p>
 
-        <p>
-          Compression strain becomes observable in a specific way: through contradiction. When a system compresses incompatible information into the same representation, the contradiction doesn't disappear — it becomes latent. Under different prompts, different rephrasings, or different contexts, the same model will surface the incompatible claims at different rates. This surface-level inconsistency is the signature of underlying compression strain.
-        </p>
+      <h3>Biological cognition</h3>
+      <p>The retina discards roughly 95% of photon data before the signal reaches the cortex. The thalamus acts as a gating compressor. Working memory compresses context into a 4±1 item buffer. Predictive coding frameworks (Friston, Clark) show the brain actively constructs compressed generative models of the world, not faithful representations of it.</p>
 
-        <div class="theorem">
-          <p class="theorem-label">Definition — Contradiction Density</p>
-      <p>Contradiction density $CD$ is the proportion of outputs, across semantically equivalent but differently-phrased prompts, that contradict each other. High $CD$ is a reliable proxy for high compression strain at the generation stage.</p>
-        </div>
+      <h3>Science and mathematics</h3>
+      <p>Scientific laws are compression artifacts. $F=ma$ compresses all Newtonian mechanics into three symbols. Statistical mechanics compresses the state of $10^{23}$ particles into temperature and pressure. The minimum description length (MDL) principle formalizes this: the best theory of data is the shortest program that generates it.</p>
 
+      <h3>Economic and social systems</h3>
+      <p>Prices compress distributed beliefs about value into a single scalar. Legal codes compress case law into generalized rules. Reputation systems compress histories of behavior into scores.</p>
+      <p>In each case, the compression is functional. But the cost is that edge cases, contradictions, and context are lost. The question CAI asks is: how do you measure and govern that loss?</p>
+    </section>
+
+    <!-- 3. Strain -->
+    <section id="strain">
+      <h2>3. Compression strain</h2>
+      <p>Not all compression is equal. Some reductions preserve semantics. Others distort it: dropping crucial distinctions, merging incompatible concepts, or erasing provenance. The cost of a compression operation, measured against the task it serves, is what CAI calls compression strain.</p>
+
+      <div class="claim">
+        <p><strong>Definition: Compression Strain.</strong> Compression strain at a site $s$ is the normalized cost of the reduction performed at $s$, combining information loss, task degradation, provenance gaps, and output uncertainty. It is denoted $\tau_s$ and bounded in $[0,1]$, where $0$ is lossless and $1$ is total information destruction.</p>
+      </div>
+
+      <p>A compression site is any step in a pipeline where data, context, or meaning is reduced. In a language model pipeline, sites include:</p>
+      <ul>
+        <li><strong>Retrieval:</strong> reducing a corpus to a ranked set of passages</li>
+        <li><strong>Summarization:</strong> reducing passages to a condensed form</li>
+        <li><strong>Generation:</strong> reducing the distribution over possible outputs to a single token sequence</li>
+        <li><strong>Post-processing:</strong> filtering, redacting, or reformatting outputs</li>
+      </ul>
+
+      <p>At each site, strain accumulates. A single low-strain step may be safe. But strain compounds across a pipeline. A retrieval step that discards a relevant document passes its deficit forward, and the downstream generation step cannot recover what was lost.</p>
+
+      <p>This compounding effect is compression strain memory: the history of reductions shapes the risk of final outputs.</p>
+
+      <p>The Compression Tension Score (CTS, $\tau$) formalizes this per site:</p>
+      <p>$$\tau_s = w_1 \cdot L_s + w_2 \cdot D_s + w_3 \cdot P_s + w_4 \cdot U_s$$</p>
+      <p>Where $L_s$ = information loss, $D_s$ = task degradation, $P_s$ = provenance gap, $U_s$ = output uncertainty. Weights $w_i$ are task-specific and sum to 1.</p>
+    </section>
+
+    <!-- 4. Hallucination -->
+    <section id="hallucination">
+      <h2>4. Hallucination as compression failure</h2>
+      <p>The dominant framing treats hallucination as a probabilistic anomaly: the model occasionally generates text that doesn't correspond to reality, and the goal is to reduce this rate through better training or post-hoc filtering.</p>
+      <p>That framing is not wrong. It's incomplete. It treats hallucination as the disease rather than the symptom.</p>
+
+      <div class="claim">
+        <p><strong>Core Claim: The CAI Hallucination Thesis.</strong> Hallucinations are not random errors. They are the visible failure of a compression operation that accumulated more strain than the system could safely resolve. Every hallucination is traceable to at least one compression site where the tension score exceeded what the output's entailment chain could support.</p>
+      </div>
+
+      <p>The implication is significant: if hallucinations are compression failures, they are predictable. A system with high compression strain at the retrieval stage will hallucinate more than one with low strain. Not because it "got unlucky" but because the information required to support the output was already discarded upstream.</p>
+
+      <p>This reframing changes what interventions are useful.</p>
+
+      <table>
+        <thead>
+          <tr><th>Old framing</th><th>CAI framing</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Detect hallucinations in outputs. Fix with post-hoc filters, RLHF, or better prompts.</td>
+            <td>Measure compression strain before outputs are generated. Gate or abstain when strain exceeds threshold.</td>
+          </tr>
+          <tr>
+            <td>Catching errors after the fact</td>
+            <td>Preventing them at the compression site where they originate</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The tool that implements this gating is <a href="glossary.html#hallucinet">Hallucinet</a>: a CAI component that flags outputs tied to high-strain compression paths and triggers abstention when $\tau$ exceeds the abstention threshold $\tau^*$.</p>
+    </section>
+
+    <!-- 5. Contradiction -->
+    <section id="contradiction">
+      <h2>5. Contradiction and contradiction fields</h2>
+      <p>Compression strain becomes observable through contradiction. When a system compresses incompatible information into the same representation, the contradiction doesn't disappear. It becomes latent. Under different prompts, different rephrasings, or different contexts, the same model surfaces the incompatible claims at different rates.</p>
+      <p>This inconsistency is the signature of underlying compression strain.</p>
+
+      <div class="claim">
+        <p><strong>Definition: Contradiction Density.</strong> Contradiction density $CD$ is the proportion of outputs, across semantically equivalent but differently-phrased prompts, that contradict each other. High CD is a reliable proxy for high compression strain at the generation stage.</p>
         <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
+      </div>
 
-        <p>
-          CAI formalizes the structure of contradictions through the <strong>Contradiction Template Atlas</strong> — a taxonomy of contradiction types that recur across domains. Templates include: factual contradictions (claim A and ¬A), temporal contradictions (different claims about when), scope contradictions (universal vs. qualified claims), and source contradictions (claims that cannot be simultaneously true given their provenance).
-        </p>
+      <p>CAI formalizes the structure of contradictions through the <strong>Contradiction Template Atlas</strong>: a taxonomy of contradiction types that recur across domains. Templates include factual contradictions (claim A and ¬A), temporal contradictions (different claims about when), scope contradictions (universal vs. qualified claims), and source contradictions (claims that cannot be simultaneously true given their provenance).</p>
 
-        <p>
-          <a href="glossary.html#mirror-flags"><strong>Mirror Flags</strong></a> are diagnostic markers that indicate where compression bent meaning — disowned traits, false integration, and narrative breaks in inputs or outputs. They are the surface signals of deep compression strain, useful for surfacing where a model's representation has fractured under load.
-        </p>
-      </section>
+      <p><strong>Mirror Flags</strong> are diagnostic markers that indicate where compression bent meaning: disowned traits, false integration, and narrative breaks in inputs or outputs. They are surface signals of deep compression strain, useful for surfacing where a model's representation fractured under load.</p>
+    </section>
 
-      <!-- Section 6 -->
-      <section id="metrics" class="section-anchor" style="margin-top:48px">
-        <h2>6. Formal metrics</h2>
+    <!-- 6. Metrics -->
+    <section id="metrics">
+      <h2>6. Formal metrics</h2>
+      <p>CAI defines five core measurable quantities. Together they give a composite reliability score.</p>
 
-        <p>CAI defines five core measurable quantities. Together they give a composite reliability score.</p>
-
-    <div class="card">
-      <h3 style="margin-top:0">Compression Tension Score (CTS, τ)</h3>
+      <h3>Compression Tension Score (CTS, $\tau$)</h3>
       <p>Per-site measure of compression cost. Used to gate outputs and trigger abstention.</p>
       <p>$$\tau_s = w_1 L_s + w_2 D_s + w_3 P_s + w_4 U_s$$</p>
-        </div>
 
-        <div class="card">
-          <h3 style="margin-top:0">Path Score</h3>
-          <p>Aggregate of τ across all compression sites in a pipeline for a single request. Determines end-to-end risk.</p>
-          <p>$$\tau_{\text{path}} = f(\tau_1, \tau_2, \ldots, \tau_n)$$</p>
-      <p class="muted" style="font-size:14px">$f$ can be max, sum, or a weighted combination depending on task sensitivity.</p>
-        </div>
+      <h3>Path Score</h3>
+      <p>Aggregate of $\tau$ across all compression sites in a pipeline for a single request. Determines end-to-end risk.</p>
+      <p>$$\tau_{\text{path}} = f(\tau_1, \tau_2, \ldots, \tau_n)$$</p>
+      <p class="small">$f$ can be max, sum, or a weighted combination depending on task sensitivity.</p>
 
-        <div class="card">
-          <h3 style="margin-top:0">Contradiction Density (CD)</h3>
-          <p>Rate of output contradiction across semantically equivalent prompt variants.</p>
+      <h3>Contradiction Density (CD)</h3>
+      <p>Rate of output contradiction across semantically equivalent prompt variants.</p>
       <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
-        </div>
 
-        <div class="card">
-          <h3 style="margin-top:0">Coherence Delta (CoD)</h3>
-          <p>Loss of semantic coherence from input to output, measured by embedding similarity or entailment.</p>
-          <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
-        </div>
+      <h3>Coherence Delta (CoD)</h3>
+      <p>Loss of semantic coherence from input to output, measured by embedding similarity or entailment.</p>
+      <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
 
-        <div class="card">
-          <h3 style="margin-top:0">Provenance Entropy</h3>
-          <p>Measure of how dispersed or concentrated evidence sources are. High entropy = weak entailment support.</p>
+      <h3>Provenance Entropy</h3>
+      <p>How dispersed or concentrated the evidence sources are. High entropy means weak entailment support.</p>
       <p>$$H_p = -\sum_i p_i \log(p_i)$$</p>
+
+      <h3>Composite CAI Score</h3>
+      <p>A single reliability signal combining the above.</p>
+      <p>$$CAI = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot H_p$$</p>
+      <p class="small">$\alpha$, $\beta$, $\gamma$ are tunable weights. Start with equal weighting and calibrate against your task accuracy baseline.</p>
+    </section>
+
+    <!-- 7. Scope -->
+    <section id="scope">
+      <h2>7. Scope and limits</h2>
+      <p>CAI makes strong claims. Here is where they hold and where they don't.</p>
+
+      <div class="grid two" style="margin-top: 24px;">
+        <div>
+          <h3>Where CAI is strong</h3>
+          <ul>
+            <li>Factual question-answering pipelines with retrievable ground truth</li>
+            <li>Multi-step reasoning chains where each step is a compression site</li>
+            <li>Long-context dialogues where compression strain accumulates over turns</li>
+            <li>Any pipeline where unsupported claims are costly: medical, legal, financial</li>
+          </ul>
         </div>
-
-        <div class="card">
-          <h3 style="margin-top:0">Composite CAI Score</h3>
-          <p>A single reliability signal combining the above.</p>
-          <p>$$\text{CAI} = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot H_p$$</p>
-      <p class="muted" style="font-size:14px">α, β, γ are tunable weights. Start with equal weighting and calibrate against your task accuracy baseline.</p>
-    </div>
-  </section>
-
-  <!-- Section 7 -->
-  <section id="scope" class="section-anchor" style="margin-top:48px">
-        <h2>7. Scope and limits</h2>
-
-    <p>CAI makes strong claims. Here is where those claims hold and where they don't.</p>
-
-        <div class="grid cols-2" style="margin-top:20px">
-          <div class="card">
-            <h3 style="margin-top:0">Where CAI is strong</h3>
-        <ul>
-          <li>Factual question-answering pipelines with retrievable ground truth</li>
-              <li>Multi-step reasoning chains where each step is a compression site</li>
-              <li>Long-context dialogues where compression strain accumulates over turns</li>
-              <li>Any pipeline where unsupported claims are costly (medical, legal, financial)</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3 style="margin-top:0">Where CAI is limited</h3>
-        <ul>
-          <li>Creative tasks where semantic fidelity is not the goal</li>
-          <li>Domains with no ground truth to measure compression loss against</li>
-          <li>Systems where the compression function is opaque (e.g., closed-weight models without logit access)</li>
-          <li>Real-time systems where latency budgets preclude full tension scoring</li>
-            </ul>
-          </div>
+        <div>
+          <h3>Where CAI is limited</h3>
+          <ul>
+            <li>Creative tasks where semantic fidelity is not the goal</li>
+            <li>Domains with no ground truth to measure compression loss against</li>
+            <li>Systems where the compression function is opaque (closed-weight models without logit access)</li>
+            <li>Real-time systems where latency budgets preclude full tension scoring</li>
+          </ul>
         </div>
+      </div>
 
-        <p style="margin-top:24px">
-          CAI does not claim to eliminate hallucination. It claims that hallucination is predictable from compression metrics, and that making compression explicit reduces unsupported claims at fixed accuracy. The counterexample challenge on the <a href="proof.html">Proof</a> page specifies exactly what would falsify this claim.
-        </p>
-      </section>
+      <p style="margin-top: 24px;">CAI does not claim to eliminate hallucination. It claims hallucination is predictable from compression metrics, and that making compression explicit reduces unsupported claims at fixed accuracy. The <a href="proof.html">Proof page</a> specifies exactly what would falsify this claim.</p>
+    </section>
 
-      <!-- Cite -->
-      <section id="cite" class="section-anchor card" style="margin-top:48px">
-    <h2 style="margin-top:0">Cite this work</h2>
-        <p>If you reference the CAI framework in your research, please cite the primary publication and link to this page.</p>
-    <div class="cta-row">
-      <a class="btn" href="publications.html">All publications with DOIs →</a>
-      <a class="btn ghost" href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI Overview (Zenodo)</a>
-        </div>
-      </section>
+    <!-- Cite -->
+    <section id="cite" style="margin-top: 56px;">
+      <h2>Cite this work</h2>
+      <p>If you reference the CAI framework in your research, please cite the primary publication and link to this page.</p>
+      <div class="cta-row">
+        <a class="btn ghost" href="publications.html">All publications with DOIs →</a>
+        <a class="btn ghost" href="https://zenodo.org/records/16467706">CAI Overview (Zenodo) →</a>
+      </div>
+    </section>
 
-    </main>
+  </div>
+</main>
 
-    <footer class="site-footer" role="contentinfo">
-      <div class="footer-links">
-        <a href="theory.html">The Theory</a>
-        <a href="glossary.html">Concepts</a>
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="theory.html">The Theory</a>
+    <a href="glossary.html">Concepts</a>
     <a href="publications.html">Publications</a>
     <a href="engineers.html">For Engineers</a>
     <a href="about.html">About</a>
     <a href="updates.html">Updates</a>
     <a href="proof.html">Proof</a>
-    <a href="research.html">Research</a>
-    <a href="applications.html">Applications</a>
     <a href="faq.html">FAQ</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
+    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
   </div>
-  <small>© <span id="year"></span> Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a></small>
+  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
 </footer>
-<script>
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
-</script>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,38 +1,135 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>About | CAI</title> <meta name="description" content="Who created Compression-Aware Intelligence and why." /> <link rel="icon" href="assets/favicon.png" /> <link rel="stylesheet" href="styles.css" /> <script defer src="script.js"></script> </head> <body> <a class="skip-link" href="#content">Skip to content</a> <header class="site-header" role="banner">
-  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
-    <span class="logo" aria-hidden="true"></span>
-    <span>CAI</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Compression-Aware Intelligence</title>
+  <meta name="description" content="About Michele Joseph and how the Compression-Aware Intelligence framework developed.">
+  <link rel="canonical" href="https://compressionawareintelligence.com/about.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="logo" aria-hidden="true"></div>
+    CAI
   </a>
   <nav class="nav" aria-label="Primary">
     <a href="index.html" data-nav>Home</a>
-    <a href="proof.html" data-nav>Proof</a>
-    <a href="research.html" data-nav>Research</a>
-    <a href="applications.html" data-nav>Applications</a>
-    <a href="glossary.html" data-nav>Glossary</a>
-    <a href="faq.html" data-nav>FAQ</a>
-    <a href="contact.html" data-nav>Contact</a>
+    <a href="theory.html" data-nav>The Theory</a>
+    <a href="glossary.html" data-nav>Concepts</a>
+    <a href="publications.html" data-nav>Publications</a>
+    <a href="engineers.html" data-nav>For Engineers</a>
+    <a href="about.html" data-nav aria-current="page">About</a>
+    <a href="updates.html" data-nav>Updates</a>
   </nav>
-  <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
-</header> <main class="wrap" id="content"> <section class="hero card"> <h1>About</h1> <p class="lede"> Compression-Aware Intelligence (CAI) is the framework that treats hallucinations and contradictions not as errors to eliminate, but as measurable signals of representation strain inside any cognitive system, and uses those signals to guide stability, coherence, and self-correction. </p> <div class="cta-row"> <a class="btn" href="foundations.html">Read the foundations</a> <a class="btn ghost" href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">Overview paper</a> </div> </section> <section class="card"> <h2>More about CAI</h2> <p> CAI makes AI systems compression-aware, so they can see where meaning is being lost, measure strain before it becomes hallucination, and make reasoning traceable and reliable. </p> </section> <section class="grid two"> <div class="card"> <h2>What to use</h2> <ul> <li><strong>Compression sites:</strong> identify where information is reduced.</li> <li><strong>Compression Tension Score (CTS):</strong> quantify the cost of each compression.</li> <li><strong>Contradiction handling:</strong> map conflicts and use them as signals.</li> <li><strong>Provenance entropy:</strong> measure how strong or diffuse evidence is.</li> <li><strong>Auditability:</strong> make steps replayable and verifiable.</li> </ul> </div> <div class="card"> <h2>How to cite</h2> <p>If CAI helps your work, please cite the overview and link to this site so others can find the source.</p> <ul> <li><a href="https://zenodo.org/records/16467706" target="_blank" rel="noopener">CAI overview (Zenodo)</a></li> <li><a href="https://github.com/michelejoseph/compression-aware-intelligence-demo" target="_blank" rel="noopener">Prototype repo</a></li> </ul> </div> </section> </main> <footer class="site-footer" role="contentinfo">
-  <div class="footer-links">
-    <a href="proof.html">Proof</a>
-    <a href="dataset.html">Dataset</a>
-    <a href="coherencefield.html">Coherence Field</a>
-    <a href="principles.html">Principles</a>
-    <a href="applications.html">Applications</a>
-    <a href="contradictions.html">Contradictions</a>
-    <a href="implementations.html">Implementations</a>
-    <a href="diagnostics.html">Diagnostics</a>
-    <a href="research.html">Research</a>
-    <a href="glossary.html">Glossary</a>
-    <a href="faq.html">FAQ</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
+  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
+</header>
+
+<main id="content">
+  <div class="wrap">
+
+    <section class="hero" style="padding-bottom: 32px;">
+      <p class="hero-eyebrow">About</p>
+      <h1>Michele Joseph</h1>
+      <p class="hero-sub">Creator of Compression-Aware Intelligence.</p>
+    </section>
+
+    <!-- Origin -->
+    <section id="origin">
+      <h2>How this started</h2>
+      <p>CAI began with a question: if every useful system compresses information, and if hidden compression is where errors hide, what would it look like to instrument compression explicitly and use it as a reliability signal?</p>
+      <p>That question turned out to be harder to dismiss than I expected. The more I looked, the more I found the same pattern: systems that compressed without tracking what they compressed produced fluent, confident output that was structurally wrong. The fluency was not incidental. It was a direct consequence of the compression being invisible.</p>
+      <p>The framework grew out of trying to make that pattern precise. What counts as a compression site? How do you score the cost of a compression operation? When is the cost too high to assert a claim? The answers to those questions are CAI.</p>
+    </section>
+
+    <!-- The framework -->
+    <section id="framework" style="margin-top: 48px;">
+      <h2>What CAI is</h2>
+      <p>CAI is a framework for treating AI hallucinations and contradictions as measurable signals of representation strain, and using those signals to guide stability, coherence, and self-correction.</p>
+      <p>The core tools are:</p>
+      <ul>
+        <li><strong>Compression sites:</strong> identify where information is reduced</li>
+        <li><strong>Compression Tension Score (CTS):</strong> quantify the cost of each compression</li>
+        <li><strong>Contradiction handling:</strong> map conflicts and use them as signals</li>
+        <li><strong>Provenance entropy:</strong> measure how strong or diffuse evidence is</li>
+        <li><strong>Auditability:</strong> make steps replayable and verifiable</li>
+      </ul>
+      <p>The design goal is a system that can see where meaning is being lost, measure strain before it becomes hallucination, and make reasoning traceable.</p>
+    </section>
+
+    <!-- Intellectual lineage -->
+    <section id="lineage" style="margin-top: 48px;">
+      <h2>Where the ideas come from</h2>
+      <p>CAI sits at the intersection of information theory, interpretability research, and systems engineering. A few things that shaped it:</p>
+
+      <h3>Information theory</h3>
+      <p>The minimum description length (MDL) principle links the best model of data to the shortest compression of it. Shannon's entropy gives CAI its formalism for provenance dispersion. The foundational intuition that compression is not optional but structurally forced comes from here.</p>
+
+      <h3>Neuroscience</h3>
+      <p>Sparse coding and predictive coding show that compression in biological intelligence is not incidental. It is the organizing principle. The retina, thalamus, and visual cortex form a compression cascade. I applied the same architectural analysis to AI pipelines.</p>
+
+      <h3>Interpretability research</h3>
+      <p>The interpretability literature's effort to understand model representations provides the diagnostic motivation for CAI. Where interpretability often focuses on post-hoc analysis, CAI focuses on pre-hoc instrumentation: building pipelines so that compression is visible before failure occurs.</p>
+
+      <h3>Engineering</h3>
+      <p>The CAI principles are engineering principles, not only research concepts. They were designed to be implementable in real pipelines by practitioners who do not have research programs behind them. That constraint shaped everything about how the framework is specified.</p>
+    </section>
+
+    <!-- Why "compression-aware" -->
+    <section id="name" style="margin-top: 48px;">
+      <h2>Why "compression-aware"</h2>
+      <p>The phrase comes from systems engineering, where a compression-aware system is one that knows about its own compression: it doesn't just compress data, it tracks what it compressed and why.</p>
+      <p>The analogy is exact. A compression-aware AI system doesn't just reduce information; it records the cost of that reduction, attaches provenance to the output, and abstains when the cost is too high.</p>
+      <p>The word "aware" carries a second meaning: self-knowledge. A system that is aware of its own representational choices is better positioned to correct for them. That is the Triarch concept at the core of CAI's design philosophy: compression, decompression, and awareness in tension.</p>
+    </section>
+
+    <!-- Cite / contact -->
+    <section id="contact" style="margin-top: 48px;">
+      <h2>Cite and contact</h2>
+      <p>If CAI helps your work, please cite the overview paper and link to this site.</p>
+
+      <div class="card" style="margin: 20px 0;">
+        <pre style="margin: 0;">@misc{joseph_cai_overview,
+  author       = {Michele Joseph},
+  title        = {Compression-Aware Intelligence:
+                  Overview and Reference Pipeline},
+  year         = {2025},
+  howpublished = {Zenodo},
+  url          = {https://zenodo.org/records/16467706},
+  doi          = {10.5281/zenodo.16467706}
+}</pre>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn ghost" href="publications.html">All publications →</a>
+        <a class="btn ghost" href="https://github.com/michelejoseph/compression-aware-intelligence-demo">Prototype repo →</a>
+      </div>
+
+      <p style="margin-top: 28px;">For collaboration on the research directions, pilot reports, or press inquiries: <a href="mailto:michele.a.joseph@gmail.com">michele.a.joseph@gmail.com</a></p>
+    </section>
+
   </div>
-  <small>© <span id="year"></span> Compression-Aware Intelligence</small>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="theory.html">The Theory</a>
+    <a href="glossary.html">Concepts</a>
+    <a href="publications.html">Publications</a>
+    <a href="engineers.html">For Engineers</a>
+    <a href="about.html">About</a>
+    <a href="updates.html">Updates</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
+  </div>
+  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
 </footer>
-<script>
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
-</script> </body> </html>
+
+<script src="script.js"></script>
+</body>
+</html>
