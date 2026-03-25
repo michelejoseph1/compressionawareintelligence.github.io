@@ -1,179 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compression-Aware Intelligence</title>
-  <meta name="description" content="CAI is a framework for measuring and governing AI reliability through compression strain scoring, contradiction detection, and evidence-based abstention.">
-  <link rel="canonical" href="https://compressionawareintelligence.com/">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compression-Aware Intelligence · Reliability layer for AI systems</title>
+  <meta name="description" content="CAI measures compression strain across semantically equivalent prompts to surface contradictions and compression failures before they reach production." />
+  <link rel="canonical" href="https://compressionawareintelligence.com/" />
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Compression-Aware Intelligence (CAI)" />
+  <meta property="og:description" content="CAI measures stability across semantically equivalent prompts to surface contradictions and compression failures before they hit production." />
+  <meta property="og:image" content="https://compressionawareintelligence.com/assets/cai-card.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://compressionawareintelligence.com/" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compression-Aware Intelligence (CAI)">
+  <meta name="twitter:description" content="Reliability layer for AI systems: test semantic stability, find contradictions, reduce hallucinations.">
+  <meta name="twitter:image" content="https://compressionawareintelligence.com/assets/cai-card.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
   <script>
-    window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
+    window.MathJax = {
+      tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Compression-Aware Intelligence",
+    "url": "https://compressionawareintelligence.com/",
+    "sameAs": ["https://github.com/michelejoseph1", "https://www.contradictionengineering.com"]
+  }
+  </script>
 </head>
 <body>
 
 <a class="skip-link" href="#content">Skip to content</a>
 
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <div class="logo" aria-hidden="true"></div>
-    CAI
+<header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
   </a>
   <nav class="nav" aria-label="Primary">
     <a href="index.html" data-nav aria-current="page">Home</a>
-    <a href="theory.html" data-nav>The Theory</a>
-    <a href="glossary.html" data-nav>Concepts</a>
-    <a href="publications.html" data-nav>Publications</a>
-    <a href="engineers.html" data-nav>For Engineers</a>
-    <a href="about.html" data-nav>About</a>
-    <a href="updates.html" data-nav>Updates</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="glossary.html" data-nav>Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="contact.html" data-nav>Contact</a>
   </nav>
-  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
+  <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
 </header>
 
-<main id="content">
-  <div class="wrap">
+<main class="wrap" id="content">
 
-    <!-- Hero -->
-    <section class="hero">
-      <p class="hero-eyebrow">Compression-Aware Intelligence</p>
-      <h1>Hallucination is not random.<br>It is measurable.</h1>
-      <p class="hero-sub">CAI is a framework that treats AI hallucinations as compression failures, not glitches. It defines measurable signals for where meaning is lost, predicts where outputs will drift, and gives you tools to gate, audit, and fix it.</p>
-      <div class="cta-row">
-        <a class="btn" href="theory.html">Explore the Theory</a>
-        <a class="btn ghost" href="engineers.html">Apply the Framework →</a>
-      </div>
-    </section>
-
-    <!-- One-line anchor -->
-    <div class="claim">
-      <p><strong>Compression-Aware Intelligence</strong> is the framework that formalizes compression as the mechanism of intelligence, and contradiction, hallucination, and drift as its measurable failure modes.</p>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-eyebrow">AI Reliability Framework</p>
+    <h1 id="hero-title">The Reliability Layer<br>for AI Systems</h1>
+    <p class="hero-sub">
+      AI systems fail when they can't show what they compressed.
+      CAI measures compression strain across semantically equivalent
+      prompts — surfacing contradictions before they reach production.
+    </p>
+    <div class="cta-row">
+      <a class="btn" href="proof.html">Read the Proof</a>
+      <a class="btn ghost" href="https://michelejoseph.github.io/cai-demo/" target="_blank" rel="noopener">Run the Demo →</a>
     </div>
+  </section>
 
-    <!-- Split path -->
-    <div class="grid two" style="margin: 48px 0;">
-      <div class="card">
-        <p class="section-label">For Researchers</p>
-        <h3>Explore the Theory</h3>
-        <p>Understand why compression is the mechanism of intelligence, how contradiction and compression strain relate, and where hallucination fits in the formal CAI framework.</p>
-        <a href="theory.html">Read the foundations →</a>
-      </div>
-      <div class="card">
-        <p class="section-label">For Engineers</p>
-        <h3>Apply the Framework</h3>
-        <p>See how CAI translates into real tools: hallucination detection, contradiction gating, compression strain scoring, and implementation patterns for production pipelines.</p>
-        <a href="engineers.html">Start building →</a>
-      </div>
+  <!-- Three concepts -->
+  <div class="card-grid">
+    <div class="card-sm">
+      <p class="section-label">Detect</p>
+      <h3>Contradiction Density</h3>
+      <p>Measure how often a model's outputs contradict each other across rephrased but semantically identical prompts.</p>
     </div>
-
-    <!-- What is CAI -->
-    <section>
-      <h2>What is CAI?</h2>
-      <p>Every useful system compresses. Language models compress training data into weights. Retrievers compress corpora into ranked passages. Summarizers compress documents into paragraphs.</p>
-      <p>When that compression is invisible, errors hide inside it. Hallucinations are compressed contradictions the system never had to resolve.</p>
-      <p>CAI makes the compression explicit. It defines a measurable signal, compression strain, and a scoring framework that predicts where outputs will drift, routes around failure, and lets you build safer, more auditable AI systems.</p>
-      <div class="cta-row" style="margin-top: 24px;">
-        <a href="theory.html">Read the full theory →</a>
-        <a href="publications.html" style="margin-left: 16px;">Browse publications →</a>
-      </div>
-    </section>
-
-    <!-- Three signals -->
-    <section style="margin-top: 56px;">
-      <div class="card-grid">
-        <div class="card-sm">
-          <h3>Compression Strain</h3>
-          <p>A normalized score measuring the cost at each compression site: retrieval, summarization, generation, before claims reach users.</p>
-        </div>
-        <div class="card-sm">
-          <h3>Contradiction Density</h3>
-          <p>How often a model contradicts itself across semantically identical prompts rephrased differently. High density signals high strain.</p>
-        </div>
-        <div class="card-sm">
-          <h3>Abstention and Provenance</h3>
-          <p>Block unsupported claims at the source. Attach provenance to every output so failures are auditable and correctable.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Core Metrics -->
-    <section style="margin-top: 56px;">
-      <h2>The Core Metrics</h2>
-      <p class="lede">Three composable signals that combine into a single CAI reliability score.</p>
-
-      <div class="grid two" style="margin-top: 32px; gap: 20px;">
-        <div class="card">
-          <h3>Contradiction Density</h3>
-          <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
-        </div>
-        <div class="card">
-          <h3>Coherence Delta</h3>
-          <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
-        </div>
-        <div class="card">
-          <h3>Entropy Risk Score</h3>
-          <p>$$ERS = -\sum_i p_i \log(p_i)$$</p>
-        </div>
-        <div class="card">
-          <h3>Composite CAI Score</h3>
-          <p>$$CAI = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot ERS$$</p>
-          <p class="small">$\alpha$, $\beta$, $\gamma$ are tunable weights. Start with equal weighting and calibrate against your task accuracy baseline.</p>
-        </div>
-      </div>
-
-      <div class="cta-row" style="margin-top: 24px;">
-        <a href="theory.html#metrics">Full metric definitions →</a>
-        <a href="engineers.html" style="margin-left: 16px;">Implementation guide →</a>
-      </div>
-    </section>
-
-    <!-- Explore the framework -->
-    <section style="margin-top: 64px;">
-      <h2>Explore the Framework</h2>
-      <div class="card-grid">
-        <div class="card-sm">
-          <p class="section-label">Foundations</p>
-          <h3><a href="theory.html">The Theory</a></h3>
-          <p>Why compression is the mechanism of intelligence and how hallucination follows from compression strain.</p>
-        </div>
-        <div class="card-sm">
-          <p class="section-label">Reference</p>
-          <h3><a href="glossary.html">Core Concepts</a></h3>
-          <p>Precise definitions for every CAI term: Hallucinet, Mirror Flags, CTS, Contradiction Template Atlas, and more.</p>
-        </div>
-        <div class="card-sm">
-          <p class="section-label">Cite</p>
-          <h3><a href="publications.html">Publications</a></h3>
-          <p>All Zenodo papers and formal publications in one place, with DOIs front and center.</p>
-        </div>
-        <div class="card-sm">
-          <p class="section-label">Build</p>
-          <h3><a href="engineers.html">For Engineers</a></h3>
-          <p>Practical guides, explainers, and implementation patterns for adding CAI to real pipelines.</p>
-        </div>
-      </div>
-    </section>
-
+    <div class="card-sm">
+      <p class="section-label">Measure</p>
+      <h3>Compression Strain</h3>
+      <p>Score the tension at each compression site — retrieval, summarization, generation — before claims reach users.</p>
+    </div>
+    <div class="card-sm">
+      <p class="section-label">Gate</p>
+      <h3>Abstention &amp; Provenance</h3>
+      <p>Block unsupported claims at the source. Attach provenance to every output so failures are auditable.</p>
+    </div>
   </div>
+
+  <!-- What is CAI -->
+  <section class="card" aria-labelledby="what-is-cai">
+    <h2 id="what-is-cai" style="margin-top:0">What is CAI?</h2>
+    <p>
+      Every useful system compresses. Language models compress training data into weights. Retrievers compress corpora into ranked passages. Summarizers compress documents into paragraphs. When that compression is invisible, errors hide inside it — and hallucinations are just compressed contradictions that the system never had to resolve.
+    </p>
+    <p>
+      Compression-Aware Intelligence makes the compression explicit. It defines a measurable signal — <strong>compression strain</strong> — and provides a scoring framework that predicts where outputs will drift, routes around failure, and lets you ship safer AI systems.
+    </p>
+    <div class="cta-row" style="margin-top:24px">
+      <a class="btn ghost" href="proof.html">See the Claims &amp; Experiments</a>
+      <a class="btn ghost" href="research.html">Browse the Research</a>
+    </div>
+  </section>
+
+  <!-- CAI Score formula — minimal, clean -->
+  <section class="card" aria-labelledby="metrics-title">
+    <h2 id="metrics-title" style="margin-top:0">The Core Metrics</h2>
+    <p class="muted">Three composable signals that give you a single CAI reliability score.</p>
+    <div class="grid cols-2" style="margin-top:24px; gap:24px">
+      <div>
+        <p class="section-label">Contradiction Density</p>
+        <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
+      </div>
+      <div>
+        <p class="section-label">Coherence Delta</p>
+        <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
+      </div>
+      <div>
+        <p class="section-label">Entropy Risk Score</p>
+        <p>$$ERS = -\sum_i p_i \log(p_i)$$</p>
+      </div>
+      <div>
+        <p class="section-label">Composite CAI Score</p>
+        <p>$$\text{CAI} = \alpha \cdot CD + \beta \cdot CoD + \gamma \cdot ERS$$</p>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px; font-size:14px">
+      α, β, γ are tunable weights. Start with equal weighting and calibrate against your task accuracy baseline.
+    </p>
+  </section>
+
+  <!-- Explore -->
+  <section aria-labelledby="explore-title">
+    <h2 id="explore-title">Explore the Framework</h2>
+    <div class="grid cols-2">
+      <a href="proof.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Start here</p>
+        <h3 style="margin-top:0">Proof</h3>
+        <p class="muted" style="font-size:14px">Falsifiable claims, experiments you can run today, and a counterexample challenge.</p>
+      </a>
+      <a href="dataset.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Data</p>
+        <h3 style="margin-top:0">Dataset</h3>
+        <p class="muted" style="font-size:14px">Prompt pairs, contradiction labels, and compression strain scores for benchmarking.</p>
+      </a>
+      <a href="implementations.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Build</p>
+        <h3 style="margin-top:0">Implementations</h3>
+        <p class="muted" style="font-size:14px">Ready-to-use patterns for adding CAI gating to real pipelines.</p>
+      </a>
+      <a href="applications.html" class="card" style="text-decoration:none; color:inherit; display:block">
+        <p class="section-label">Apply</p>
+        <h3 style="margin-top:0">Applications</h3>
+        <p class="muted" style="font-size:14px">How CAI applies across medical, legal, financial, and software contexts.</p>
+      </a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" role="contentinfo">
   <div class="footer-links">
-    <a href="theory.html">The Theory</a>
-    <a href="glossary.html">Concepts</a>
-    <a href="publications.html">Publications</a>
-    <a href="engineers.html">For Engineers</a>
-    <a href="about.html">About</a>
-    <a href="updates.html">Updates</a>
     <a href="proof.html">Proof</a>
+    <a href="dataset.html">Dataset</a>
+    <a href="coherencefield.html">Coherence Field</a>
+    <a href="principles.html">Principles</a>
+    <a href="applications.html">Applications</a>
+    <a href="contradictions.html">Contradictions</a>
+    <a href="implementations.html">Implementations</a>
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="research.html">Research</a>
+    <a href="glossary.html">Glossary</a>
     <a href="faq.html">FAQ</a>
-    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
   </div>
-  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
+  <small>© <span id="year"></span> Compression-Aware Intelligence</small>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+</script>
 </body>
 </html>

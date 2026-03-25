@@ -1,260 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Core Concepts | Compression-Aware Intelligence</title>
-  <meta name="description" content="Precise definitions for every CAI term: Hallucinet, Mirror Flags, CTS, compression strain, contradiction density, and more.">
-  <link rel="canonical" href="https://compressionawareintelligence.com/glossary.html">
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    window.MathJax = { tex: { inlineMath: [['$','$']] }, svg: { fontCache: 'global' } };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-</head>
-<body>
-
-<a class="skip-link" href="#content">Skip to content</a>
-
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <div class="logo" aria-hidden="true"></div>
-    CAI
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>glossary | CAI</title> <meta name="description" content="core terms in Compression-Aware Intelligence with crisp definitions, formulas, and deep links to foundations and implementations." /> <link rel="icon" href="assets/favicon.png" /> <link rel="stylesheet" href="styles.css" /> <link rel="canonical" href="https://www.compressionawareintelligence.com/glossary.html" /> <meta property="og:title" content="glossary | compression-aware intelligence" /> <meta property="og:description" content="definitions for CTS (τ), provenance entropy, abstention thresholds, contradiction score, compression maps, and more." /> <meta property="og:type" content="website" /> <meta property="og:url" content="https://www.compressionawareintelligence.com/glossary.html" /> <meta name="twitter:card" content="summary" /> <script defer src="script.js"></script> <!-- structured data: defined term set for rich results --> <script type="application/ld+json"> { "@context":"https://schema.org", "@type":"DefinedTermSet", "name":"CAI Glossary", "url":"https://www.compressionawareintelligence.com/glossary.html", "hasDefinedTerm":[ {"@type":"DefinedTerm","name":"Compression Site","url":"#compression-site"}, {"@type":"DefinedTerm","name":"Compression Tension Score (CTS, τ)","url":"#compression-tension-score"}, {"@type":"DefinedTerm","name":"Path Score","url":"#path-score"}, {"@type":"DefinedTerm","name":"Abstention Threshold (τ*)","url":"#abstention-threshold"}, {"@type":"DefinedTerm","name":"Contradiction Score (CS)","url":"#contradiction-score"}, {"@type":"DefinedTerm","name":"Provenance","url":"#provenance"}, {"@type":"DefinedTerm","name":"Provenance Entropy","url":"#provenance-entropy"}, {"@type":"DefinedTerm","name":"Unsupported Claim","url":"#unsupported-claim"}, {"@type":"DefinedTerm","name":"Compression Map","url":"#compression-map"}, {"@type":"DefinedTerm","name":"Mirror Flags","url":"#mirror-flags"}, {"@type":"DefinedTerm","name":"MirrorNet","url":"#mirronet"}, {"@type":"DefinedTerm","name":"Hallucinet","url":"#hallucinet"}, {"@type":"DefinedTerm","name":"Contradish","url":"#contradish"}, {"@type":"DefinedTerm","name":"Auditability","url":"#auditability"}, {"@type":"DefinedTerm","name":"Entailment","url":"#entailment"}, {"@type":"DefinedTerm","name":"Triarch","url":"#triarch"} ] } </script> <style> /* light local helpers that play nice with styles.css */ .pill-nav {display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem} .pill-nav a {border:1px solid var(--ink,#111); padding:.35rem .65rem; border-radius:999px; text-decoration:none} .search {display:flex; gap:.5rem; align-items:center; margin:.5rem 0 1rem} .search input {flex:1; padding:.55rem .7rem; border:1px solid rgba(0,0,0,.2); border-radius:.5rem; font:inherit} .letter {margin-top:1.25rem} dl {margin:0} dt {margin:1rem 0 .25rem; font-weight:700} dd {margin:0 0 .75rem 0} .tag {display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid currentColor; border-radius:.5rem} .muted {opacity:.85} .copy-link {font:inherit; border:1px solid currentColor; padding:.25rem .55rem; border-radius:.5rem; background:transparent; cursor:pointer} .term-actions {display:flex; gap:.5rem; align-items:center; margin:.25rem 0 .5rem} .alpha {display:flex; flex-wrap:wrap; gap:.35rem} .alpha a {font-variant-numeric:tabular-nums; text-decoration:none; padding:.15rem .35rem; border-radius:.35rem; border:1px solid transparent} .alpha a:hover {border-color:rgba(0,0,0,.25)} .card .hidden {display:none} .back-top {text-align:right; margin-top:.5rem} @media (max-width: 820px){ .back-top {text-align:left} } </style> </head> <body> <a class="skip-link" href="#content">Skip to content</a> <header class="site-header" role="banner">
+  <a class="brand" href="index.html" aria-label="Compression-Aware Intelligence home">
+    <span class="logo" aria-hidden="true"></span>
+    <span>CAI</span>
   </a>
   <nav class="nav" aria-label="Primary">
     <a href="index.html" data-nav>Home</a>
-    <a href="theory.html" data-nav>The Theory</a>
-    <a href="glossary.html" data-nav aria-current="page">Concepts</a>
-    <a href="publications.html" data-nav>Publications</a>
-    <a href="engineers.html" data-nav>For Engineers</a>
-    <a href="about.html" data-nav>About</a>
-    <a href="updates.html" data-nav>Updates</a>
+    <a href="proof.html" data-nav>Proof</a>
+    <a href="research.html" data-nav>Research</a>
+    <a href="applications.html" data-nav>Applications</a>
+    <a href="glossary.html" data-nav aria-current="page">Glossary</a>
+    <a href="faq.html" data-nav>FAQ</a>
+    <a href="contact.html" data-nav>Contact</a>
   </nav>
-  <a class="nav-demo" href="https://michelejoseph.github.io/cai-demo/">Demo →</a>
-</header>
-
-<main id="content">
-  <div class="wrap">
-
-    <section class="hero" style="padding-bottom: 32px;">
-      <p class="hero-eyebrow">Core Concepts</p>
-      <h1>Glossary</h1>
-      <p class="hero-sub">Short, testable definitions. Each entry links to where it's formalized or used in practice.</p>
-    </section>
-
-    <!-- Jump links -->
-    <nav class="pill-nav" aria-label="Terms">
-      <a href="#framework">Framework terms</a>
-      <a href="#metrics">Metrics</a>
-      <a href="#tools">Tools</a>
-      <a href="#research">Research concepts</a>
-      <a href="#benchmarks">Benchmarks</a>
-    </nav>
-
-    <!-- Framework terms -->
-    <section id="framework">
-      <h2>Framework terms</h2>
-
-      <details open id="cai">
-        <summary>Compression-Aware Intelligence (CAI)</summary>
-        <p>A system design and evaluation framework that makes compression operations explicit, scores their cost with a measurable tension signal, and enforces evidence-based abstention when claims exceed safe thresholds.</p>
-        <p>CAI treats hallucination and contradiction not as errors to eliminate but as measurable signals of representation strain. The goal is not zero hallucination but explicit, auditable, governable compression.</p>
-        <p class="small">Formalized in: <a href="https://zenodo.org/records/16467706">Overview (Zenodo)</a>, <a href="theory.html">The Theory</a>, <a href="proof.html">Proof</a></p>
-      </details>
-
-      <details id="compression-site">
-        <summary>Compression Site</summary>
-        <p>A discrete step in an information pipeline where data, context, or meaning is reduced. In a standard RAG pipeline: retrieval pruning, ranking, summarization, generation, redaction, post-edit review.</p>
-        <p>Each site is identified, scored with a CTS value, and linked to provenance. Naming the compression sites is Principle 1 of CAI.</p>
-        <p class="small">See: <a href="theory.html#strain">Theory §3</a>, <a href="proof.html">Proof</a></p>
-      </details>
-
-      <details id="abstention-threshold">
-        <summary>Abstention Threshold (τ*)</summary>
-        <p>The tunable gating value applied to the CTS path score. When CTS exceeds τ*, or when verifier entailment fails, the system abstains rather than asserting.</p>
-        <p>Abstentions should cluster where τ is highest. Uncalibrated abstention at low τ means the threshold is misconfigured.</p>
-        <p class="small">See: <a href="theory.html#metrics">Theory §6</a>, <a href="engineers.html">For Engineers</a></p>
-      </details>
-
-      <details id="provenance">
-        <summary>Provenance</summary>
-        <p>The complete record of sources, transformations, and parameters that produced a given output. A claim without provenance cannot be independently verified.</p>
-        <p>CAI systems attach provenance to every output so failures are auditable and review is fast.</p>
-        <p class="small">See: <a href="proof.html">Proof</a>, <a href="engineers.html">For Engineers</a></p>
-      </details>
-
-      <details id="unsupported-claim">
-        <summary>Unsupported Claim</summary>
-        <p>An output not entailed by available evidence or not covered by provenance. CAI systems abstain instead of asserting.</p>
-        <p>Reducing unsupported claim rate at fixed task accuracy is the primary outcome metric for a CAI pilot.</p>
-        <p class="small">See: <a href="proof.html">Proof</a>, <a href="faq.html">FAQ</a></p>
-      </details>
-
-      <details id="auditability">
-        <summary>Auditability</summary>
-        <p>The fraction of pipeline steps reproducible by a third party using stored artifacts. Formally: $\text{Audit}(\mathcal{P}) = \frac{\text{steps with replayable artifacts}}{n}$.</p>
-        <p>CAI targets Audit ≥ 0.9 for public-facing claims and ≥ 0.7 for internal use.</p>
-        <p class="small">See: <a href="proof.html">Proof</a></p>
-      </details>
-    </section>
-
-    <!-- Metrics -->
-    <section id="metrics">
-      <h2>Metrics</h2>
-
-      <details id="cts" open>
-        <summary>Compression Tension Score (CTS, τ)</summary>
-        <p>A normalized per-site score estimating the risk cost of a single compression step. Combines four components:</p>
-        <p>$$\tau_s = w_1 \cdot L_s + w_2 \cdot D_s + w_3 \cdot P_s + w_4 \cdot U_s$$</p>
-        <ul>
-          <li>$L_s$: information loss (e.g., KL divergence or task-accuracy drop)</li>
-          <li>$D_s$: task degradation</li>
-          <li>$P_s$: provenance gap</li>
-          <li>$U_s$: output uncertainty</li>
-        </ul>
-        <p>Each term normalized to $[0,1]$ with weights summing to 1. Path score aggregates τ across all sites.</p>
-        <p class="small">Formal definition: <a href="theory.html#metrics">Theory §6</a></p>
-      </details>
-
-      <details id="contradiction-density">
-        <summary>Contradiction Density (CD)</summary>
-        <p>How often a model contradicts itself across semantically equivalent but differently-phrased prompts.</p>
-        <p>$$CD = \frac{\text{contradictions detected}}{\text{total outputs evaluated}}$$</p>
-        <p>High CD is a reliable proxy for high compression strain at the generation stage.</p>
-        <p class="small">See: <a href="theory.html#contradiction">Theory §5</a></p>
-      </details>
-
-      <details id="contradiction-score">
-        <summary>Contradiction Score (CS)</summary>
-        <p>A measure of net conflict between two claims, derived from NLI entailment and contradiction probabilities:</p>
-        <p>$$CS(c_1, c_2) = p_{\text{contradiction}} - p_{\text{entailment}} \in [-1, 1]$$</p>
-        <p>Positive CS means net contradiction. Negative means entailment. CAI systems either reconcile or abstain when CS is positive.</p>
-        <p class="small">See: <a href="theory.html#contradiction">Theory §5</a></p>
-      </details>
-
-      <details id="coherence-delta">
-        <summary>Coherence Delta (CoD)</summary>
-        <p>Loss of semantic coherence from input to output, measured by embedding similarity or entailment.</p>
-        <p>$$CoD = \text{Coherence}_{\text{before}} - \text{Coherence}_{\text{after}}$$</p>
-        <p>High CoD at a summarization step means the summarizer is losing more signal than it should.</p>
-        <p class="small">See: <a href="theory.html#metrics">Theory §6</a></p>
-      </details>
-
-      <details id="provenance-entropy">
-        <summary>Provenance Entropy</summary>
-        <p>How dispersed or concentrated the evidence sources behind a claim are.</p>
-        <p>$$H_p = -\sum_i p_i \log p_i, \quad \text{Conf} = 1 - \frac{H_p}{\log K}$$</p>
-        <p>High confidence: a small set of strongly-entailed, verifiable sources dominate. High entropy: claim assembled from many weakly-supporting fragments. High entropy claims should trigger abstention.</p>
-        <p class="small">See: <a href="theory.html#metrics">Theory §6</a></p>
-      </details>
-
-      <details id="path-score">
-        <summary>Path Score</summary>
-        <p>Aggregation of τ across all compression sites for a single request path. Used to compare pipeline designs, set compression budgets, and trigger abstention.</p>
-        <p>$$\tau_{\text{path}} = f(\tau_1, \tau_2, \ldots, \tau_n)$$</p>
-        <p>$f$ can be max, sum, or weighted combination depending on task sensitivity.</p>
-        <p class="small">See: <a href="theory.html#metrics">Theory §6</a></p>
-      </details>
-    </section>
-
-    <!-- Tools -->
-    <section id="tools">
-      <h2>Tools</h2>
-
-      <details id="hallucinet" open>
-        <summary>Hallucinet</summary>
-        <p>A CAI tool that monitors model outputs for risky compression paths and triggers abstention when τ exceeds a configured threshold.</p>
-        <p>Hallucinet instruments compression sites and surfaces which specific sites are responsible for flagged outputs, making failure auditable rather than opaque.</p>
-        <p class="small">See: <a href="engineers.html">For Engineers</a></p>
-      </details>
-
-      <details id="mirrornet">
-        <summary>MirrorNet</summary>
-        <p>A CAI interface layer that makes compression choices visible to both users and the model. Where Hallucinet gates reactively, MirrorNet makes tradeoffs proactive and steerable. Users adjust evidence strictness and abstention level; the system shows how each adjustment changes its compression map.</p>
-        <p class="small">See: <a href="engineers.html">For Engineers</a></p>
-      </details>
-    </section>
-
-    <!-- Research concepts -->
-    <section id="research">
-      <h2>Research concepts</h2>
-
-      <details id="cps">
-        <summary>Compression Phase Shift (CPS)</summary>
-        <p>A research concept treating hallucination as a discrete phase transition rather than continuous degradation. Under rising compression pressure, a model moves through three regimes: stable (coherent, consistent), critical (elevated variance, sensitive to small input changes), and unstable (decoherent, contradictory).</p>
-        <p>The hypothesis: there is a sharp, measurable threshold between the critical and unstable regimes that can be monitored in real time.</p>
-        <p class="small">See: <a href="theory.html">The Theory</a>, <a href="proof.html">Proof</a></p>
-      </details>
-
-      <details id="csm">
-        <summary>Compression Strain Memory (CSM)</summary>
-        <p>A research concept modeling how compression strain accumulates across extended conversations and multi-step tasks. Each summarization, revision, or reinterpretation operation leaves residual strain, similar to fatigue in a material under repeated load.</p>
-        <p>Long-context drift may be better explained as accumulated CSM than as a context-length limitation.</p>
-        <p class="small">See: <a href="theory.html">The Theory</a></p>
-      </details>
-
-      <details id="spg">
-        <summary>Semantic Pressure Gradients (SPG)</summary>
-        <p>A research concept describing the uneven distribution of compression pressure across a model's semantic space. Some regions of the embedding or activation space are dense, overlapping, or poorly differentiated: regions where contradictions are more likely to be silently merged.</p>
-        <p>SPG aims to map these high-pressure zones and predict which prompts are structurally unstable before they are executed.</p>
-        <p class="small">See: <a href="theory.html">The Theory</a></p>
-      </details>
-
-      <details id="mirror-flags">
-        <summary>Mirror Flags</summary>
-        <p>Diagnostic markers that indicate disowned traits, false integration, or narrative breaks in inputs or outputs. They surface locations where compression bent meaning: where the system resolved a tension not by tracking it but by silently selecting one side.</p>
-        <p class="small">See: <a href="theory.html#contradiction">Theory §5</a></p>
-      </details>
-
-      <details id="triarch">
-        <summary>Triarch</summary>
-        <p>An orienting concept for CAI design: compression, decompression, and awareness held in dynamic tension. A well-designed compression-aware system doesn't only compress; it also decompresses selectively for verification and maintains awareness of the cost of each tradeoff.</p>
-        <p>Used as a compass for architectural decisions and design review.</p>
-        <p class="small">See: <a href="about.html">About</a></p>
-      </details>
-
-      <details id="contradiction-template-atlas">
-        <summary>Contradiction Template Atlas</summary>
-        <p>A taxonomy of contradiction types that recur across domains. Templates include: factual contradictions (claim A and ¬A), temporal contradictions (different claims about when), scope contradictions (universal vs. qualified claims), and source contradictions (claims that cannot be simultaneously true given their provenance).</p>
-        <p class="small">See: <a href="theory.html#contradiction">Theory §5</a></p>
-      </details>
-    </section>
-
-    <!-- Benchmarks -->
-    <section id="benchmarks">
-      <h2>Benchmarks</h2>
-
-      <details id="contradish" open>
-        <summary>Contradish</summary>
-        <p>A CAI benchmark that evaluates whether a system can detect, surface, and reconcile conflicting information at production scale. Tracks three capabilities:</p>
-        <ul>
-          <li><strong>Detection:</strong> find contradictions in mixed sources</li>
-          <li><strong>Tension:</strong> produce a τ distribution per site</li>
-          <li><strong>Response:</strong> abstain or resolve with receipts</li>
-        </ul>
-        <p>Contradish operationalizes CAI by turning contradiction handling into a measurable, comparable standard.</p>
-        <p class="small">Site: <a href="https://contradish.com">contradish.com</a></p>
-      </details>
-    </section>
-
-  </div>
-</main>
-
-<footer class="site-footer">
+  <a href="https://michelejoseph.github.io/cai-demo/" class="nav-demo" target="_blank" rel="noopener">Demo →</a>
+</header> <main class="wrap" id="content"> <h1>glossary</h1> <p class="lede">short, testable definitions. each entry links to where it is formalized or used in practice.</p> <!-- quick tools --> <div class="search" role="search"> <input id="glossary-search" type="search" placeholder="type to filter terms, like "provenance" or "τ"" aria-label="filter glossary terms" /> <button class="copy-link" id="clear-filter" aria-label="clear filter">clear</button> </div> <!-- alphabet jump list --> <nav class="pill-nav alpha" aria-label="letters"> <a href="#A">A</a><a href="#B">B</a><a href="#C">C</a><a href="#D">D</a><a href="#E">E</a> <a href="#F">F</a><a href="#G">G</a><a href="#H">H</a><a href="#I">I</a><a href="#J">J</a> <a href="#K">K</a><a href="#L">L</a><a href="#M">M</a><a href="#N">N</a><a href="#O">O</a> <a href="#P">P</a><a href="#Q">Q</a><a href="#R">R</a><a href="#S">S</a><a href="#T">T</a> <a href="#U">U</a><a href="#V">V</a><a href="#W">W</a><a href="#X">X</a><a href="#Y">Y</a><a href="#Z">Z</a> </nav> <!-- A --> <section class="card letter" id="A" data-letter="A"> <h2>A</h2> <dl> <dt id="abstention-threshold"><strong>Abstention Threshold (τ*)</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#abstention-threshold">copy link</button> <span class="tag">safety</span> </div> <dd>the gating value applied to the compression tension score. if τ at a site or along a path exceeds τ*, the system abstains or requests clarification. see <a href="foundations.html">foundations</a> and <a href="implementations.html">implementations</a>.</dd> <dt id="auditability"><strong>Auditability</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#auditability">copy link</button> <span class="tag">replay</span> </div> <dd>the share of steps that can be reproduced with stored artifacts. high auditability means a third party can retrace sources, parameters, and gates. see <a href="principles.html#p6">principles</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- C --> <section class="card letter" id="C" data-letter="C"> <h2>C</h2> <dl> <dt id="compression-site"><strong>Compression Site</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#compression-site">copy link</button> <span class="tag">visibility</span> </div> <dd>a step where data, context, or meaning is reduced. examples: retrieval prune, rank, summarize, generate, redact, review. each site is identified, scored, and auditable. see <a href="foundations.html">foundations</a>.</dd> <dt id="compression-tension-score"><strong>Compression Tension Score (CTS, τ)</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#compression-tension-score">copy link</button> <span class="tag">metric</span> </div> <dd>a normalized per site score that combines information loss, task degradation, provenance gaps, and uncertainty. used to gate claims and to compute path scores. equation on <a href="foundations.html">foundations</a>.</dd> <dt id="compression-map"><strong>Compression Map</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#compression-map">copy link</button> <span class="tag">design</span> </div> <dd>a visual or textual trace of compression sites for a flow. includes τ per site, τ* thresholds, and provenance. used in reviews and audits. see <a href="applications.html#product">applications</a>.</dd> <dt id="contradiction-score"><strong>Contradiction Score (CS)</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#contradiction-score">copy link</button> <span class="tag">coherence</span> </div> <dd>a measure of net conflict between claims or sources, derived from entailment vs contradiction probabilities. positive means contradiction, negative means entailment. see <a href="benchmarks.html">benchmarks</a>.</dd> <dt id="contradish"><strong>Contradish</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#contradish">copy link</button> <span class="tag">benchmark</span> </div> <dd>a benchmark that evaluates detection of contradictions, τ distribution, and calibrated abstention. site: <a href="http://contradish.com/" target="_blank" rel="noopener">contradish.com</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- E --> <section class="card letter" id="E" data-letter="E"> <h2>E</h2> <dl> <dt id="entailment"><strong>Entailment</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#entailment">copy link</button> <span class="tag">evidence</span> </div> <dd>a claim is entailed when it follows from available evidence. in CAI, claims without entailment are blocked or routed to abstention. see <a href="faq.html#basics">faq</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- H --> <section class="card letter" id="H" data-letter="H"> <h2>H</h2> <dl> <dt id="hallucinet"><strong>Hallucinet</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#hallucinet">copy link</button> <span class="tag">tool</span> </div> <dd>a CAI tool that flags outputs tied to risky compression paths and triggers abstention when τ exceeds thresholds. see <a href="applications.html#hallucination">applications</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- M --> <section class="card letter" id="M" data-letter="M"> <h2>M</h2> <dl> <dt id="mirror-flags"><strong>Mirror Flags</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#mirror-flags">copy link</button> <span class="tag">diagnostics</span> </div> <dd>diagnostic markers that indicate disowned traits, false integration, or narrative breaks in inputs or outputs. used to surface where compression bent meaning. see <a href="applications.html#hallucination">applications</a>.</dd> <dt id="mirronet"><strong>MirrorNet</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#mirronet">copy link</button> <span class="tag">tool</span> </div> <dd>a CAI interface that shows compression choices to users and models, making tradeoffs visible and steerable. see <a href="applications.html#hallucination">applications</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- P --> <section class="card letter" id="P" data-letter="P"> <h2>P</h2> <dl> <dt id="path-score"><strong>Path Score</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#path-score">copy link</button> <span class="tag">metric</span> </div> <dd>an aggregation of τ across sites for a single request path. used to compare designs, set budgets, and trigger abstention. definition on <a href="foundations.html">foundations</a>.</dd> <dt id="provenance"><strong>Provenance</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#provenance">copy link</button> <span class="tag">accountability</span> </div> <dd>the record of sources, transformations, and parameters that produced an output. a claim without provenance cannot be verified. see <a href="principles.html#p3">principles</a>.</dd> <dt id="provenance-entropy"><strong>Provenance Entropy</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#provenance-entropy">copy link</button> <span class="tag">metric</span> </div> <dd>a measure of concentration or dispersion of evidence sources. used to calibrate confidence and review effort. equation on <a href="foundations.html">foundations</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- T --> <section class="card letter" id="T" data-letter="T"> <h2>T</h2> <dl> <dt id="triarch"><strong>Triarch</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#triarch">copy link</button> <span class="tag">concept</span> </div> <dd>orienting structure: compression, decompression, and awareness in tension. used as a compass for design choices. see <a href="about.html">about</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <!-- U --> <section class="card letter" id="U" data-letter="U"> <h2>U</h2> <dl> <dt id="unsupported-claim"><strong>Unsupported Claim</strong></dt> <div class="term-actions"> <button class="copy-link" data-copy="#unsupported-claim">copy link</button> <span class="tag">guardrail</span> </div> <dd>an output not entailed by available evidence or not covered by provenance. CAI systems abstain instead of asserting. see <a href="faq.html#basics">faq</a>.</dd> </dl> <div class="back-top"><a href="#main">back to top</a></div> </section> <section class="card" aria-live="polite"> <p><small>last updated: <time id="last-updated"></time></small></p> </section> </main> <footer class="site-footer" role="contentinfo">
   <div class="footer-links">
-    <a href="theory.html">The Theory</a>
-    <a href="glossary.html">Concepts</a>
-    <a href="publications.html">Publications</a>
-    <a href="engineers.html">For Engineers</a>
-    <a href="about.html">About</a>
-    <a href="updates.html">Updates</a>
     <a href="proof.html">Proof</a>
+    <a href="dataset.html">Dataset</a>
+    <a href="coherencefield.html">Coherence Field</a>
+    <a href="principles.html">Principles</a>
+    <a href="applications.html">Applications</a>
+    <a href="contradictions.html">Contradictions</a>
+    <a href="implementations.html">Implementations</a>
+    <a href="diagnostics.html">Diagnostics</a>
+    <a href="research.html">Research</a>
+    <a href="glossary.html">Glossary</a>
     <a href="faq.html">FAQ</a>
-    <a href="https://www.contradictionengineering.com">Contradiction Engineering ↗</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://www.contradictionengineering.com" target="_blank" rel="noopener">Contradiction Engineering ↗</a>
   </div>
-  <p>© Compression-Aware Intelligence · <a href="about.html">Michele Joseph</a> · <span id="year"></span></p>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+  <small>© <span id="year"></span> Compression-Aware Intelligence</small>
+</footer> <script> // date stamps const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear(); const lu = document.getElementById('last-updated'); if (lu) lu.textContent = new Date().toISOString().slice(0,10); // filter logic const input = document.getElementById('glossary-search'); const clearBtn = document.getElementById('clear-filter'); const letters = Array.from(document.querySelectorAll('.letter')); function filterTerms(q){ const query = q.trim().toLowerCase(); letters.forEach(sec=>{ const dts = sec.querySelectorAll('dt, dd, .term-actions'); let showSection = false; // hide all to start sec.classList.remove('hidden'); sec.querySelectorAll('dt').forEach(dt => dt.classList.remove('hidden')); sec.querySelectorAll('dd').forEach(dd => dd.classList.remove('hidden')); sec.querySelectorAll('.term-actions').forEach(t => t.classList.remove('hidden')); if (!query){ showSection = true; } else { // per term grouping is dt + actions + dd const entries = Array.from(sec.querySelectorAll('dt')).map(dt=>{ const dd = dt.nextElementSibling?.matches('.term-actions') ? dt.nextElementSibling.nextElementSibling : dt.nextElementSibling; const actions = dt.nextElementSibling?.matches('.term-actions') ? dt.nextElementSibling : null; const text = (dt.textContent + ' ' + (dd?.textContent || '')).toLowerCase(); const match = text.includes(query); if (!match){ dt.classList.add('hidden'); if (actions) actions.classList.add('hidden'); if (dd) dd.classList.add('hidden'); } else { showSection = true; } return match; }); } if (!showSection) sec.classList.add('hidden'); }); } input?.addEventListener('input', (e)=> filterTerms(e.target.value)); clearBtn?.addEventListener('click', ()=>{ input.value = ''; filterTerms(''); input.focus(); }); // copy deep link helper document.querySelectorAll('.copy-link[data-copy]').forEach(btn=>{ btn.addEventListener('click', ()=>{ const sel = btn.getAttribute('data-copy'); const el = document.querySelector(sel); if (!el || !el.id) return; const url = `${location.origin}${location.pathname}#${el.id}`; navigator.clipboard.writeText(url).then(()=>{ const old = btn.textContent; btn.textContent = 'copied'; setTimeout(()=> btn.textContent = 'copy link', 1200); }); }); }); </script> </body> </html>
